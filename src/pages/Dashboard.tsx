@@ -61,13 +61,13 @@ const StatCard = ({ title, value, change, isPositive, icon: Icon }: any) => (
 
 export default function Dashboard() {
   return (
-    <div className="flex flex-col gap-[20px] w-full min-w-0">
+        <div className="bg-[#FEFEFE] rounded-[12px] border border-[#E0E0E0] p-[20px] flex flex-col gap-[20px] w-full min-w-0">
       
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 className="text-[16px] text-[#757575] leading-tight">Overview</h2>
-          <h1 className="text-[24px] font-bold text-[#333333] leading-[1.1] mt-1">Dashboard</h1>
+          <h2 className="text-[16px] text-[#757575] leading-tight">Hello shawon</h2>
+          <h1 className="text-[24px] font-bold text-[#333333] leading-[1.1] mt-1">Good Morning</h1>
         </div>
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto mt-3 md:mt-0">
           <div className="flex items-center bg-[#FEFEFE] px-2.5 py-2 rounded-[8px] border border-[#F0F0F0] w-full md:w-[290px] shadow-2xs">
