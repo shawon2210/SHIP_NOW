@@ -61,7 +61,7 @@ const StatCard = ({ title, value, change, isPositive, icon: Icon }: any) => (
 
 export default function Dashboard() {
   return (
-        <div className="flex flex-col gap-[20px] w-full min-w-0">
+        <div className="flex flex-col gap-[20px] w-full min-w-0 pb-[40px]">
       
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -69,7 +69,7 @@ export default function Dashboard() {
           <h2 className="text-[16px] text-[#757575] leading-tight">Hello shawon</h2>
           <h1 className="text-[24px] font-bold text-[#333333] leading-[1.1] mt-1">Good Morning</h1>
         </div>
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto mt-3 md:mt-0">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto mt-0">
           <div className="flex items-center bg-[#FEFEFE] px-2.5 py-2 rounded-[8px] border border-[#F0F0F0] w-full md:w-[290px] shadow-2xs">
             <Search size={20} className="text-[#333333]" />
             <input type="text" placeholder="Search anything..." className="ml-2.5 bg-transparent outline-none text-[14px] text-[#757575] w-full" />
@@ -85,7 +85,7 @@ export default function Dashboard() {
       </div>
 
       {/* Top Section */}
-      <div className="flex flex-col lg:flex-row gap-[20px]">
+      <div className="flex flex-col lg:flex-row gap-[20px] pt-[20px]">
         
         {/* Left Col (Stats + Charts) */}
         <div className="flex flex-col gap-[20px] flex-[2.8]">
@@ -234,7 +234,7 @@ export default function Dashboard() {
       </div>
 
       {/* Middle Section */}
-      <div className="flex flex-col lg:flex-row gap-[20px]">
+      <div className="flex flex-col lg:flex-row gap-[20px] pt-[20px]">
         
         {/* Product Categories */}
         <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto lg:h-[443px]">
@@ -416,7 +416,7 @@ export default function Dashboard() {
       </div>
 
       {/* Bottom Section */}
-      <div className="flex flex-col lg:flex-row gap-[20px]">
+      <div className="flex flex-col lg:flex-row gap-[20px] pt-[20px]">
         
         {/* Recent Shipments */}
         <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[2.8] h-auto lg:h-[404px] overflow-hidden">

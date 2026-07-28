@@ -9,7 +9,7 @@ import Footer from '../components/warehouse/Footer';
 
 export default function Warehouse() {
   return (
-    <div className="flex flex-col gap-[20px] w-full min-w-0">
+    <div className="flex flex-col gap-[20px] w-full min-w-0 pt-[40px]">
       {/* Body: Left Column + Right Column */}
       <div className="flex flex-col xl:flex-row gap-[20px] w-full min-w-0">
         
