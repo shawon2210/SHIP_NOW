@@ -61,7 +61,7 @@ const StatCard = ({ title, value, change, isPositive, icon: Icon }: any) => (
 
 export default function Dashboard() {
   return (
-        <div className="bg-[#FEFEFE] rounded-[12px] border border-[#E0E0E0] p-[20px] flex flex-col gap-[20px] w-full min-w-0">
+        <div className="flex flex-col gap-[20px] w-full min-w-0">
       
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -79,7 +79,7 @@ export default function Dashboard() {
             className="flex items-center justify-center gap-1 bg-[#333333] text-white px-4 py-2.5 rounded-[8px] h-[40px] whitespace-nowrap hover:bg-[#222222] transition-colors cursor-pointer"
           >
             <Plus size={18} />
-            <span className="text-[14px] font-semibold">New Shipment</span>
+            <span className="text-[14px] font-semibold">Add New Shipping</span>
           </Link>
         </div>
       </div>

@@ -60,9 +60,11 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between min-h-[50px] mb-[20px] w-full">
       <div className="flex flex-col pl-[44px] lg:pl-0">
-        <h1 className="text-[24px] font-bold text-[#333333]">
-          {location.pathname.replace('/', '').toUpperCase() || 'DASHBOARD'}
-        </h1>
+        {location.pathname !== '/dashboard' && (
+          <h1 className="text-[24px] font-bold text-[#333333]">
+            {location.pathname.replace('/', '').toUpperCase()}
+          </h1>
+        )}
       </div>
     </header>
   );
