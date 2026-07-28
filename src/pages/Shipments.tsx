@@ -9,15 +9,18 @@ import { Link } from 'react-router-dom';
 export default function Shipments() {
   const [search, setSearch] = useState('');
   const [activeTab, setActiveTab] = useState('All');
-  const [view, setView] = useState<'table' | 'grid'>('table');
+  const [view, setView] = useState<'grid' | 'table'>('grid');
 
-  const filteredShipments = shipments.filter(s => 
-    s.id.toLowerCase().includes(search.toLowerCase()) || 
-    s.sender.toLowerCase().includes(search.toLowerCase()) ||
-    s.recipient.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredShipments = shipments.filter(s => {
+    const matchesSearch = s.id.toLowerCase().includes(search.toLowerCase()) || 
+      s.sender.toLowerCase().includes(search.toLowerCase()) ||
+      s.recipient.toLowerCase().includes(search.toLowerCase());
+    
+    if (activeTab === 'All') return matchesSearch;
+    return matchesSearch && s.status === activeTab;
+  });
 
-  const tabs = ['All', 'Pending', 'In Transit', 'Delivered', 'Cancelled'];
+  const tabs = ['All', 'Pending', 'In Transit', 'Completed', 'Cancelled'];
 
   const getIcon = (type: string) => {
     if (type.includes('Air')) return Plane;
@@ -34,41 +37,49 @@ export default function Shipments() {
   };
 
   return (
-    <div className="p-4 lg:p-[20px] w-full max-w-[1217px] mx-auto flex flex-col gap-[20px] bg-[#F0F0F0] min-h-screen font-['Nunito_Sans',sans-serif]">
+    <div className="flex flex-col gap-[20px] w-full min-w-0 pb-[40px]">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <div className="flex items-center gap-1 text-[11px] text-[#757575] mb-1">
-            <span className="text-[#2A1298]">Shipment</span>
-            <span>/</span>
-            <span>Overview</span>
-          </div>
+          <h2 className="text-[14px] text-[#757575] leading-tight mb-1">
+            Shipment / <span className="text-[#856DF3] font-semibold">Overview</span>
+          </h2>
           <h1 className="text-[24px] font-bold text-[#333333] leading-[1.1]">Shipments</h1>
         </div>
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto mt-3 md:mt-0">
-          <div className="hidden md:flex items-center bg-[#FEFEFE] px-2.5 py-2 rounded-[8px] w-full md:w-[290px] shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
-            <Search size={20} className="text-[#333333]" />
-            <input type="text" placeholder="Search anything..." className="ml-2.5 bg-transparent outline-none text-[14px] text-[#757575] w-full" />
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
+          <div className="flex items-center bg-[#FEFEFE] px-3 py-2 rounded-[8px] border border-[#F0F0F0] w-full sm:w-[280px] shadow-2xs">
+            <Search size={18} className="text-[#757575]" />
+            <input 
+              type="text" 
+              placeholder="Search shipment or client..." 
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="ml-2 bg-transparent outline-none text-[14px] text-[#333333] w-full placeholder-[#757575]"
+            />
           </div>
-          <Link to="/shipments/new" className="flex items-center justify-center gap-1 bg-[#333333] text-white px-4 py-2.5 rounded-[8px] h-[40px] whitespace-nowrap">
+          <Link 
+            to="/shipments/new" 
+            className="flex items-center justify-center gap-1.5 bg-[#333333] text-white px-4 py-2.5 rounded-[8px] h-[40px] hover:bg-[#222222] transition-colors cursor-pointer text-[14px] font-semibold shadow-2xs whitespace-nowrap"
+          >
             <Plus size={18} />
-            <span className="text-[14px] font-semibold">New Shipment</span>
+            <span>New Shipment</span>
           </Link>
         </div>
       </div>
 
-      <div className="bg-[#FEFEFE] rounded-[12px] p-[16px] flex flex-col gap-[16px]">
-        {/* Toolbar */}
+      {/* Main Content Card */}
+      <div className="bg-[#FEFEFE] rounded-[12px] p-[20px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col gap-[20px]">
+        {/* Filter & View Toolbar */}
         <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4">
-          <div className="bg-[#FEFEFE] rounded-[12px] flex p-1 border border-[#F0F0F0] overflow-x-auto w-full xl:w-auto">
+          <div className="bg-[#F5F5F5] rounded-[10px] flex p-1 border border-[#F0F0F0] overflow-x-auto w-full xl:w-auto gap-1">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-1.5 rounded-[8px] text-[12px] font-semibold whitespace-nowrap transition-colors ${
+                className={`px-3.5 py-1.5 rounded-[8px] text-[12px] font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                   activeTab === tab 
-                    ? 'bg-[#333333] text-white' 
-                    : 'text-[#757575] hover:bg-gray-50'
+                    ? 'bg-[#333333] text-white shadow-2xs' 
+                    : 'text-[#757575] hover:text-[#333333]'
                 }`}
               >
                 {tab}
@@ -76,121 +87,119 @@ export default function Shipments() {
             ))}
           </div>
 
-          <div className="flex items-center gap-2.5 w-full xl:w-auto overflow-x-auto">
-            <div className="flex items-center bg-[#FEFEFE] border border-[#F0F0F0] px-2.5 py-1.5 rounded-[8px] w-[223px] shrink-0">
-              <Search size={16} className="text-[#333333]" />
-              <input 
-                type="text" 
-                placeholder="Search..." 
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="ml-2 bg-transparent outline-none text-[12px] text-[#757575] w-full" 
-              />
-            </div>
-            <button className="flex items-center gap-2 bg-[#FEFEFE] border border-[#F0F0F0] px-3 py-1.5 rounded-[8px] shrink-0">
-              <Filter size={16} className="text-[#333333]" />
-              <span className="text-[12px] font-semibold text-[#333333]">Filters</span>
+          <div className="flex items-center gap-3 w-full xl:w-auto justify-between xl:justify-end">
+            <button className="flex items-center gap-2 bg-[#FEFEFE] border border-[#F0F0F0] px-3 py-1.5 rounded-[8px] text-[12px] font-semibold text-[#333333] hover:bg-[#F5F5F5] transition-colors cursor-pointer shadow-2xs">
+              <Filter size={16} className="text-[#856DF3]" />
+              <span>Filters</span>
             </button>
-            <div className="flex items-center gap-2 px-1 shrink-0 text-[#757575]">
-              <span className="text-[11px]">Sort by:</span>
-              <button className="flex items-center gap-1 bg-[#FEFEFE] border border-[#F0F0F0] px-3 py-1.5 rounded-[8px]">
-                <span className="text-[12px] font-semibold text-[#333333]">Status</span>
+
+            <div className="flex items-center gap-2 text-[#757575]">
+              <span className="text-[11px] font-medium">Sort by:</span>
+              <button className="flex items-center gap-1 bg-[#FEFEFE] border border-[#F0F0F0] px-3 py-1.5 rounded-[8px] text-[12px] font-semibold text-[#333333] hover:bg-[#F5F5F5] transition-colors cursor-pointer shadow-2xs">
+                <span>Status</span>
                 <ChevronDown size={14} className="text-[#333333]" />
               </button>
             </div>
             
-            <div className="flex items-center gap-1 bg-[#F0F0F0] p-1 rounded-[8px] shrink-0">
-              <button 
-                onClick={() => setView('table')}
-                className={`p-1.5 rounded-[6px] transition-colors ${view === 'table' ? 'bg-[#FEFEFE] shadow-sm' : 'text-[#757575] hover:bg-gray-200'}`}
-              >
-                <List size={14} className={view === 'table' ? 'text-[#333333]' : 'text-[#757575]'} />
-              </button>
+            {/* View Mode Toggle Switch */}
+            <div className="flex items-center gap-1 bg-[#F5F5F5] p-1 rounded-[8px] border border-[#F0F0F0]">
               <button 
                 onClick={() => setView('grid')}
-                className={`p-1.5 rounded-[6px] transition-colors ${view === 'grid' ? 'bg-[#FEFEFE] shadow-sm' : 'text-[#757575] hover:bg-gray-200'}`}
+                title="Grid View (Large Icons)"
+                className={`p-1.5 rounded-[6px] transition-colors cursor-pointer ${
+                  view === 'grid' 
+                    ? 'bg-[#FEFEFE] text-[#856DF3] shadow-2xs font-bold' 
+                    : 'text-[#757575] hover:text-[#333333]'
+                }`}
               >
-                <LayoutGrid size={14} className={view === 'grid' ? 'text-[#333333]' : 'text-[#757575]'} />
+                <LayoutGrid size={18} />
+              </button>
+              <button 
+                onClick={() => setView('table')}
+                title="Table View"
+                className={`p-1.5 rounded-[6px] transition-colors cursor-pointer ${
+                  view === 'table' 
+                    ? 'bg-[#FEFEFE] text-[#856DF3] shadow-2xs font-bold' 
+                    : 'text-[#757575] hover:text-[#333333]'
+                }`}
+              >
+                <List size={18} />
               </button>
             </div>
           </div>
         </div>
 
-        {/* Content */}
+        {/* Content View */}
         {view === 'grid' ? (
+          /* Grid View (Large Icons by Default) */
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[20px]">
             {filteredShipments.map((s) => {
               const Icon = getIcon(s.type);
               const progress = getProgress(s.status);
               return (
-                <div key={s.id} className="bg-[#FEFEFE] p-[16px] rounded-[12px] flex flex-col gap-[16px] border border-[#E0E0E0] shadow-sm">
-                  <div className="flex justify-between items-center">
-                    <div className="flex flex-col gap-1.5">
-                      <span className="text-[14px] font-bold text-[#333333] leading-tight">{s.id}</span>
-                      <div className={`px-2 py-0.5 rounded-[18px] text-[10px] font-semibold flex items-center justify-center w-max ${
-                        s.status === 'In Transit' ? 'bg-[#E3DDFF] text-[#333333]' : 
+                <div 
+                  key={s.id} 
+                  className="bg-[#FEFEFE] p-[18px] rounded-[12px] border border-[#F0F0F0] shadow-2xs hover:shadow-md transition-all flex flex-col justify-between gap-4 group"
+                >
+                  <div className="flex justify-between items-start">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[15px] font-bold text-[#333333] group-hover:text-[#856DF3] transition-colors">
+                        {s.id}
+                      </span>
+                      <span className={`px-2.5 py-0.5 rounded-[10px] text-[10px] font-bold inline-flex items-center w-max ${
+                        s.status === 'In Transit' ? 'bg-[#E3DDFF] text-[#2A1298]' : 
                         s.status === 'Completed' ? 'bg-[#D9F9E7] text-[#007837]' :
-                        s.status === 'Pending' ? 'bg-[#FEF1A7] text-[#333333]' :
-                        'bg-[#E0E0E0] text-[#333333]'
+                        s.status === 'Pending' ? 'bg-[#FFF3D6] text-[#B76E00]' :
+                        'bg-[#F0F0F0] text-[#757575]'
                       }`}>
                         {s.status}
-                      </div>
+                      </span>
                     </div>
-                    <div className="w-[40px] h-[40px] bg-[#F5F5F5] rounded-[12px] flex items-center justify-center shrink-0">
-                      <Icon size={20} className="text-[#333333]" />
+
+                    {/* Prominent Large Icon */}
+                    <div className="w-[48px] h-[48px] bg-[#856DF3] text-white rounded-[12px] flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
+                      <Icon size={26} />
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-[16px] pt-[16px] border-t border-[#F0F0F0]">
-                    <div className="flex items-center gap-[12px]">
-                      <div className="w-[36px] h-[36px] rounded-[8px] bg-gradient-to-br from-[#856DF3] to-[#2A1298] flex items-center justify-center text-white font-bold text-[14px]">
+                  <div className="flex flex-col gap-3 pt-3 border-t border-[#F0F0F0]">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-full bg-[#E3DDFF] text-[#2A1298] flex items-center justify-center font-bold text-[13px] shrink-0">
                         {s.sender.charAt(0)}
                       </div>
-                      <div className="flex flex-col">
-                        <span className="text-[12px] font-semibold text-[#333333] truncate max-w-[150px]">{s.sender}</span>
-                        <span className="text-[10px] text-[#757575]">{s.type}</span>
+                      <div className="flex flex-col truncate">
+                        <span className="text-[13px] font-semibold text-[#333333] truncate">{s.sender}</span>
+                        <span className="text-[11px] text-[#757575] font-medium">{s.type}</span>
                       </div>
                     </div>
 
-                    <div className="bg-[#F5F5F5] rounded-[8px] p-[12px] flex w-full">
-                      <div className="flex flex-col items-center px-[4px] w-[24px]">
-                        <div className="w-[16px] h-[16px] rounded-full bg-[#856DF3] border-[3px] border-[#E3DDFF] shrink-0 z-10"></div>
-                        <div className="w-[1px] h-[32px] bg-[#E3DDFF] shrink-0"></div>
-                        <div className="w-[18px] h-[18px] rounded-full bg-[#E3DDFF] flex items-center justify-center shrink-0 z-10">
-                          <MapPin size={10} className="text-[#856DF3]" />
+                    <div className="bg-[#F5F5F5] rounded-[8px] p-3 flex w-full">
+                      <div className="flex flex-col items-center px-1 w-5">
+                        <div className="w-3.5 h-3.5 rounded-full bg-[#856DF3] border-2 border-white shrink-0 z-10" />
+                        <div className="w-[2px] h-7 bg-[#856DF3]/30 shrink-0" />
+                        <div className="w-3.5 h-3.5 rounded-full bg-[#856DF3] flex items-center justify-center shrink-0 z-10">
+                          <MapPin size={8} className="text-white" />
                         </div>
                       </div>
-                      <div className="flex flex-col justify-between flex-1 pb-0.5 pt-0.5 ml-2">
+                      <div className="flex flex-col justify-between flex-1 ml-2 text-[11px]">
                         <div className="flex justify-between items-start">
-                          <span className="text-[10px] text-[#757575]">Origin</span>
-                          <div className="flex flex-col items-end">
-                            <span className="text-[12px] font-semibold text-[#333333]">{s.senderLocation}</span>
-                            <span className="text-[10px] text-[#757575]">{s.date}</span>
-                          </div>
+                          <span className="text-[#757575]">Origin:</span>
+                          <span className="font-semibold text-[#333333] text-right">{s.senderLocation}</span>
                         </div>
-                        <div className="flex justify-between items-start mt-[16px]">
-                          <span className="text-[10px] text-[#757575]">Destination</span>
-                          <div className="flex flex-col items-end">
-                            <span className="text-[12px] font-semibold text-[#333333]">{s.recipientLocation}</span>
-                            <span className="text-[10px] text-[#757575]">{s.date}</span>
-                          </div>
+                        <div className="flex justify-between items-start mt-2">
+                          <span className="text-[#757575]">Dest:</span>
+                          <span className="font-semibold text-[#333333] text-right">{s.recipientLocation}</span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex flex-col gap-[8px]">
-                      <div className="flex justify-between items-start">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] text-[#757575]">Progress</span>
-                          <span className="text-[12px] font-bold text-[#333333]">{progress}%</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[10px] text-[#757575]">Carriers</span>
-                          <span className="text-[12px] font-semibold text-[#333333]">FedEx</span>
-                        </div>
+                    <div className="flex flex-col gap-1.5">
+                      <div className="flex justify-between items-center text-[11px]">
+                        <span className="text-[#757575]">Progress</span>
+                        <span className="font-bold text-[#333333]">{progress}%</span>
                       </div>
-                      <div className="w-full h-[8px] bg-[#F0F0F0] rounded-[10px] overflow-hidden">
-                        <div className="h-full bg-[#856DF3] rounded-[8px]" style={{ width: `${progress}%` }}></div>
+                      <div className="w-full h-2 bg-[#F0F0F0] rounded-full overflow-hidden">
+                        <div className="h-full bg-[#856DF3] rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
                       </div>
                     </div>
                   </div>
@@ -199,143 +208,53 @@ export default function Shipments() {
             })}
           </div>
         ) : (
-          <div className="overflow-x-auto w-full border border-[#E0E0E0] rounded-[8px]">
-            <table className="w-full text-left border-collapse min-w-[1000px]">
-              <thead>
-                <tr className="border-b border-[#E0E0E0]">
-                  <th className="py-3 px-4 w-10">
-                    <div className="w-3 h-3 rounded-[3px] border border-[#E0E0E0] bg-[#F0F0F0]"></div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center gap-1 text-[10px] font-normal text-[#757575]">
-                      Shipping ID <ChevronDown size={14} className="text-[#333333]" />
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center gap-1 text-[10px] font-normal text-[#757575]">
-                      Company <ChevronDown size={14} className="text-[#333333]" />
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center gap-1 text-[10px] font-normal text-[#757575]">
-                      Carriers <ChevronDown size={14} className="text-[#333333]" />
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center gap-1 text-[10px] font-normal text-[#757575]">
-                      Category <ChevronDown size={14} className="text-[#333333]" />
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center gap-1 text-[10px] font-normal text-[#757575]">
-                      Weight <ChevronDown size={14} className="text-[#333333]" />
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center gap-1 text-[10px] font-normal text-[#757575]">
-                      Route <ChevronDown size={14} className="text-[#333333]" />
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center gap-1 text-[10px] font-normal text-[#757575]">
-                      Issue Date <ChevronDown size={14} className="text-[#333333]" />
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center gap-1 text-[10px] font-normal text-[#757575]">
-                      Progress <ChevronDown size={14} className="text-[#333333]" />
-                    </div>
-                  </th>
-                  <th className="py-3 px-3">
-                    <div className="flex items-center gap-1 text-[10px] font-normal text-[#757575]">
-                      Status <ChevronDown size={14} className="text-[#333333]" />
-                    </div>
-                  </th>
+          /* Table View Option */
+          <div className="overflow-x-auto w-full border border-[#F0F0F0] rounded-[10px]">
+            <table className="w-full text-left border-collapse min-w-[900px]">
+              <thead className="bg-[#F5F5F5] text-[11px] uppercase font-bold text-[#757575]">
+                <tr className="border-b border-[#F0F0F0]">
+                  <th className="py-3 px-4">Shipping ID</th>
+                  <th className="py-3 px-4">Sender</th>
+                  <th className="py-3 px-4">Route</th>
+                  <th className="py-3 px-4">Type</th>
+                  <th className="py-3 px-4">Progress</th>
+                  <th className="py-3 px-4">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E0E0E0]">
+              <tbody className="divide-y divide-[#F0F0F0] text-[13px]">
                 {filteredShipments.map((s) => {
                   const Icon = getIcon(s.type);
                   const progress = getProgress(s.status);
                   return (
-                    <tr key={s.id} className="hover:bg-gray-50/50 transition-colors group">
-                      <td className="py-3 px-4">
-                        <div className="w-3 h-3 rounded-[3px] border border-[#E0E0E0] bg-[#F0F0F0]"></div>
-                      </td>
-                      <td className="py-3 px-3">
-                        <div className="flex flex-col gap-1">
-                          <span className="text-[11px] font-semibold text-[#2A1298]">{s.id}</span>
-                          <div className="flex items-center gap-1">
-                            <Icon size={12} className="text-[#757575]" />
-                            <span className="text-[9px] text-[#757575]">{s.type}</span>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="py-3 px-3">
+                    <tr key={s.id} className="hover:bg-[#F5F5F5]/60 transition-colors">
+                      <td className="py-3.5 px-4 font-bold text-[#856DF3]">
                         <div className="flex items-center gap-2">
-                          <div className="w-[26px] h-[26px] rounded-[6px] bg-gradient-to-br from-[#856DF3] to-[#2A1298] flex items-center justify-center text-white font-bold text-[10px] shrink-0">
-                            {s.sender.charAt(0)}
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-[11px] font-semibold text-[#333333] truncate max-w-[100px]">{s.sender}</span>
-                            <span className="text-[10px] text-[#757575]">Electronics</span>
-                          </div>
+                          <Icon size={18} className="text-[#856DF3]" />
+                          <span>{s.id}</span>
                         </div>
                       </td>
-                      <td className="py-3 px-3">
-                        <span className="text-[11px] font-normal text-[#333333]">FedEx</span>
+                      <td className="py-3.5 px-4 font-semibold text-[#333333]">{s.sender}</td>
+                      <td className="py-3.5 px-4 text-[#757575] text-[12px]">
+                        {s.senderLocation} &rarr; {s.recipientLocation}
                       </td>
-                      <td className="py-3 px-3">
-                        <span className="text-[11px] font-normal text-[#333333]">Gadgets</span>
-                      </td>
-                      <td className="py-3 px-3">
-                        <span className="text-[11px] font-semibold text-[#333333]">24 kg</span>
-                      </td>
-                      <td className="py-3 px-3">
-                        <div className="flex flex-col gap-1">
-                          <div className="flex items-center gap-1">
-                            <span className="text-[11px] font-semibold text-[#333333] truncate max-w-[80px]">{s.senderLocation.split(',')[0]}</span>
-                            <span className="text-[10px] text-[#757575]">Orig.</span>
+                      <td className="py-3.5 px-4 text-[#757575]">{s.type}</td>
+                      <td className="py-3.5 px-4">
+                        <div className="flex items-center gap-2 w-28">
+                          <div className="w-full h-1.5 bg-[#F0F0F0] rounded-full overflow-hidden">
+                            <div className="h-full bg-[#856DF3] rounded-full" style={{ width: `${progress}%` }} />
                           </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-[11px] font-semibold text-[#2A1298] truncate max-w-[80px]">{s.recipientLocation.split(',')[0]}</span>
-                            <span className="text-[10px] text-[#757575]">Dest.</span>
-                          </div>
+                          <span className="text-[11px] font-bold text-[#333333]">{progress}%</span>
                         </div>
                       </td>
-                      <td className="py-3 px-3">
-                        <div className="flex flex-col gap-1">
-                          <div className="flex items-center gap-1">
-                            <span className="text-[11px] font-semibold text-[#333333] truncate max-w-[80px]">{s.date}</span>
-                            <span className="text-[10px] text-[#757575]">Iss.</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-[11px] font-semibold text-[#2A1298]">Mar 25, 2035</span>
-                            <span className="text-[10px] text-[#757575]">Due</span>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="py-3 px-3">
-                        <div className="flex flex-col gap-1.5 w-[70px]">
-                          <div className="h-[6px] bg-[#F0F0F0] rounded-[10px] overflow-hidden w-full">
-                            <div className="h-full bg-[#856DF3] rounded-[8px]" style={{ width: `${progress}%` }}></div>
-                          </div>
-                          <span className="text-[11px] font-semibold text-[#333333]">{progress}%</span>
-                        </div>
-                      </td>
-                      <td className="py-3 px-3">
-                        <div className={`px-2 py-1 rounded-[9px] text-[11px] font-semibold inline-flex items-center gap-1.5 w-max ${
-                          s.status === 'In Transit' ? 'bg-[#E3DDFF] text-[#333333]' : 
+                      <td className="py-3.5 px-4">
+                        <span className={`px-2.5 py-0.5 rounded-[10px] text-[11px] font-bold ${
+                          s.status === 'In Transit' ? 'bg-[#E3DDFF] text-[#2A1298]' : 
                           s.status === 'Completed' ? 'bg-[#D9F9E7] text-[#007837]' :
-                          s.status === 'Pending' ? 'bg-[#FEF1A7] text-[#333333]' :
-                          'bg-[#F5F5F5] text-[#333333]'
+                          s.status === 'Pending' ? 'bg-[#FFF3D6] text-[#B76E00]' :
+                          'bg-[#F0F0F0] text-[#757575]'
                         }`}>
-                          {s.status === 'Completed' && <div className="w-2 h-2 rounded-full bg-[#007837]"></div>}
-                          {s.status === 'In Transit' && <div className="w-2 h-2 rounded-full bg-[#856DF3]"></div>}
-                          {s.status === 'Pending' && <div className="w-2 h-2 rounded-full bg-[#EAB308]"></div>}
-                          {s.status === 'Cancelled' && <div className="w-2 h-2 rounded-full bg-[#757575]"></div>}
                           {s.status}
-                        </div>
+                        </span>
                       </td>
                     </tr>
                   );
@@ -346,25 +265,23 @@ export default function Shipments() {
         )}
 
         {/* Footer Pagination */}
-        <div className="flex flex-col sm:flex-row justify-between items-center mt-2 gap-4">
-          <span className="text-[14px] text-[#757575]">Showing 1 to {filteredShipments.length} of 2,340 entries</span>
-          <div className="flex items-center gap-2">
-            <button className="w-[28px] h-[28px] bg-[#F5F5F5] rounded-[8px] flex items-center justify-center hover:bg-gray-200 transition-colors">
-              <ChevronLeft size={16} className="text-[#E0E0E0]" />
+        <div className="flex flex-col sm:flex-row justify-between items-center pt-2 border-t border-[#F0F0F0] gap-4">
+          <span className="text-[13px] text-[#757575]">
+            Showing 1 to {filteredShipments.length} of {shipments.length} shipments
+          </span>
+          <div className="flex items-center gap-1.5">
+            <button className="w-8 h-8 bg-[#F5F5F5] rounded-[6px] flex items-center justify-center hover:bg-[#F0F0F0] transition-colors cursor-pointer text-[#757575]">
+              <ChevronLeft size={16} />
             </button>
-            <button className="w-[28px] h-[28px] bg-[#856DF3] rounded-[8px] text-[12px] font-semibold text-white flex items-center justify-center">1</button>
-            <button className="w-[28px] h-[28px] bg-[#FEFEFE] rounded-[8px] text-[12px] font-semibold text-[#333333] flex items-center justify-center hover:bg-gray-50">2</button>
-            <button className="w-[28px] h-[28px] bg-[#FEFEFE] rounded-[8px] text-[12px] font-semibold text-[#333333] flex items-center justify-center hover:bg-gray-50">3</button>
-            <button className="w-[28px] h-[28px] bg-[#FEFEFE] rounded-[8px] text-[12px] font-semibold text-[#333333] flex items-center justify-center">...</button>
-            <button className="w-[28px] h-[28px] bg-[#FEFEFE] rounded-[8px] text-[12px] font-semibold text-[#333333] flex items-center justify-center hover:bg-gray-50">9</button>
-            <button className="w-[28px] h-[28px] bg-[#FEFEFE] rounded-[8px] flex items-center justify-center hover:bg-gray-50 transition-colors">
-              <ChevronRight size={16} className="text-[#333333]" />
+            <button className="w-8 h-8 bg-[#856DF3] rounded-[6px] text-[12px] font-bold text-white flex items-center justify-center shadow-2xs">1</button>
+            <button className="w-8 h-8 bg-[#FEFEFE] border border-[#F0F0F0] rounded-[6px] text-[12px] font-semibold text-[#333333] flex items-center justify-center hover:bg-[#F5F5F5] cursor-pointer">2</button>
+            <button className="w-8 h-8 bg-[#FEFEFE] border border-[#F0F0F0] rounded-[6px] text-[12px] font-semibold text-[#333333] flex items-center justify-center hover:bg-[#F5F5F5] cursor-pointer">
+              <ChevronRight size={16} />
             </button>
           </div>
         </div>
+
       </div>
     </div>
   );
 }
-
-
