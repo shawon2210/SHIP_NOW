@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, MapPin, Truck, Plane, Ship, Package, Calendar, ChevronDown } from 'lucide-react';
+import { ArrowLeft, Truck, Plane, Ship, Calendar, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function CreateShipment() {

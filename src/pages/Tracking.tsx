@@ -1,4 +1,4 @@
-import { Search, Map, Navigation, Clock, Package, CheckCircle } from 'lucide-react';
+import { Search, Map, Navigation, Clock } from 'lucide-react';
 
 export default function Tracking() {
   return (

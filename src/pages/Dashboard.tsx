@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Search, Plus, Minus, ChevronDown, MoreHorizontal, ArrowUpRight, Copy, Tag, 
   RotateCcw, CheckCircle2, FileX, MapPinOff, CloudLightning, Filter,
@@ -39,7 +39,7 @@ const typeData = [
 ];
 
 const StatCard = ({ title, value, change, isPositive, icon: Icon }: any) => (
-  <div className="bg-[#FEFEFE] p-4 lg:px-6 py-4 rounded-[12px] flex items-center gap-4 flex-1">
+  <div className="bg-[#FEFEFE] rounded-[12px] p-[16px] border border-[#F0F0F0]/50 shadow-2xs flex items-center gap-4 flex-1">
     <div className="flex-1 flex flex-col gap-2.5">
       <h3 className="text-[12px] font-semibold text-[#757575] leading-tight">{title}</h3>
       <div className="flex items-baseline gap-2">
@@ -61,7 +61,7 @@ const StatCard = ({ title, value, change, isPositive, icon: Icon }: any) => (
 
 export default function Dashboard() {
   return (
-    <div className="p-4 lg:p-[20px] w-full max-w-[1217px] mx-auto flex flex-col gap-[20px] bg-[#F0F0F0] min-h-screen font-['Nunito_Sans',sans-serif]">
+    <div className="flex flex-col gap-[20px] w-full min-w-0">
       
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -70,14 +70,17 @@ export default function Dashboard() {
           <h1 className="text-[24px] font-bold text-[#333333] leading-[1.1] mt-1">Dashboard</h1>
         </div>
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto mt-3 md:mt-0">
-          <div className="flex items-center bg-[#FEFEFE] px-2.5 py-2 rounded-[8px] w-full md:w-[290px] shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
+          <div className="flex items-center bg-[#FEFEFE] px-2.5 py-2 rounded-[8px] border border-[#F0F0F0] w-full md:w-[290px] shadow-2xs">
             <Search size={20} className="text-[#333333]" />
             <input type="text" placeholder="Search anything..." className="ml-2.5 bg-transparent outline-none text-[14px] text-[#757575] w-full" />
           </div>
-          <button className="flex items-center justify-center gap-1 bg-[#333333] text-white px-4 py-2.5 rounded-[8px] h-[40px] whitespace-nowrap">
+          <Link 
+            to="/shipments/new" 
+            className="flex items-center justify-center gap-1 bg-[#333333] text-white px-4 py-2.5 rounded-[8px] h-[40px] whitespace-nowrap hover:bg-[#222222] transition-colors cursor-pointer"
+          >
             <Plus size={18} />
             <span className="text-[14px] font-semibold">New Shipment</span>
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -98,10 +101,10 @@ export default function Dashboard() {
           <div className="flex flex-col sm:flex-row gap-[20px]">
             
             {/* Shipment Statistic */}
-            <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] flex flex-col flex-1 h-auto min-h-[259px]">
+            <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto min-h-[259px]">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-[16px] font-semibold text-[#333333]">Shipment Statistic</h3>
-                <button className="flex items-center gap-2 bg-[#F0F0F0] px-2.5 py-1.5 rounded-[8px] text-[12px] font-semibold text-[#333333]">
+                <button className="flex items-center gap-2 bg-[#F0F0F0] px-2.5 py-1.5 rounded-[8px] text-[12px] font-semibold text-[#333333] cursor-pointer">
                   Weekly <ChevronDown size={12} />
                 </button>
               </div>
@@ -128,10 +131,10 @@ export default function Dashboard() {
             </div>
 
             {/* Profit Summary */}
-            <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] flex flex-col flex-[1.3] h-auto min-h-[259px]">
+            <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[1.3] h-auto min-h-[259px]">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-[16px] font-semibold text-[#333333]">Profit Summary</h3>
-                <button className="flex items-center gap-2 bg-[#F0F0F0] px-2.5 py-1.5 rounded-[8px] text-[12px] font-semibold text-[#333333]">
+                <button className="flex items-center gap-2 bg-[#F0F0F0] px-2.5 py-1.5 rounded-[8px] text-[12px] font-semibold text-[#333333] cursor-pointer">
                   Monthly <ChevronDown size={12} />
                 </button>
               </div>
@@ -178,10 +181,10 @@ export default function Dashboard() {
         </div>
 
         {/* Right Col (Shipment Type) */}
-        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] flex flex-col flex-1 h-auto lg:h-[394px]">
+        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto lg:h-[394px]">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-[16px] font-semibold text-[#333333]">Shipment Type</h3>
-            <button className="w-7 h-7 flex items-center justify-center bg-[#F0F0F0] rounded-[8px]">
+            <button className="w-7 h-7 flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer">
               <MoreHorizontal size={16} className="text-[#333333]" />
             </button>
           </div>
@@ -234,10 +237,10 @@ export default function Dashboard() {
       <div className="flex flex-col lg:flex-row gap-[20px]">
         
         {/* Product Categories */}
-        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] flex flex-col flex-1 h-auto lg:h-[443px]">
+        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto lg:h-[443px]">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-[16px] font-semibold text-[#333333]">Product Categories</h3>
-            <button className="w-7 h-7 flex items-center justify-center bg-[#F0F0F0] rounded-[8px]">
+            <button className="w-7 h-7 flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer">
               <MoreHorizontal size={16} className="text-[#333333]" />
             </button>
           </div>
@@ -281,7 +284,7 @@ export default function Dashboard() {
         </div>
 
         {/* Live Tracking */}
-        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] flex flex-col flex-[1.3] h-auto lg:h-[443px] shadow-[0_4px_12px_rgba(0,0,0,0.1)] relative">
+        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[1.3] h-auto lg:h-[443px] relative">
           <div className="bg-[#F0F0F0] rounded-[8px] flex-1 relative min-h-[200px] overflow-hidden mb-4">
              {/* Map Background SVG mock */}
              <div className="absolute inset-0 opacity-50 flex items-center justify-center overflow-hidden">
@@ -354,10 +357,10 @@ export default function Dashboard() {
         </div>
 
         {/* Shipment Alerts */}
-        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] flex flex-col flex-[0.8] h-auto lg:h-[443px]">
+        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[0.8] h-auto lg:h-[443px]">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-[16px] font-semibold text-[#333333]">Shipment Alerts</h3>
-            <button className="w-7 h-7 flex items-center justify-center bg-[#F0F0F0] rounded-[8px]">
+            <button className="w-7 h-7 flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer">
               <MoreHorizontal size={16} className="text-[#333333]" />
             </button>
           </div>
@@ -416,7 +419,7 @@ export default function Dashboard() {
       <div className="flex flex-col lg:flex-row gap-[20px]">
         
         {/* Recent Shipments */}
-        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] flex flex-col flex-[2.8] h-auto lg:h-[404px] overflow-hidden">
+        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[2.8] h-auto lg:h-[404px] overflow-hidden">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3">
             <h3 className="text-[16px] font-bold text-[#333333]">Recent Shipments</h3>
             <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -424,16 +427,16 @@ export default function Dashboard() {
                 <Search size={16} className="text-[#333333]" />
                 <input type="text" placeholder="Search by ID, Company..." className="ml-2 bg-transparent outline-none text-[12px] text-[#757575] w-full" />
               </div>
-              <button className="w-[28px] h-[28px] flex items-center justify-center bg-[#F0F0F0] rounded-[8px]">
+              <button className="w-[28px] h-[28px] flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer">
                 <Filter size={16} className="text-[#333333]" />
               </button>
-              <button className="w-[28px] h-[28px] flex items-center justify-center bg-[#F0F0F0] rounded-[8px]">
+              <button className="w-[28px] h-[28px] flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer">
                 <MoreHorizontal size={16} className="text-[#333333]" />
               </button>
             </div>
           </div>
           
-          <div className="overflow-x-auto w-full">
+          <div className="overflow-x-auto w-full custom-scrollbar">
             <table className="w-full text-left border-collapse min-w-[700px]">
               <thead>
                 <tr className="bg-[#E3DDFF] rounded-[8px]">
@@ -481,10 +484,10 @@ export default function Dashboard() {
         </div>
 
         {/* Shipping Logs */}
-        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] flex flex-col flex-1 h-auto lg:h-[404px]">
+        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto lg:h-[404px]">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-[16px] font-bold text-[#333333]">Shipping Logs</h3>
-            <button className="w-7 h-7 flex items-center justify-center bg-[#F0F0F0] rounded-[8px]">
+            <button className="w-7 h-7 flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer">
               <MoreHorizontal size={16} className="text-[#333333]" />
             </button>
           </div>
@@ -529,4 +532,3 @@ export default function Dashboard() {
     </div>
   );
 }
-

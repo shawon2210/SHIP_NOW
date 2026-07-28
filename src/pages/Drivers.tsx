@@ -1,4 +1,4 @@
-import { Search, Filter, UserPlus, Star, Phone, Mail, MoreVertical, Navigation } from 'lucide-react';
+import { Search, Filter, UserPlus, Star, Phone, MoreVertical, Navigation } from 'lucide-react';
 
 const mockDrivers = [
   { id: 'DRV-102', name: 'John Smith', status: 'On Duty', rating: '4.8', route: 'Chicago to Detroit', phone: '+1 (555) 019-2834' },

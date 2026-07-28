@@ -85,3 +85,48 @@ export const warehouseActivity = [
   { title: "Equipment Alert", desc: "Forklift #12 requires battery swap | 07:55 AM", status: "warning" },
   { title: "Shift Transition", desc: "Shift Bravo on duty (22 members) | 07:00 AM", status: "info" },
 ];
+
+export const warehouseKpis = [
+  { label: 'Total SKU', value: '285', unit: '', badge: '+2.58%' },
+  { label: 'Quantity on Hand', value: '12,450', unit: 'units', badge: '+4.37%' },
+  { label: 'Capacity Usage', value: '62.5%', unit: 'Full', badge: '+1.54%' },
+];
+
+export const warehouseInventoryBars = [
+  { category: 'Electronics', pct: 25, count: 2500, color: '#856DF3', striped: false },
+  { category: 'Apparel', pct: 20, count: 2000, color: '#856DF3', striped: true },
+  { category: 'Home & Kitchen', pct: 18, count: 1800, color: '#333333', striped: false },
+  { category: 'Beauty & Health', pct: 15, count: 1500, color: '#333333', striped: true },
+  { category: 'Automotive Parts', pct: 12, count: 1200, color: '#757575', striped: false },
+  { category: 'Sports Equipment', pct: 10, count: 1000, color: '#757575', striped: true },
+];
+
+export const warehouseStorageRows = [
+  { floor: 1, section: 'A1 – A10', category: 'Electronics', usedPct: 80, available: 20 },
+  { floor: 2, section: 'B1 – B10', category: 'Apparel', usedPct: 60, available: 40 },
+  { floor: 1, section: 'C1 – C10', category: 'Home & Kitchen', usedPct: 90, available: 10 },
+  { floor: 3, section: 'D1 – D10', category: 'Automotive Parts', usedPct: 50, available: 50 },
+  { floor: 2, section: 'E1 – E10', category: 'Beauty & Health', usedPct: 70, available: 30 },
+];
+
+export const warehouseMapTiles = [
+  { id: 'electronics', title: 'Electronics', codes: ['A1','A2','A3'], available: 20, fullCodes: ['A2'] },
+  { id: 'home', title: 'Home & Kitchen', codes: ['C1','C2','C3'], available: 10, fullCodes: ['C1','C3'] },
+  { id: 'auto', title: 'Automotive Parts', codes: ['D1','D2','D3'], available: 50, fullCodes: [] },
+  { id: 'sports', title: 'Sports Equipment', codes: ['F1','F2','F3'], available: 45, fullCodes: ['F2'] },
+  { id: 'apparel', title: 'Apparel', codes: ['B1','B2','B3','B4','B5','B6','B7','B8','B9','B10'], available: 20, fullCodes: ['B3','B6','B9'], wide: true },
+  { id: 'beauty', title: 'Beauty & Health', codes: ['E1','E2','E3','E4'], available: 30, fullCodes: ['E2'] },
+];
+
+export const warehousePackages = [
+  { id: 'PKG-HK77420', status: 'Sent', timestamp: 'March 20, 2035 – 05:30 PM' },
+  { id: 'PKG-A50812', status: 'Received', timestamp: 'March 21, 2035 – 01:45 PM' },
+  { id: 'PKG-E10293', status: 'Expected', timestamp: 'March 22, 2035 – 09:00 AM' },
+];
+
+export const warehouseActivityLog = [
+  { icon: 'check', bg: '#333333', name: 'Leo Fernandez', text: ' confirmed receipt of 40 units of Winter Jacket Series in Section B3 (Apparel)', time: '01:45 PM' },
+  { icon: 'plus', bg: '#856DF3', name: 'Ava Martinez', text: ' added 25 units of Smart Router Kit to Section A1 (Electronics)', time: '09:15 AM' },
+  { icon: 'truck', bg: '#333333', name: 'Oscar Liem', text: ' dispatched 18 units of Stainless Steel Cookware Set from Section C5 (Home & Kitchen)', time: '05:30 PM' },
+  { icon: 'file', bg: '#856DF3', name: 'Dina Choi', text: ' created a shipment entry for Brake Pad Sets in Section D2 (Automotive Parts)', time: '04:10 PM' },
+];

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Truck, Mail, Lock, Eye, EyeOff, ArrowRight, Check } from 'lucide-react';
+import { Eye, EyeOff, Check } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');

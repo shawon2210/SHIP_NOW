@@ -1,4 +1,4 @@
-import { Calendar as CalendarIcon, Filter, Search, Plus, ChevronLeft, ChevronRight, Clock, MapPin } from 'lucide-react';
+import { Plus, ChevronLeft, ChevronRight, Clock, MapPin } from 'lucide-react';
 
 export default function Calendar() {
   return (

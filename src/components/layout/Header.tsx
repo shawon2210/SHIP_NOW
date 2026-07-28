@@ -1,48 +1,68 @@
-import { Search, Bell, Settings, Plus } from 'lucide-react';
-import { user } from '../../data/mockData';
-import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { Truck, Train, Anchor, Plane } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+
+const freightTabs = [
+  { id: 'road', label: 'Road Freight', icon: Truck },
+  { id: 'rail', label: 'Rail Freight', icon: Train },
+  { id: 'ocean', label: 'Ocean Freight', icon: Anchor },
+  { id: 'air', label: 'Air Freight', icon: Plane },
+];
 
 export default function Header() {
+  const [activeTab, setActiveTab] = useState('road');
   const location = useLocation();
 
+  // If on warehouse page, render Phase 3 top bar
+  const isWarehousePage = location.pathname === '/warehouse';
+
+  if (isWarehousePage) {
+    return (
+      <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between min-h-[50px] gap-[12px] mb-[20px] w-full">
+        {/* Left: Title & Breadcrumb (pl-[44px] lg:pl-0 to accommodate mobile hamburger button) */}
+        <div className="flex flex-col justify-center pl-[44px] lg:pl-0">
+          <h1 className="text-[24px] font-bold text-[#333333] leading-[110%] tracking-tight">
+            Warehouse
+          </h1>
+          <div className="flex items-center gap-[4px] text-[11px] mt-[4px]">
+            <span className="font-semibold text-[#2A1298]">Dashboard</span>
+            <span className="text-[#757575]">/</span>
+            <span className="text-[#757575]">Warehouse</span>
+          </div>
+        </div>
+
+        {/* Right: Segmented Pill Tab Bar */}
+        <div className="flex items-center bg-[#FEFEFE] rounded-[12px] p-[4px] shadow-xs overflow-x-auto max-w-full custom-scrollbar">
+          {freightTabs.map((tab) => {
+            const isActive = activeTab === tab.id;
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-[8px] px-[12px] py-[6px] rounded-[8px] text-[12px] font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                  isActive
+                    ? 'bg-[#333333] text-[#FEFEFE] shadow-xs'
+                    : 'text-[#757575] hover:text-[#333333] hover:bg-[#F0F0F0]'
+                }`}
+              >
+                <Icon size={14} className={isActive ? 'text-[#FEFEFE]' : 'text-[#757575]'} />
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </header>
+    );
+  }
+
+  // Fallback default header for other pages
   return (
-    <header className="fixed top-0 right-0 lg:w-[calc(100%-var(--spacing-sidebar-width))] w-full h-20 bg-surface z-40 border-b border-border-light flex justify-between items-center px-4 lg:px-8">
-      <div className="flex items-center gap-4 pl-10 lg:pl-0">
-        <div className="hidden sm:block">
-          <p className="text-xs text-on-surface-variant font-medium">Hello {user.name.split(' ')[0]}!</p>
-          <h2 className="text-title-lg font-bold text-on-surface">Good Morning</h2>
-        </div>
-      </div>
-      
-      <div className="flex-1 flex justify-center max-w-xl px-4 hidden md:flex">
-        <div className="relative w-full">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-outline" size={16} />
-          <input
-            type="text"
-            placeholder="Search anything"
-            className="w-full pl-10 pr-4 py-2.5 bg-surface-container-low border border-border-light rounded-lg text-body-sm focus:ring-1 focus:ring-primary focus:outline-none"
-          />
-        </div>
-      </div>
-      
-      <div className="flex items-center gap-3 lg:gap-4 shrink-0">
-        <Link 
-          to="/shipments/new"
-          className="flex items-center gap-2 px-4 py-2.5 bg-secondary text-white rounded-lg text-label-md font-bold hover:brightness-110 active:scale-95 transition-all shadow-sm"
-        >
-          <Plus size={18} />
-          <span className="hidden sm:inline">Add New Shipping</span>
-          <span className="sm:hidden">New</span>
-        </Link>
-        
-        <div className="flex items-center gap-1 border-l border-border-light pl-3 lg:pl-4">
-          <button className="p-2 hover:bg-surface-container-low rounded-full transition-all text-on-surface-variant">
-            <Bell size={20} />
-          </button>
-          <button className="p-2 hover:bg-surface-container-low rounded-full transition-all text-on-surface-variant">
-            <Settings size={20} />
-          </button>
-        </div>
+    <header className="flex items-center justify-between min-h-[50px] mb-[20px] w-full">
+      <div className="flex flex-col pl-[44px] lg:pl-0">
+        <h1 className="text-[24px] font-bold text-[#333333]">
+          {location.pathname.replace('/', '').toUpperCase() || 'DASHBOARD'}
+        </h1>
       </div>
     </header>
   );

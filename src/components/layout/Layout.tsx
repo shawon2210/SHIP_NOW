@@ -4,11 +4,14 @@ import Header from './Header';
 
 export default function Layout() {
   return (
-    <div className="flex min-h-screen bg-background text-on-surface">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-[#F0F0F0] text-[#333333] font-['Nunito_Sans',sans-serif]">
+      {/* Sidebar fixed 223px on desktop */}
       <Sidebar />
-      <div className="flex-1 lg:ml-sidebar-width flex flex-col">
+
+      {/* Flexible content container */}
+      <div className="flex-1 flex flex-col p-[20px] max-w-[1440px] w-full mx-auto min-w-0">
         <Header />
-        <main className="flex-1 pt-20 flex flex-col relative overflow-hidden">
+        <main className="flex-1 flex flex-col w-full min-w-0">
           <Outlet />
         </main>
       </div>

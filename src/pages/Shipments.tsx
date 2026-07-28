@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { shipments } from '../data/mockData';
 import { 
-  Search, Plus, MoreHorizontal, ChevronLeft, ChevronRight, ChevronDown,
+  Search, Plus, ChevronLeft, ChevronRight, ChevronDown,
   MapPin, Filter, Truck, Plane, Ship, Train, List, LayoutGrid
 } from 'lucide-react';
 import { Link } from 'react-router-dom';

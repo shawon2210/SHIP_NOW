@@ -1,4 +1,4 @@
-import { BarChart, LineChart } from 'lucide-react';
+import { LineChart } from 'lucide-react';
 
 export default function Analytics() {
   return (
