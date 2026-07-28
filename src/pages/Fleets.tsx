@@ -11,109 +11,108 @@ const mockFleets = [
 
 export default function Fleets() {
   return (
-    <div className="p-4 lg:p-8 flex-1 w-full max-w-container-max mx-auto overflow-y-auto">
-      <div className="mb-6 flex items-center gap-2 text-label-md text-on-surface-variant">
-        <span>Operations</span>
-        <span>/</span>
-        <span className="text-primary font-bold">Fleets</span>
-      </div>
-
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+    <div className="flex flex-col gap-[20px] w-full min-w-0 pb-[40px]">
+      {/* Page Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 className="text-headline-md font-bold text-on-surface">Fleet Management</h2>
-          <p className="text-body-md text-on-surface-variant mt-1">Manage vehicles, track statuses, and schedule maintenance.</p>
+          <h2 className="text-[14px] text-[#757575] leading-tight mb-1">
+            Operations / <span className="text-[#856DF3] font-semibold">Fleets</span>
+          </h2>
+          <h1 className="text-[24px] font-bold text-[#333333] leading-[1.1]">Fleet Management</h1>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-secondary text-white rounded-lg text-label-md font-bold hover:brightness-110 active:scale-95 transition-all shadow-sm">
+        <button className="flex items-center justify-center gap-2 bg-[#333333] text-white px-4 py-2.5 rounded-[8px] h-[40px] hover:bg-[#222222] transition-colors cursor-pointer text-[14px] font-semibold shadow-2xs w-full md:w-auto">
           <Plus size={18} />
           Add Vehicle
         </button>
       </div>
 
-      {/* Fleet Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      {/* Fleet Overview Stat Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[20px]">
         {[
-          { label: 'Total Vehicles', value: '124', icon: Truck, color: 'text-primary' },
-          { label: 'Active on Route', value: '86', icon: Navigation, color: 'text-status-success' },
-          { label: 'In Maintenance', value: '12', icon: AlertTriangle, color: 'text-status-warning' },
-          { label: 'Available', value: '26', icon: CheckCircle, color: 'text-outline' },
+          { label: 'Total Vehicles', value: '124', icon: Truck, color: '#856DF3' },
+          { label: 'Active on Route', value: '86', icon: Navigation, color: '#007837' },
+          { label: 'In Maintenance', value: '12', icon: AlertTriangle, color: '#B76E00' },
+          { label: 'Available', value: '26', icon: CheckCircle, color: '#757575' },
         ].map((stat, i) => (
-          <div key={i} className="bg-surface-container-lowest p-6 rounded-xl border border-border-light shadow-sm flex items-center gap-4">
-            <div className={`p-3 rounded-lg bg-surface-container-low ${stat.color}`}>
-              <stat.icon size={24} />
+          <div key={i} className="bg-[#FEFEFE] rounded-[12px] p-[16px] border border-[#F0F0F0]/50 shadow-2xs flex items-center gap-4">
+            <div className="w-[42px] h-[42px] rounded-[8px] flex items-center justify-center shrink-0 text-white" style={{ backgroundColor: stat.color }}>
+              <stat.icon size={22} />
             </div>
-            <div>
-              <p className="text-xs font-bold text-outline uppercase tracking-wider mb-1">{stat.label}</p>
-              <p className="text-2xl font-bold text-on-surface">{stat.value}</p>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[12px] font-semibold text-[#757575] leading-tight">{stat.label}</span>
+              <span className="text-[24px] font-bold text-[#333333] leading-none mt-1">{stat.value}</span>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Fleet List */}
-      <div className="bg-surface-container-lowest rounded-xl border border-border-light shadow-sm overflow-hidden">
-        <div className="p-6 border-b border-border-light flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <h3 className="font-bold text-lg text-on-surface">Vehicle Directory</h3>
-          <div className="flex gap-2 w-full sm:w-auto">
-            <div className="relative flex-1 sm:flex-none">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-outline" size={16} />
+      {/* Vehicle Directory Table Card */}
+      <div className="bg-[#FEFEFE] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs overflow-hidden">
+        <div className="p-[16px] border-b border-[#F0F0F0] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <h3 className="text-[16px] font-semibold text-[#333333]">Vehicle Directory</h3>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <div className="flex items-center bg-[#FEFEFE] px-3 py-2 rounded-[8px] border border-[#F0F0F0] w-full sm:w-[260px] shadow-2xs">
+              <Search size={18} className="text-[#757575]" />
               <input 
                 type="text" 
                 placeholder="Search fleet..."
-                className="pl-9 pr-4 py-2 w-full sm:w-64 bg-surface border border-border-light rounded-lg text-sm focus:ring-1 focus:ring-primary focus:outline-none shadow-sm"
+                className="ml-2 bg-transparent outline-none text-[14px] text-[#333333] w-full placeholder-[#757575]"
               />
             </div>
-            <button className="p-2 border border-border-light rounded-lg hover:bg-surface-container-low transition-all">
-              <Filter size={18} className="text-on-surface-variant" />
+            <button className="p-2.5 border border-[#F0F0F0] bg-[#FEFEFE] rounded-[8px] hover:bg-[#F5F5F5] transition-colors cursor-pointer shrink-0">
+              <Filter size={18} className="text-[#333333]" />
             </button>
           </div>
         </div>
         
         <div className="overflow-x-auto">
           <table className="w-full text-left whitespace-nowrap">
-            <thead className="bg-surface-container-low text-xs uppercase font-bold text-outline border-b border-border-light">
+            <thead className="bg-[#F5F5F5] text-[11px] uppercase font-bold text-[#757575] border-b border-[#F0F0F0]">
               <tr>
-                <th className="px-6 py-4">Vehicle ID</th>
-                <th className="px-6 py-4">Model & Type</th>
-                <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4">Assigned Driver</th>
-                <th className="px-6 py-4">Current Location</th>
-                <th className="px-6 py-4">Fuel</th>
-                <th className="px-6 py-4"></th>
+                <th className="px-6 py-3.5">Vehicle ID</th>
+                <th className="px-6 py-3.5">Model & Type</th>
+                <th className="px-6 py-3.5">Status</th>
+                <th className="px-6 py-3.5">Assigned Driver</th>
+                <th className="px-6 py-3.5">Location</th>
+                <th className="px-6 py-3.5">Fuel Level</th>
+                <th className="px-6 py-3.5"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-light text-sm">
+            <tbody className="divide-y divide-[#F0F0F0] text-[13px]">
               {mockFleets.map(fleet => (
-                <tr key={fleet.id} className="hover:bg-surface-container-low/50 transition-colors">
-                  <td className="px-6 py-4 font-bold text-primary">{fleet.id}</td>
+                <tr key={fleet.id} className="hover:bg-[#F5F5F5]/60 transition-colors">
+                  <td className="px-6 py-4 font-bold text-[#856DF3]">{fleet.id}</td>
                   <td className="px-6 py-4">
-                    <p className="font-bold text-on-surface">{fleet.name}</p>
-                    <p className="text-xs text-on-surface-variant">{fleet.type}</p>
+                    <p className="font-bold text-[#333333]">{fleet.name}</p>
+                    <p className="text-[11px] text-[#757575]">{fleet.type}</p>
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold ${
-                      fleet.status === 'Active' ? 'bg-status-success/10 text-status-success' :
-                      fleet.status === 'Maintenance' ? 'bg-status-warning/10 text-status-warning' :
-                      fleet.status === 'Alert' ? 'bg-status-danger/10 text-status-danger' :
-                      'bg-outline-variant/20 text-on-surface-variant'
+                    <span className={`inline-flex items-center px-2.5 py-1 rounded-[10px] text-[11px] font-bold ${
+                      fleet.status === 'Active' ? 'bg-[#D9F9E7] text-[#007837]' :
+                      fleet.status === 'Maintenance' ? 'bg-[#FFF3D6] text-[#B76E00]' :
+                      fleet.status === 'Alert' ? 'bg-[#F04A4A]/10 text-[#F04A4A]' :
+                      'bg-[#F0F0F0] text-[#757575]'
                     }`}>
                       {fleet.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 font-medium">{fleet.driver}</td>
-                  <td className="px-6 py-4 text-on-surface-variant">{fleet.location}</td>
+                  <td className="px-6 py-4 font-medium text-[#333333]">{fleet.driver}</td>
+                  <td className="px-6 py-4 text-[#757575]">{fleet.location}</td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+                      <div className="w-20 h-2 bg-[#F0F0F0] rounded-full overflow-hidden">
                         <div 
-                          className={`h-full rounded-full ${parseInt(fleet.fuel) < 20 ? 'bg-status-danger' : 'bg-primary'}`} 
+                          className={`h-full rounded-full ${parseInt(fleet.fuel) < 20 ? 'bg-[#F04A4A]' : 'bg-[#856DF3]'}`} 
                           style={{ width: fleet.fuel }}
-                        ></div>
+                        />
                       </div>
-                      <span className="text-xs font-bold text-on-surface-variant">{fleet.fuel}</span>
+                      <span className="text-[12px] font-semibold text-[#333333]">{fleet.fuel}</span>
                     </div>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button className="text-outline hover:text-primary transition-colors p-2"><MoreVertical size={16} /></button>
+                    <button className="text-[#757575] hover:text-[#333333] p-1.5 rounded-[6px] hover:bg-[#F0F0F0] transition-colors cursor-pointer">
+                      <MoreVertical size={16} />
+                    </button>
                   </td>
                 </tr>
               ))}
