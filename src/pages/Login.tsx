@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Check } from 'lucide-react';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('john@shipnow.com');
+  const [password, setPassword] = useState('password123');
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -15,131 +16,173 @@ export default function Login() {
     setError('');
 
     if (!email || !email.includes('@')) {
-      setError('Please enter a valid work email.');
+      setError('Please enter a valid email address.');
       return;
     }
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters.');
+    if (password.length < 4) {
+      setError('Password must be at least 4 characters.');
       return;
     }
 
     setLoading(true);
     setTimeout(() => {
       navigate('/dashboard');
-    }, 1200);
+    }, 600);
   };
 
   return (
-    <main className="flex min-h-screen bg-background text-on-surface">
-      {/* Left Section: Visual Brand Experience */}
-      <section className="hidden lg:flex lg:w-1/2 relative bg-primary overflow-hidden items-center justify-center p-16">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-white/10 blur-3xl rounded-full mix-blend-overlay" />
-          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-black/10 blur-3xl rounded-full mix-blend-overlay" />
-        </div>
+    <main className="flex min-h-screen bg-[#FEFEFE] font-['Nunito_Sans',sans-serif]">
+      {/* Left Section: Bright Purple Visual Experience */}
+      <section className="hidden lg:flex lg:w-1/2 bg-[#856DF3] flex-col justify-between p-12 lg:p-16 relative overflow-hidden text-white">
         
-        <div className="relative z-20 flex flex-col items-center text-center max-w-lg">
-          <div className="mb-12 relative w-64 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
+        {/* Top Brand Logo */}
+        <div className="flex items-center gap-3 z-10">
+          <div className="relative w-7 h-7 shrink-0">
+            {/* Two black offset squares */}
+            <div className="absolute top-0 left-0 w-4 h-4 bg-[#333333] rounded-[2px]" />
+            <div className="absolute bottom-0 right-0 w-4 h-4 bg-[#333333] rounded-[2px] opacity-90" />
+          </div>
+          <span 
+            className="text-2xl font-[900] italic uppercase tracking-wider text-white"
+            style={{ fontFamily: "'Nunito Sans', sans-serif" }}
+          >
+            SHIPNOW
+          </span>
+        </div>
+
+        {/* Center overlapping image mockup */}
+        <div className="relative flex items-center justify-center my-auto py-8">
+          {/* Main Truck/Delivery Image */}
+          <div className="relative w-[340px] h-[340px] rounded-[28px] overflow-hidden shadow-2xl border-4 border-white/20">
             <img 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTwEwLhdHZvQ9o6CyebYKAzGx9j2UrspFSec3VUA3OT4ijmdksH2hIC-PAObihtlNPMaXjkAkw8Vm2EN02hzKecva7mRFQszCrpU32WrTk05RtPG1nKCemO7ItL8UrcRdHp09owTgAk8EPO7j5hd3wFH9tz0HTaDziZNGmhpWgmJ_kgr8VkNMAHANpZbmOxnidDaH63AzMDNAOqkNkvcPG5P0iuMWHPflahN9zsEt6_MyNDWwpl31Q" 
-              alt="Delivery person scanning package" 
+              src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" 
+              alt="Delivery van with packages" 
               className="w-full h-full object-cover"
             />
           </div>
-          
-          <h1 className="font-headline-md text-3xl font-bold text-white mb-4 tracking-tight">
+
+          {/* Overlapping top-right floating photo card */}
+          <div className="absolute top-0 right-[12%] w-[170px] h-[210px] rounded-[20px] overflow-hidden shadow-2xl border-4 border-[#856DF3] transform rotate-3">
+            <img 
+              src="https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=400&q=80" 
+              alt="Scanning package" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Bottom Headline & Subtitle */}
+        <div className="flex flex-col gap-2 max-w-md z-10">
+          <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">
             Welcome to ShipNow
           </h1>
-          <p className="font-body-lg text-white/80 max-w-sm">
+          <p className="text-sm lg:text-base text-white/90 font-medium leading-relaxed">
             Manage your shipments, fleet, and warehouse in one smart dashboard.
           </p>
         </div>
+
       </section>
 
-      {/* Right Section: Login Interface */}
-      <section className="w-full lg:w-1/2 flex flex-col justify-center items-center p-gutter bg-surface-container-lowest">
-        <div className="w-full max-w-md space-y-10">
+      {/* Right Section: Clean White Login Interface */}
+      <section className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 lg:p-12 bg-[#FEFEFE]">
+        <div className="w-full max-w-[380px] space-y-6">
+          
+          {/* Header Icon & Title */}
           <div className="flex flex-col items-center text-center">
-            <div className="mb-8 flex items-center gap-3 justify-center">
-              <div className="flex flex-col gap-1 w-6 h-8 justify-center">
-                <div className="w-4 h-3 bg-primary rounded-[2px] transform -skew-x-[20deg] translate-x-1.5"></div>
-                <div className="w-4 h-3 bg-primary rounded-[2px] transform -skew-x-[20deg] -translate-x-1.5"></div>
-              </div>
-              <span className="font-headline-md text-primary tracking-widest text-xl font-black uppercase mt-1">ShipNow</span>
+            {/* Purple Logo Icon Badge */}
+            <div className="relative w-8 h-8 mb-4">
+              <div className="absolute top-0 left-0 w-4 h-4 bg-[#856DF3] rounded-[2px]" />
+              <div className="absolute bottom-0 right-0 w-4 h-4 bg-[#856DF3] rounded-[2px] opacity-80" />
             </div>
-            <h2 className="font-headline-md text-on-surface mb-2 text-2xl font-bold">Welcome Back</h2>
-            <p className="text-on-surface-variant font-body-sm">Log in to continue managing your logistics with ShipNow.</p>
+
+            <h2 className="text-2xl font-bold text-[#333333] tracking-tight">Welcome Back</h2>
+            <p className="text-xs text-[#757575] mt-1">
+              Log in to continue managing your logistics with ShipNow
+            </p>
           </div>
 
-          <form className="space-y-5" onSubmit={handleLogin}>
+          {/* Form */}
+          <form className="space-y-4" onSubmit={handleLogin}>
+            
+            {/* Email Address */}
             <div className="space-y-1.5">
-              <label className="font-label-md text-on-surface-variant block text-xs font-semibold">Email Address</label>
-              <div className="relative group">
-                <input 
-                  type="email" 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={`w-full px-4 py-3 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-outline font-body-sm`}
-                  placeholder="Enter a valid email address" 
-                  required 
-                />
-              </div>
+              <label className="text-xs font-semibold text-[#333333] block">Email Address</label>
+              <input 
+                type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 bg-[#F5F5F5] border-none rounded-[10px] text-sm text-[#333333] outline-none focus:ring-2 focus:ring-[#856DF3]/30 transition-all placeholder-[#757575]"
+                placeholder="Enter a valid email address" 
+                required 
+              />
             </div>
 
+            {/* Password */}
             <div className="space-y-1.5">
-              <label className="font-label-md text-on-surface-variant block text-xs font-semibold">Password</label>
-              <div className="relative group">
+              <label className="text-xs font-semibold text-[#333333] block">Password</label>
+              <div className="relative">
                 <input 
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`w-full px-4 py-3 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-outline font-body-sm`}
+                  className="w-full px-4 py-3 bg-[#F5F5F5] border-none rounded-[10px] text-sm text-[#333333] outline-none focus:ring-2 focus:ring-[#856DF3]/30 transition-all placeholder-[#757575]"
                   placeholder="Create a strong password" 
                   required 
                 />
                 <button 
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface-variant transition-colors p-1"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#757575] hover:text-[#333333] transition-colors p-1 cursor-pointer"
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
-              {error && <p className="text-error font-label-md pt-1 text-xs">{error}</p>}
+              {error && <p className="text-xs text-[#F04A4A] font-semibold pt-1">{error}</p>}
             </div>
 
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 cursor-pointer group">
-                <div className="relative flex items-center">
-                  <input type="checkbox" className="peer hidden" />
-                  <div className="w-4 h-4 border border-outline-variant rounded group-hover:border-primary peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center">
-                    <Check className="text-white opacity-0 peer-checked:opacity-100 transition-opacity" size={12} strokeWidth={3} />
-                  </div>
-                </div>
-                <span className="text-xs text-on-surface-variant">Remember Me</span>
+            {/* Options Row */}
+            <div className="flex items-center justify-between text-xs pt-1">
+              <label className="flex items-center gap-2 cursor-pointer select-none">
+                <input 
+                  type="checkbox" 
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-4 h-4 rounded border-[#F0F0F0] accent-[#856DF3] cursor-pointer" 
+                />
+                <span className="text-[#757575]">Remember Me</span>
               </label>
-              <button type="button" className="text-xs text-primary font-medium hover:underline transition-all">Forgot Password?</button>
+              <a href="#" onClick={(e) => e.preventDefault()} className="text-[#856DF3] font-semibold hover:underline">
+                Forgot Password?
+              </a>
             </div>
 
+            {/* Login Button */}
             <button 
               type="submit"
               disabled={loading}
-              className="w-full bg-secondary text-white font-label-md py-3 rounded-lg flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all shadow-sm font-bold disabled:opacity-70 mt-2"
+              className="w-full bg-[#2B2B2B] hover:bg-[#1A1A1A] text-white py-3 rounded-[10px] text-sm font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-2"
             >
-              <span>{loading ? 'Authenticating...' : 'Login'}</span>
+              {loading ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Authenticating...</span>
+                </>
+              ) : (
+                <span>Login</span>
+              )}
             </button>
           </form>
 
-          <div className="pt-6 text-center space-y-4">
-            <p className="text-xs text-on-surface-variant">
-              Don't have an account? <a href="#" className="text-primary font-medium hover:underline">Register</a>
+          {/* Register Footer */}
+          <div className="text-center pt-2">
+            <p className="text-xs text-[#757575]">
+              Don't have an account?{' '}
+              <a href="#" onClick={(e) => e.preventDefault()} className="text-[#856DF3] font-semibold hover:underline">
+                Register
+              </a>
             </p>
-            <div className="flex justify-center gap-6 text-label-md text-outline font-semibold">
-              <a href="#" className="hover:text-on-surface-variant transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-on-surface-variant transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-on-surface-variant transition-colors">Help Center</a>
-            </div>
           </div>
+
         </div>
       </section>
     </main>

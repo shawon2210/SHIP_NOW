@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutGrid,
   LineChart,
@@ -14,7 +14,8 @@ import {
   Settings,
   ChevronDown,
   Menu,
-  X
+  X,
+  LogOut
 } from 'lucide-react';
 import { user } from '../../data/mockData';
 import { useState, useEffect } from 'react';
@@ -39,6 +40,12 @@ const secondaryNavItems = [
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setIsOpen(false);
+    navigate('/login');
+  };
 
   // Close drawer on Escape key press
   useEffect(() => {
@@ -175,8 +182,12 @@ export default function Sidebar() {
             </button>
           </div>
 
-          <button className="flex items-center justify-center gap-2 text-[13px] font-medium text-[#333333] hover:text-[#000000] py-1 w-full text-center">
-            Logout
+          <button 
+            onClick={handleLogout}
+            className="flex items-center justify-center gap-2 text-[13px] font-semibold text-[#333333] hover:text-[#F04A4A] hover:bg-[#FDEAEA] rounded-[6px] py-1.5 w-full text-center transition-colors cursor-pointer"
+          >
+            <LogOut size={16} />
+            <span>Logout</span>
           </button>
         </div>
       </aside>
