@@ -1,296 +1,393 @@
 import { useState } from 'react';
-import { invoices } from '../data/mockData';
-import { Search, SlidersHorizontal, CheckCircle, FileWarning, CircleDashed, Clock, FileText } from 'lucide-react';
+import { 
+  Search, SlidersHorizontal, CheckCircle2, XSquare, 
+  CircleDashed, Clock, FileText, ArrowUpDown, 
+  Facebook, Twitter, Instagram, Youtube, Linkedin
+} from 'lucide-react';
+
+const mockInvoicesData = [
+  { id: 'INV-1001', company: 'TechGear Inc.', icon: '⚡', shippingId: '#SH9283746', issued: 'Mar 15, 2035', due: 'Mar 22, 2035', amount: '$1,250.00', status: 'Paid' },
+  { id: 'INV-1002', company: 'StyleHub Co.', icon: '▲', shippingId: '#SH9182635', issued: 'Mar 16, 2035', due: 'Mar 23, 2035', amount: '$980.00', status: 'Unpaid' },
+  { id: 'INV-1003', company: 'FreshNest', icon: '♣', shippingId: '#SH9037821', issued: 'Mar 14, 2035', due: 'Mar 21, 2035', amount: '$1,320.00', status: 'Paid' },
+  { id: 'INV-1004', company: 'FitPlus Gear', icon: '❖', shippingId: '#SH9374652', issued: 'Mar 17, 2035', due: 'Mar 24, 2035', amount: '$1,150.00', status: 'Unpaid' },
+  { id: 'INV-1005', company: 'AutoParts Pro', icon: '◢', shippingId: '#SH9457830', issued: 'Mar 15, 2035', due: 'Mar 22, 2035', amount: '$1,480.00', status: 'Overdue' },
+  { id: 'INV-1006', company: 'EcoLights', icon: '✳', shippingId: '#SH8821349', issued: 'Mar 13, 2035', due: 'Mar 20, 2035', amount: '$790.00', status: 'Paid' },
+  { id: 'INV-1007', company: 'GreenHaven', icon: '🛡', shippingId: '#SH8967432', issued: 'Mar 14, 2035', due: 'Mar 21, 2035', amount: '$875.00', status: 'Paid' },
+  { id: 'INV-1008', company: 'ModaWear', icon: 'M', shippingId: '#SH8893247', issued: 'Mar 16, 2035', due: 'Mar 23, 2035', amount: '$910.00', status: 'Unpaid' },
+  { id: 'INV-1009', company: 'SunCore Panels', icon: '⁑', shippingId: '#SH9018723', issued: 'Mar 17, 2035', due: 'Mar 24, 2035', amount: '$1,600.00', status: 'Unpaid' },
+  { id: 'INV-1010', company: 'VitaFresh', icon: '♾', shippingId: '#SH8881190', issued: 'Mar 15, 2035', due: 'Mar 22, 2035', amount: '$1,120.00', status: 'Overdue' },
+  { id: 'INV-1011', company: 'SmartAppliance', icon: '✦', shippingId: '#SH8923752', issued: 'Mar 18, 2035', due: 'Mar 25, 2035', amount: '$1,050.00', status: 'Paid' },
+];
 
 export default function Invoices() {
-  const [selectedInvoiceId, setSelectedInvoiceId] = useState(invoices[0].id);
+  const [selectedId, setSelectedId] = useState('INV-1008');
+  const [search, setSearch] = useState('');
 
-  const selectedInvoice = invoices.find(inv => inv.id === selectedInvoiceId) || invoices[0];
+  const selectedInvoice = mockInvoicesData.find(i => i.id === selectedId) || mockInvoicesData[7];
 
   return (
-    <div className="flex-1 w-full max-w-[1440px] mx-auto p-4 lg:p-5 bg-[#F0F0F0] font-['Nunito_Sans'] h-full overflow-y-auto">
+    <div className="flex flex-col gap-[20px] w-full min-w-0 pb-[40px]">
       
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-5 w-full gap-4">
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-2">
-            <h1 className="text-[24px] font-bold text-on-surface leading-tight">Invoices & Billing</h1>
-          </div>
-          <div className="flex items-center gap-1 text-[11px]">
-            <span className="text-[#2A1298]">Dashboard</span>
-            <span className="text-[#757575] mx-1">/</span>
-            <span className="text-on-surface">Invoices & Billing</span>
-          </div>
+      {/* Top Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-[24px] font-bold text-[#333333] leading-[1.1]">Invoices & Billing</h1>
+          <p className="text-[12px] text-[#757575] mt-1">
+            <span className="text-[#856DF3] cursor-pointer hover:underline">Dashboard</span> / Invoices & Billing
+          </p>
         </div>
         
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto mt-3 md:mt-0">
-          <div className="flex items-center bg-white rounded-[8px] px-2.5 py-1.5 w-full md:w-[290px] h-[40px] shadow-sm">
-            <Search size={20} className="text-[#333333] mr-2 opacity-60" />
-            <input type="text" placeholder="Search..." className="bg-transparent border-none outline-none text-[14px] text-[#757575] w-full" />
-          </div>
-          <button className="flex justify-center items-center px-4 py-2 bg-[#333333] text-white rounded-[8px] h-[40px] text-[12px] font-semibold whitespace-nowrap shadow-sm hover:bg-[#222222] transition-colors">
-            Download All
-          </button>
+        <div className="flex items-center bg-[#FEFEFE] px-3 py-2 rounded-[8px] border border-[#F0F0F0] w-full sm:w-[280px] shadow-2xs">
+          <Search size={18} className="text-[#757575]" />
+          <input 
+            type="text" 
+            placeholder="Search anything..." 
+            className="ml-2 bg-transparent outline-none text-[14px] text-[#333333] w-full placeholder-[#757575]"
+          />
         </div>
       </div>
 
-      {/* Overview Metrics */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-5 w-full">
-        {/* Card 1 */}
-        <div className="bg-white rounded-[12px] p-4 flex items-center gap-4 h-[114px] shadow-sm">
-          <div className="w-[52px] h-[52px] rounded-[8px] bg-[#856DF3] flex items-center justify-center text-white shrink-0">
-            <CheckCircle size={28} />
+      {/* 4 KPI Summary Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[20px]">
+        
+        {/* Card 1: Paid Invoices */}
+        <div className="bg-[#FEFEFE] rounded-[12px] p-[16px] border border-[#F0F0F0]/50 shadow-2xs flex items-center justify-between">
+          <div className="w-[44px] h-[44px] bg-[#856DF3] text-white rounded-[10px] flex items-center justify-center shrink-0 shadow-2xs">
+            <CheckCircle2 size={22} />
           </div>
-          <div className="flex flex-col flex-1 items-end">
-            <div className="text-[12px] font-semibold text-[#757575] mb-1">Total Paid</div>
-            <div className="text-[28px] font-bold text-on-surface leading-none mb-1">1,284</div>
-            <div className="flex items-center gap-1">
-              <div className="flex items-center bg-[#D9F9E7] px-1.5 py-0.5 rounded-[10px]">
-                <span className="text-[10px] text-status-success font-medium">+4.2%</span>
-              </div>
-              <span className="text-[10px] text-[#757575]">vs last month</span>
+          <div className="flex flex-col items-end">
+            <span className="text-[12px] font-semibold text-[#757575]">Paid Invoices</span>
+            <span className="text-[24px] font-bold text-[#333333] leading-tight">$28,890</span>
+            <div className="flex items-center gap-1 mt-1 text-[11px] text-[#757575]">
+              <span>from</span>
+              <span className="px-1.5 py-0.2 bg-[#D9F9E7] text-[#007837] font-bold rounded-[4px]">350</span>
+              <span>Invoices</span>
             </div>
           </div>
         </div>
 
-        {/* Card 2 */}
-        <div className="bg-white rounded-[12px] p-4 flex items-center gap-4 h-[114px] shadow-sm">
-          <div className="w-[52px] h-[52px] rounded-[8px] bg-[#856DF3] flex items-center justify-center text-white shrink-0">
-            <FileWarning size={28} />
+        {/* Card 2: Unpaid Invoices */}
+        <div className="bg-[#FEFEFE] rounded-[12px] p-[16px] border border-[#F0F0F0]/50 shadow-2xs flex items-center justify-between">
+          <div className="w-[44px] h-[44px] bg-[#856DF3] text-white rounded-[10px] flex items-center justify-center shrink-0 shadow-2xs">
+            <XSquare size={22} />
           </div>
-          <div className="flex flex-col flex-1 items-end">
-            <div className="text-[12px] font-semibold text-[#757575] mb-1">Total Overdue</div>
-            <div className="text-[28px] font-bold text-on-surface leading-none mb-1">82</div>
-            <div className="flex items-center gap-1">
-              <div className="flex items-center bg-[#FDEAEA] px-1.5 py-0.5 rounded-[10px]">
-                <span className="text-[10px] text-status-danger font-medium">-1.2%</span>
-              </div>
-              <span className="text-[10px] text-[#757575]">vs last month</span>
+          <div className="flex flex-col items-end">
+            <span className="text-[12px] font-semibold text-[#757575]">Unpaid Invoices</span>
+            <span className="text-[24px] font-bold text-[#333333] leading-tight">$16,700</span>
+            <div className="flex items-center gap-1 mt-1 text-[11px] text-[#757575]">
+              <span>from</span>
+              <span className="px-1.5 py-0.2 bg-[#D9F9E7] text-[#007837] font-bold rounded-[4px]">120</span>
+              <span>Invoices</span>
             </div>
           </div>
         </div>
 
-        {/* Card 3 */}
-        <div className="bg-white rounded-[12px] p-4 flex items-center gap-4 h-[114px] shadow-sm">
-          <div className="w-[52px] h-[52px] rounded-[8px] bg-[#856DF3] flex items-center justify-center text-white shrink-0">
-            <CircleDashed size={28} />
+        {/* Card 3: Pending Invoices */}
+        <div className="bg-[#FEFEFE] rounded-[12px] p-[16px] border border-[#F0F0F0]/50 shadow-2xs flex items-center justify-between">
+          <div className="w-[44px] h-[44px] bg-[#856DF3] text-white rounded-[10px] flex items-center justify-center shrink-0 shadow-2xs">
+            <CircleDashed size={22} />
           </div>
-          <div className="flex flex-col flex-1 items-end">
-            <div className="text-[12px] font-semibold text-[#757575] mb-1">Total Pending</div>
-            <div className="text-[28px] font-bold text-on-surface leading-none mb-1">345</div>
-            <div className="flex items-center gap-1">
-              <div className="flex items-center bg-[#D9F9E7] px-1.5 py-0.5 rounded-[10px]">
-                <span className="text-[10px] text-status-success font-medium">+2.1%</span>
-              </div>
-              <span className="text-[10px] text-[#757575]">vs last month</span>
+          <div className="flex flex-col items-end">
+            <span className="text-[12px] font-semibold text-[#757575]">Pending Invoices</span>
+            <span className="text-[24px] font-bold text-[#333333] leading-tight">$8,050</span>
+            <div className="flex items-center gap-1 mt-1 text-[11px] text-[#757575]">
+              <span>from</span>
+              <span className="px-1.5 py-0.2 bg-[#D9F9E7] text-[#007837] font-bold rounded-[4px]">80</span>
+              <span>Invoices</span>
             </div>
           </div>
         </div>
 
-        {/* Card 4 */}
-        <div className="bg-white rounded-[12px] p-4 flex items-center gap-4 h-[114px] shadow-sm">
-          <div className="w-[52px] h-[52px] rounded-[8px] bg-[#856DF3] flex items-center justify-center text-white shrink-0">
-            <Clock size={28} />
+        {/* Card 4: Overdue Invoices */}
+        <div className="bg-[#FEFEFE] rounded-[12px] p-[16px] border border-[#F0F0F0]/50 shadow-2xs flex items-center justify-between">
+          <div className="w-[44px] h-[44px] bg-[#856DF3] text-white rounded-[10px] flex items-center justify-center shrink-0 shadow-2xs">
+            <Clock size={22} />
           </div>
-          <div className="flex flex-col flex-1 items-end">
-            <div className="text-[12px] font-semibold text-[#757575] mb-1">Total Draft</div>
-            <div className="text-[28px] font-bold text-on-surface leading-none mb-1">12</div>
-            <div className="flex items-center gap-1">
-              <div className="flex items-center bg-[#D9F9E7] px-1.5 py-0.5 rounded-[10px]">
-                <span className="text-[10px] text-status-success font-medium">+0.8%</span>
-              </div>
-              <span className="text-[10px] text-[#757575]">vs last month</span>
+          <div className="flex flex-col items-end">
+            <span className="text-[12px] font-semibold text-[#757575]">Overdue Invoices</span>
+            <span className="text-[24px] font-bold text-[#333333] leading-tight">$22,110</span>
+            <div className="flex items-center gap-1 mt-1 text-[11px] text-[#757575]">
+              <span>from</span>
+              <span className="px-1.5 py-0.2 bg-[#D9F9E7] text-[#007837] font-bold rounded-[4px]">245</span>
+              <span>Invoices</span>
             </div>
           </div>
         </div>
+
       </div>
 
-      {/* Main Content Area */}
-      <div className="flex flex-col xl:flex-row gap-5 w-full h-auto xl:h-[734px]">
+      {/* Main Two Column Area */}
+      <div className="flex flex-col xl:flex-row gap-[20px] w-full min-w-0">
         
-        {/* Left Table */}
-        <div className="flex flex-col flex-grow xl:w-[678px] bg-white rounded-[12px] p-4 h-full shadow-sm">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-[16px] font-semibold text-on-surface">Recent Invoices</h2>
-            <div className="flex items-center gap-2.5">
-              <div className="flex items-center bg-[#F0F0F0] rounded-[8px] px-2 py-1.5 w-[200px] h-[28px]">
-                <Search size={14} className="text-[#333333] mr-2 opacity-60" />
-                <input type="text" placeholder="Search..." className="bg-transparent border-none outline-none text-[12px] text-[#757575] w-full" />
+        {/* Left Column: Invoices Table Panel */}
+        <div className="bg-[#FEFEFE] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs p-[20px] flex-1 flex flex-col gap-4 min-w-0">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <h2 className="text-[18px] font-bold text-[#333333]">Invoices</h2>
+            <div className="flex items-center gap-2 w-full sm:w-auto">
+              <div className="flex items-center bg-[#F5F5F5] px-2.5 py-1.5 rounded-[8px] border border-[#F0F0F0] w-full sm:w-[180px]">
+                <Search size={14} className="text-[#757575]" />
+                <input 
+                  type="text" 
+                  placeholder="Search invoices"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="ml-2 bg-transparent outline-none text-[12px] text-[#333333] w-full placeholder-[#757575]"
+                />
               </div>
-              <button className="flex items-center justify-center w-[28px] h-[28px] bg-[#F0F0F0] rounded-[8px] hover:bg-[#E0E0E0] transition-colors">
-                <SlidersHorizontal size={14} className="text-[#363B3F]" />
+              <button className="p-2 bg-[#F5F5F5] hover:bg-[#F0F0F0] border border-[#F0F0F0] rounded-[8px] transition-colors cursor-pointer shrink-0">
+                <SlidersHorizontal size={14} className="text-[#333333]" />
               </button>
-              <button className="flex items-center justify-center px-3 h-[28px] bg-[#333333] text-white text-[12px] font-semibold rounded-[8px] hover:bg-[#222222] transition-colors whitespace-nowrap">
+              <button className="bg-[#333333] hover:bg-[#222222] text-white px-3.5 py-1.5 rounded-[8px] text-[12px] font-semibold transition-colors cursor-pointer shrink-0">
                 New Invoice
               </button>
             </div>
           </div>
 
-          <div className="flex-1 overflow-x-auto overflow-y-auto">
-            <table className="w-full text-left min-w-[600px] border-collapse">
-              <thead>
-                <tr className="border-b border-[#E0E0E0]">
-                  <th className="py-3 px-2 w-[32px]">
-                    <div className="w-3 h-3 border-2 border-[#856DF3] rounded-[3px] bg-white"></div>
+          {/* Invoices Table */}
+          <div className="overflow-x-auto w-full">
+            <table className="w-full text-left whitespace-nowrap">
+              <thead className="text-[11px] text-[#757575] font-normal border-b border-[#F0F0F0]">
+                <tr>
+                  <th className="py-2.5 px-3 w-8">
+                    <div className="w-4 h-4 bg-[#856DF3] rounded-[4px] flex items-center justify-center text-white text-[10px] font-bold">
+                      -
+                    </div>
                   </th>
-                  <th className="py-3 px-2 text-[10px] font-normal text-[#757575]">ID</th>
-                  <th className="py-3 px-2 text-[10px] font-normal text-[#757575]">Company</th>
-                  <th className="py-3 px-2 text-[10px] font-normal text-[#757575]">PO Number</th>
-                  <th className="py-3 px-2 text-[10px] font-normal text-[#757575]">Issue & Due Date</th>
-                  <th className="py-3 px-2 text-[10px] font-normal text-[#757575]">Amount</th>
-                  <th className="py-3 px-2 text-[10px] font-normal text-[#757575]">Status</th>
+                  <th className="py-2.5 px-3">
+                    <div className="flex items-center gap-1 cursor-pointer hover:text-[#333333]">
+                      Invoice ID <ArrowUpDown size={10} />
+                    </div>
+                  </th>
+                  <th className="py-2.5 px-3">
+                    <div className="flex items-center gap-1 cursor-pointer hover:text-[#333333]">
+                      Company <ArrowUpDown size={10} />
+                    </div>
+                  </th>
+                  <th className="py-2.5 px-3">
+                    <div className="flex items-center gap-1 cursor-pointer hover:text-[#333333]">
+                      Shipping ID <ArrowUpDown size={10} />
+                    </div>
+                  </th>
+                  <th className="py-2.5 px-3">
+                    <div className="flex items-center gap-1 cursor-pointer hover:text-[#333333]">
+                      Date <ArrowUpDown size={10} />
+                    </div>
+                  </th>
+                  <th className="py-2.5 px-3">
+                    <div className="flex items-center gap-1 cursor-pointer hover:text-[#333333]">
+                      Amount <ArrowUpDown size={10} />
+                    </div>
+                  </th>
+                  <th className="py-2.5 px-3">
+                    <div className="flex items-center gap-1 cursor-pointer hover:text-[#333333]">
+                      Status <ArrowUpDown size={10} />
+                    </div>
+                  </th>
                 </tr>
               </thead>
-              <tbody>
-                {invoices.map((inv) => (
-                  <tr 
-                    key={inv.id} 
-                    onClick={() => setSelectedInvoiceId(inv.id)}
-                    className={`border-b border-[#E0E0E0] cursor-pointer transition-colors ${selectedInvoiceId === inv.id ? 'bg-[#F4F2FC]' : 'bg-white hover:bg-gray-50'}`}
-                  >
-                    <td className="py-3 px-2">
-                      <div className={`w-3 h-3 border border-[#E0E0E0] rounded-[3px] ${selectedInvoiceId === inv.id ? 'bg-[#856DF3] border-[#856DF3]' : 'bg-[#F0F0F0]'}`}></div>
-                    </td>
-                    <td className="py-3 px-2">
-                      <div className="flex items-center gap-1.5">
-                        <div className="bg-[#F0F0F0] p-1 rounded">
-                          <FileText size={12} className="text-[#757575]" />
-                        </div>
-                        <span className="text-[11px] font-semibold text-[#856DF3]">{inv.id.split('-')[2] || inv.id}</span>
-                      </div>
-                    </td>
-                    <td className="py-3 px-2">
-                      <div className="flex items-center gap-2">
-                        <div className="w-5 h-5 rounded-full bg-[#856DF3] flex items-center justify-center text-[10px] text-white font-bold">
-                          {inv.company.charAt(0)}
-                        </div>
-                        <span className="text-[11px] font-normal text-on-surface">{inv.company.substring(0, 15)}{inv.company.length > 15 ? '...' : ''}</span>
-                      </div>
-                    </td>
-                    <td className="py-3 px-2">
-                      <span className="text-[11px] font-semibold text-[#757575]">{inv.poNumber}</span>
-                    </td>
-                    <td className="py-3 px-2">
-                      <div className="flex flex-col gap-0.5">
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-[11px] font-normal text-on-surface">{inv.date}</span>
-                          <span className="text-[10px] text-[#757575]">Issued</span>
-                        </div>
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-[11px] font-normal text-on-surface">{inv.dueDate}</span>
-                          <span className="text-[10px] text-[#757575]">Due</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-3 px-2">
-                      <span className="text-[11px] font-semibold text-on-surface">{inv.amount}</span>
-                    </td>
-                    <td className="py-3 px-2">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${
-                        inv.status === 'PAID' ? 'bg-[#D9F9E7] text-status-success' :
-                        inv.status === 'PENDING' ? 'bg-[#FFF4E5] text-status-warning' :
-                        'bg-[#FDEAEA] text-status-danger'
-                      }`}>
-                        {inv.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
+              <tbody className="divide-y divide-[#F0F0F0] text-[12px]">
+                {mockInvoicesData
+                  .filter(inv => inv.id.toLowerCase().includes(search.toLowerCase()) || inv.company.toLowerCase().includes(search.toLowerCase()))
+                  .map((inv) => {
+                    const isSelected = inv.id === selectedId;
+                    return (
+                      <tr 
+                        key={inv.id} 
+                        onClick={() => setSelectedId(inv.id)}
+                        className={`cursor-pointer transition-colors ${
+                          isSelected ? 'bg-[#E3DDFF]/40 font-medium' : 'hover:bg-[#F5F5F5]'
+                        }`}
+                      >
+                        <td className="py-3 px-3">
+                          <input 
+                            type="checkbox" 
+                            checked={isSelected}
+                            onChange={() => setSelectedId(inv.id)}
+                            className="w-3.5 h-3.5 rounded border-[#F0F0F0] accent-[#856DF3] cursor-pointer"
+                          />
+                        </td>
+                        <td className="py-3 px-3">
+                          <div className="flex items-center gap-1 text-[#856DF3] font-semibold">
+                            <span>{inv.id}</span>
+                            <FileText size={12} className="text-[#757575]/60" />
+                          </div>
+                        </td>
+                        <td className="py-3 px-3">
+                          <div className="flex items-center gap-2 font-semibold text-[#333333]">
+                            <span className="w-5 h-5 rounded-full bg-[#F0F0F0] flex items-center justify-center text-[10px] text-[#333333]">
+                              {inv.icon}
+                            </span>
+                            <span>{inv.company}</span>
+                          </div>
+                        </td>
+                        <td className="py-3 px-3 text-[#757575] font-mono text-[11px]">{inv.shippingId}</td>
+                        <td className="py-3 px-3">
+                          <div className="flex flex-col leading-tight">
+                            <span className="text-[#333333] font-semibold">{inv.issued} <span className="text-[#757575] text-[10px] font-normal">(Issued)</span></span>
+                            <span className="text-[#757575] text-[11px]">{inv.due} <span className="text-[#757575] text-[10px] font-normal">(Due)</span></span>
+                          </div>
+                        </td>
+                        <td className="py-3 px-3 font-semibold text-[#333333]">{inv.amount}</td>
+                        <td className="py-3 px-3">
+                          <span className={`inline-block px-2.5 py-0.5 rounded-[6px] text-[11px] font-semibold text-center min-w-[60px] ${
+                            inv.status === 'Paid' ? 'bg-[#D9F9E7] text-[#007837]' :
+                            inv.status === 'Unpaid' ? 'bg-[#E3DDFF] text-[#2A1298]' :
+                            'bg-[#F0F0F0] text-[#757575]'
+                          }`}>
+                            {inv.status}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
         </div>
 
-        {/* Right Panel - Invoice Details */}
-        <div className="flex flex-col xl:w-[479px] shrink-0 bg-white rounded-[12px] border border-[#E0E0E0] shadow-sm">
-          {/* Top Info */}
-          <div className="p-4 border-b border-[#E0E0E0] flex justify-between items-center bg-[#FAFAFA] rounded-t-[12px]">
-            <div>
-              <div className="text-[14px] font-bold text-on-surface">{selectedInvoice.id}</div>
-              <div className="flex items-center gap-1 mt-1">
-                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium ${
-                  selectedInvoice.status === 'PAID' ? 'bg-[#D9F9E7] text-status-success' :
-                  selectedInvoice.status === 'PENDING' ? 'bg-[#FFF4E5] text-status-warning' :
-                  'bg-[#FDEAEA] text-status-danger'
-                }`}>
+        {/* Right Column: Invoice Details Card */}
+        <div className="bg-[#FEFEFE] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs p-[20px] w-full xl:w-[460px] shrink-0 flex flex-col justify-between gap-4">
+          <div className="flex flex-col gap-4">
+            {/* Header with Buttons */}
+            <div className="flex justify-between items-center border-b border-[#F0F0F0] pb-3">
+              <h2 className="text-[16px] font-bold text-[#333333]">Invoice Details</h2>
+              <div className="flex items-center gap-1.5">
+                <button className="bg-[#F5F5F5] hover:bg-[#F0F0F0] text-[#333333] px-3 py-1.5 rounded-[6px] text-[12px] font-semibold cursor-pointer transition-colors">
+                  Edit
+                </button>
+                <button className="bg-[#F5F5F5] hover:bg-[#F0F0F0] text-[#333333] px-3 py-1.5 rounded-[6px] text-[12px] font-semibold cursor-pointer transition-colors">
+                  Hold
+                </button>
+                <button className="bg-[#333333] hover:bg-[#222222] text-white px-3.5 py-1.5 rounded-[6px] text-[12px] font-semibold cursor-pointer transition-colors">
+                  Send Invoice
+                </button>
+              </div>
+            </div>
+
+            {/* Subheader: Invoice Title & Dates */}
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="text-[16px] font-bold text-[#333333]">
+                  Invoice <span className="text-[#856DF3]">#{selectedInvoice.id}</span>
+                </h3>
+                <span className="inline-block mt-1 px-2.5 py-0.5 rounded-[6px] text-[11px] font-semibold bg-[#E3DDFF] text-[#2A1298]">
                   {selectedInvoice.status}
                 </span>
               </div>
-            </div>
-            <div className="text-right">
-              <div className="text-[10px] text-[#757575] mb-0.5">Issue Date: <span className="text-[11px] font-semibold text-on-surface ml-1">{selectedInvoice.date}</span></div>
-              <div className="text-[10px] text-[#757575]">Due Date: <span className="text-[11px] font-semibold text-on-surface ml-1">{selectedInvoice.dueDate}</span></div>
-            </div>
-          </div>
-
-          <div className="p-4 flex-1 overflow-y-auto">
-            {/* Bill To / From */}
-            <div className="flex gap-4 p-4 bg-[#F5F5F5] rounded-[8px] mb-6">
-              <div className="flex-1">
-                <div className="text-[10px] text-[#757575] mb-2">Bill From</div>
-                <div className="text-[16px] font-bold text-on-surface mb-1">Global Logistics Corp</div>
-                <div className="text-[11px] text-[#757575] mb-1">billing@globallogistics.com</div>
-                <div className="text-[11px] text-[#757575] mb-1">123 Shipping Lane, Port City, CA 90210</div>
-                <div className="text-[11px] text-[#757575]">+1 (555) 123-4567</div>
-              </div>
-              <div className="flex-1 text-right">
-                <div className="text-[10px] text-[#757575] mb-2">Bill To</div>
-                <div className="text-[16px] font-bold text-on-surface mb-1">{selectedInvoice.company}</div>
-                <div className="text-[11px] text-[#757575] mb-1">contact@{selectedInvoice.company.toLowerCase().replace(/\s/g, '')}.com</div>
-                <div className="text-[11px] text-[#757575] mb-1">PO Box {selectedInvoice.poNumber.split('-')[1]}, Business District</div>
-                <div className="text-[11px] text-[#757575]">+1 (555) 987-6543</div>
+              <div className="text-right text-[11px] text-[#757575]">
+                <p>Issue Date <span className="font-semibold text-[#333333] ml-1">{selectedInvoice.issued}</span></p>
+                <p className="mt-0.5">Due Date <span className="font-semibold text-[#333333] ml-1">{selectedInvoice.due}</span></p>
               </div>
             </div>
 
-            {/* Package Summary */}
-            <div className="mb-4">
-              <h3 className="text-[14px] font-semibold text-on-surface mb-3">Invoice Details</h3>
-              <div className="border border-[#E0E0E0] rounded-[8px] overflow-hidden">
-                <table className="w-full text-left">
-                  <thead className="bg-[#F0F0F0]">
+            {/* Bill From & Bill To Container */}
+            <div className="bg-[#F5F5F5] rounded-[10px] p-4 flex justify-between gap-4 text-[11px]">
+              <div className="flex flex-col">
+                <span className="text-[10px] text-[#757575] mb-1">Bill From</span>
+                <span className="font-bold text-[#333333] text-[14px]">ModaWear</span>
+                <span className="text-[#757575] mt-0.5">billing@modawear.com</span>
+                <span className="text-[#757575] mt-0.5">89 Franklin St, Boston, MA 02110, USA</span>
+                <span className="text-[#757575] mt-0.5">+1 617-555-2290</span>
+              </div>
+              <div className="flex flex-col text-right">
+                <span className="text-[10px] text-[#757575] mb-1">Bill To</span>
+                <span className="font-bold text-[#333333] text-[14px]">ShipNow Logistics</span>
+                <span className="text-[#757575] mt-0.5">accounts@shipnow.com</span>
+                <span className="text-[#757575] mt-0.5">901 Distribution Ave, Charlotte, NC 28217, USA</span>
+                <span className="text-[#757575] mt-0.5">+1 704-555-9911</span>
+              </div>
+            </div>
+
+            {/* Package Summary Table */}
+            <div>
+              <h4 className="text-[14px] font-bold text-[#333333] mb-2">Package Summary</h4>
+              <div className="border border-[#F0F0F0] rounded-[8px] overflow-hidden">
+                <table className="w-full text-left text-[11px]">
+                  <thead className="bg-[#F5F5F5] text-[#757575] font-semibold border-b border-[#F0F0F0]">
                     <tr>
-                      <th className="py-2 px-3 text-[9px] font-normal text-[#757575]">Description</th>
-                      <th className="py-2 px-3 text-[9px] font-normal text-[#757575]">Price</th>
-                      <th className="py-2 px-3 text-[9px] font-normal text-[#757575] text-center">Qty</th>
-                      <th className="py-2 px-3 text-[9px] font-normal text-[#757575] text-right">Amount</th>
+                      <th className="py-2 px-3">Description &#8597;</th>
+                      <th className="py-2 px-3">Shipment Type &#8597;</th>
+                      <th className="py-2 px-3">Price &#8597;</th>
+                      <th className="py-2 px-3 text-center">Qty &#8597;</th>
+                      <th className="py-2 px-3 text-right">Amount &#8597;</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#E0E0E0]">
-                    {selectedInvoice.items.map((item, idx) => (
-                      <tr key={idx} className="bg-white">
-                        <td className="py-2.5 px-3">
-                          <div className="text-[10px] font-medium text-on-surface mb-0.5">{item.desc}</div>
-                          <div className="text-[9px] text-[#757575]">{item.details}</div>
-                        </td>
-                        <td className="py-2.5 px-3 text-[10px] font-semibold text-on-surface">${item.rate.toFixed(2)}</td>
-                        <td className="py-2.5 px-3 text-[10px] font-semibold text-on-surface text-center">{item.qty}</td>
-                        <td className="py-2.5 px-3 text-[10px] font-semibold text-on-surface text-right">${(item.rate * item.qty).toFixed(2)}</td>
-                      </tr>
-                    ))}
+                  <tbody className="divide-y divide-[#F0F0F0]">
+                    <tr>
+                      <td className="py-2.5 px-3 font-medium text-[#333333]">Lightweight Hoodie Pack</td>
+                      <td className="py-2.5 px-3 text-[#757575]">Road Freight<br/><span className="text-[9px]">Express</span></td>
+                      <td className="py-2.5 px-3 text-[#333333]">$120.00</td>
+                      <td className="py-2.5 px-3 text-center text-[#333333]">3</td>
+                      <td className="py-2.5 px-3 text-right font-semibold text-[#333333]">$360.00</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2.5 px-3 font-medium text-[#333333]">Autumn Jacket Set</td>
+                      <td className="py-2.5 px-3 text-[#757575]">Road Freight<br/><span className="text-[9px]">Standard</span></td>
+                      <td className="py-2.5 px-3 text-[#333333]">$180.00</td>
+                      <td className="py-2.5 px-3 text-center text-[#333333]">2</td>
+                      <td className="py-2.5 px-3 text-right font-semibold text-[#333333]">$360.00</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2.5 px-3 font-medium text-[#333333]">Lightweight Hoodie Pack</td>
+                      <td className="py-2.5 px-3 text-[#757575]">Road Freight<br/><span className="text-[9px]">Express</span></td>
+                      <td className="py-2.5 px-3 text-[#333333]">$95.00</td>
+                      <td className="py-2.5 px-3 text-center text-[#333333]">2</td>
+                      <td className="py-2.5 px-3 text-right font-semibold text-[#333333]">$190.00</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
-            </div>
-            
-            {/* Totals */}
-            <div className="ml-auto w-[250px] border-t border-[#E0E0E0] pt-3 mt-4">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-[10px] font-semibold text-[#757575]">Subtotal</span>
-                <span className="text-[10px] font-semibold text-on-surface">{selectedInvoice.amount}</span>
-              </div>
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-[10px] font-semibold text-[#757575]">Tax (0%)</span>
-                <span className="text-[10px] font-semibold text-on-surface">$0.00</span>
-              </div>
-              <div className="flex justify-between items-center border-t border-[#E0E0E0] pt-2">
-                <span className="text-[11px] font-bold text-on-surface">Total</span>
-                <span className="text-[14px] font-bold text-on-surface">{selectedInvoice.amount}</span>
+
+              {/* Subtotal Summary Table */}
+              <div className="flex flex-col gap-1.5 mt-3 pt-2 border-t border-[#F0F0F0] text-[12px] ml-auto w-[220px]">
+                <div className="flex justify-between text-[#757575]">
+                  <span>Sub Total</span>
+                  <span className="font-semibold text-[#333333]">$910.00</span>
+                </div>
+                <div className="flex justify-between text-[#757575]">
+                  <span>Tax (8%)</span>
+                  <span className="font-semibold text-[#333333]">$72.80</span>
+                </div>
+                <div className="flex justify-between text-[#757575]">
+                  <span>Fee</span>
+                  <span className="font-semibold text-[#333333]">$10.00</span>
+                </div>
+                <div className="flex justify-between text-[14px] font-bold text-[#333333] pt-1 border-t border-[#F0F0F0]">
+                  <span>Total</span>
+                  <span>$992.80</span>
+                </div>
               </div>
             </div>
           </div>
+
+          {/* Note Section at Bottom */}
+          <div className="pt-3 border-t border-[#F0F0F0]">
+            <span className="text-[11px] font-bold text-[#757575] block mb-0.5">Note</span>
+            <p className="text-[11px] text-[#757575] leading-normal">
+              Please process payment by the due date to avoid delivery disruption. Late fees may apply after 3 business days past due.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Footer */}
+      <div className="flex flex-col sm:flex-row justify-between items-center pt-4 border-t border-[#F0F0F0] text-[12px] text-[#757575] gap-3">
+        <div className="flex flex-wrap items-center gap-4">
+          <span>Copyright &copy; 2025 Peterdraw</span>
+          <a href="#" className="hover:underline">Privacy Policy</a>
+          <a href="#" className="hover:underline">Term and conditions</a>
+          <a href="#" className="hover:underline">Contact</a>
+        </div>
+        <div className="flex items-center gap-3">
+          <Facebook size={16} className="cursor-pointer hover:text-[#333333] transition-colors" />
+          <Twitter size={16} className="cursor-pointer hover:text-[#333333] transition-colors" />
+          <Instagram size={16} className="cursor-pointer hover:text-[#333333] transition-colors" />
+          <Youtube size={16} className="cursor-pointer hover:text-[#333333] transition-colors" />
+          <Linkedin size={16} className="cursor-pointer hover:text-[#333333] transition-colors" />
         </div>
       </div>
+
     </div>
   );
 }
-
