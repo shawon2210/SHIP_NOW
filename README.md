@@ -63,6 +63,12 @@ src/
 
 ## 🚀 Quick Start
 
+### Prerequisites
+- **Node.js** ≥ 18
+- **npm** ≥ 9
+
+### Setup
+
 ```bash
 # 1. Clone
 git clone https://github.com/shawon2210/SHIP_NOW.git
@@ -78,6 +84,16 @@ npm run dev
 npm run build
 npm run preview
 ```
+
+### Live Demo
+
+The app is deployed on Vercel and accessible at:
+
+👉 **[https://ship-now-gamma.vercel.app](https://ship-now-gamma.vercel.app)**
+
+Demo credentials are pre-filled on the login page:
+- **Email:** `john@shipnow.com`
+- **Password:** `password123`
 
 ---
 
@@ -100,7 +116,40 @@ npm run preview
 
 ---
 
-## 📦 Key Features
+## ✅ Screen Status
+
+| Screen | Route | Status | Notes |
+|---|---|---|---|
+| **Login** | `/login` | ✅ Complete | Split-screen layout, validation, demo auth, loading state |
+| **Dashboard** | `/dashboard` | ✅ Complete | KPIs, 4 charts, alerts panel, mini-map, recent shipments table, activity log |
+| **Analytics** | `/analytics` | ✅ Complete | Live auto-refresh (8s), 8 KPIs, 4 charts, carrier table, top routes, alert summary |
+| **Shipments** | `/shipments` | ✅ Complete | Grid/table toggle, status tabs, advanced filters, sort, pagination, empty state |
+| **Create Shipment** | `/shipments/new` | ✅ Complete | Two-column form, quantity stepper, freight type radio, validation, loading state |
+| **Tracking** | `/tracking` | ✅ Complete | Leaflet map (3 layers), route polyline, custom markers, timeline, driver card, telemetry |
+| **Warehouse** | `/warehouse` | ✅ Complete | KPIs, inventory chart, storage table, interactive map grid, capacity donut, package feed, activity log |
+| **Fleets** | `/fleets` | ✅ Complete | Stat cards, vehicle table with fuel bars, search, status badges |
+| **Drivers** | `/drivers` | ✅ Complete | Card grid, avatars, ratings, status filter, quick actions |
+| **Invoices** | `/invoices` | ✅ Complete | KPI summary, table + detail panel, create/edit modals, toast notifications |
+| **Calendar** | `/calendar` | ✅ Complete | Mini calendar, event feed, color-coded categories, day/week/month toggle |
+| **Settings** | `/settings` | ✅ Complete | Profile view/edit, avatar upload via camera overlay, context persistence |
+
+---
+
+## ⚠️ Known Issues & Assumptions
+
+### Known Issues
+- **Mock data only** — All data is client-side mock data; no real backend API is connected.
+- **Analytics data is simulated** — Charts regenerate random data every 8 seconds; this is not connected to live metrics.
+- **No persistent storage** — Data resets on page refresh. UserContext is in-memory only (avatar uploads use data URLs).
+- **Demo authentication** — Login validates against hardcoded credentials only; no real auth or session management.
+- **Map tiles require internet** — Tracking page uses OpenStreetMap/Esri tile layers loaded from CDN; offline use is not supported.
+- **Invoice modals** — Create/Edit modals update the UI but changes are lost on page refresh (no persistence layer).
+
+### Assumptions
+- **Demo credentials** are acceptable for a portfolio showcase; production would integrate OAuth or JWT auth.
+- **Shipping dates use 2035** — Mock dates are set in the future for display purposes only.
+- **No real API integrations** — Carrier tracking, fleet telemetry, and driver data are all static mock data; real integrations would replace `mockData.ts`.
+- **Single-user context** — The app assumes one user session; multi-tenant support is not implemented.
 
 ### 📊 Dashboard & KPIs
 Multi-card metrics dashboard with personalized greeting, global search, and five data widgets:
