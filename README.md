@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4" />
   <img src="https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white" alt="Vite 6" />
-  <img src="https://img.shields.io/badge/Gemini_AI-8E75FF?logo=googlegemini&logoColor=white" alt="Gemini AI" />
+  
   <img src="https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white" alt="Vercel" />
 </div>
 
@@ -12,8 +12,8 @@
 <h3 align="center">Enterprise-Grade Logistics &amp; Shipment Management Platform</h3>
 
 <p align="center">
-  A full-featured, AI-powered logistics command center built with <strong>React 19</strong> &amp; <strong>TypeScript</strong> — 
-  designed for real-time shipment tracking, fleet management, predictive analytics, and warehouse inventory control.
+  A full-featured logistics command center built with <strong>React 19</strong> &amp; <strong>TypeScript</strong> — 
+  designed for real-time shipment tracking, fleet management, analytics, and warehouse inventory control.
 </p>
 
 <p align="center">
@@ -29,7 +29,7 @@
 |---|---|
 | **Dashboard & KPIs** | Real-time metrics, performance indicators, revenue tracking |
 | **Shipment Lifecycle** | Create, track, filter, and manage shipments end-to-end |
-| **AI-Powered Analytics** | Gemini-driven forecasting, trend detection, and smart insights |
+| **Analytics** | Trend detection, reporting, and performance visualization |
 | **Warehouse Ops** | Inventory monitoring, zone management, stock alerts |
 | **Fleet & Drivers** | Vehicle tracking, maintenance scheduling, driver profiles |
 | **Invoicing** | Logistics invoice management with status tracking |
@@ -57,8 +57,6 @@ src/
 
 **Frontend** · React 19 · TypeScript · Tailwind CSS 4 · Vite 6 · React Router · Recharts · Motion
 
-**AI** · Google Gemini AI (analytics, forecasting, natural language insights)
-
 **Infra** · Vercel (automatic CI/CD via GitHub)
 
 ---
@@ -73,14 +71,10 @@ cd SHIP_NOW
 # 2. Install
 npm install
 
-# 3. Environment
-cp .env.example .env.local
-# Add your GEMINI_API_KEY in .env.local
-
-# 4. Dev server (http://localhost:3000)
+# 3. Dev server (http://localhost:3000)
 npm run dev
 
-# 5. Production build
+# 4. Production build
 npm run build
 npm run preview
 ```
@@ -110,9 +104,6 @@ npm run preview
 
 ### 📊 Real-Time Dashboard
 Live KPIs — total shipments, revenue, pending orders, delivery success rates — all in a single, glanceable view with trend indicators.
-
-### 🤖 AI Analytics (Gemini)
-Automated pattern recognition, performance forecasting, and anomaly detection — turn raw logistics data into actionable intelligence.
 
 ### 🧭 Shipment Tracking
 Real-time status updates, progress bars, carrier identification, and route visualization with map-based tracking.
