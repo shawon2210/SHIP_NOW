@@ -1,176 +1,139 @@
 
-# Shipment Management Platform
+<div align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4" />
+  <img src="https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white" alt="Vite 6" />
+  <img src="https://img.shields.io/badge/Gemini_AI-8E75FF?logo=googlegemini&logoColor=white" alt="Gemini AI" />
+  <img src="https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white" alt="Vercel" />
+</div>
 
-A comprehensive web application for end-to-end shipment tracking, management, and logistics analytics, built with React and integrated with Google AI capabilities.
+<h1 align="center">🚚 SHIP-NOW</h1>
+<h3 align="center">Enterprise-Grade Logistics &amp; Shipment Management Platform</h3>
 
-## Features
+<p align="center">
+  A full-featured, AI-powered logistics command center built with <strong>React 19</strong> &amp; <strong>TypeScript</strong> — 
+  designed for real-time shipment tracking, fleet management, predictive analytics, and warehouse inventory control.
+</p>
 
-### Core Management
-- **Dashboard Analytics** - Real-time shipment metrics, performance indicators, and key KPIs
-- **Shipments Management** - View, filter, and manage all shipments with detailed tracking
-- **Create Shipments** - Form-based shipment creation with validation
-- **Invoice Management** - Track and manage logistics invoices
-- **Warehouse Inventory** - Real-time stock monitoring and zone management
+<p align="center">
+  <strong>👨‍💻 Developer:</strong>
+  <a href="https://github.com/shawon2210">github.com/shawon2210</a>
+</p>
 
-### Specialized Modules
-- **Fleet Management** - Vehicle tracking and maintenance scheduling
-- **Driver Management** - Driver profiles and assignment management
-- **Calendar Integration** - Schedule viewing and event management
-- **Real-time Tracking** - Live shipment tracking with status updates
+---
 
-### AI-Powered Insights
-- **Analytics Dashboard** - AI-enhanced performance analytics and trend identification
-- **Predictive Insights** - Smart forecasting for logistics optimization
-- **Automated Processing** - AI-powered data analysis and reporting
+## ✨ At a Glance
 
-## Architecture
+| Capability | Description |
+|---|---|
+| **Dashboard & KPIs** | Real-time metrics, performance indicators, revenue tracking |
+| **Shipment Lifecycle** | Create, track, filter, and manage shipments end-to-end |
+| **AI-Powered Analytics** | Gemini-driven forecasting, trend detection, and smart insights |
+| **Warehouse Ops** | Inventory monitoring, zone management, stock alerts |
+| **Fleet & Drivers** | Vehicle tracking, maintenance scheduling, driver profiles |
+| **Invoicing** | Logistics invoice management with status tracking |
+| **Responsive UI** | Fully adaptive — desktop to mobile, dark sidebar + clean layout |
 
-The application is structured with:
+---
+
+## 🏗️ Architecture
 
 ```
 src/
 ├── components/
-│   ├── layout/
-│   │   ├── Layout.tsx        # App shell with sidebar and header
-│   │   ├── Sidebar.tsx       # Navigation sidebar
-│   │   └── Header.tsx        # Top navigation bar
-├── pages/
-│   ├── Analytics.tsx         # AI-powered analytics dashboard
-│   ├── Calendar.tsx          # Schedule and calendar view
-│   ├── CreateShipment.tsx    # Shipment creation form
-│   ├── Dashboard.tsx         # Main overview with metrics
-│   ├── Drivers.tsx           # Driver management
-│   ├── Fleets.tsx            # Vehicle fleet management
-│   ├── Invoices.tsx          # Invoice tracking
-│   ├── Login.tsx             # Authentication
-│   ├── Shipments.tsx         # Shipment list and details
-│   ├── Tracking.tsx          # Real-time tracking view
-│   └── Warehouse.tsx         # Warehouse inventory management
-├── data/
-│   └── mockData.ts           # Mock data for development
-├── App.tsx                   # Main application with routing
-└── index.css                # Global styles
+│   ├── layout/        # App shell: Sidebar, Header, global Footer
+│   └── warehouse/     # Warehouse-specific widgets
+├── pages/             # 11 feature pages (Dashboard → Login)
+├── context/           # React Context providers (UserContext)
+├── data/              # Mock data layer for rapid prototyping
+├── App.tsx            # Route definitions + providers
+└── index.css          # Tailwind base + custom tokens
 ```
-
-## Technology Stack
-
-### Frontend
-- **React 19** - Component-based UI architecture
-- **TypeScript** - Type safety and enhanced developer experience
-- **React Router** - Client-side routing
-- **Tailwind CSS 4** - Utility-first styling framework
-- **Vite** - Fast development server and build tool
-- **motion** - Smooth animations and transitions
-- **recharts** - Data visualization components
-
-### Backend Integration
-- **Google Gemini AI** - AI-powered analytics and insights
-- **Express** - HTTP server (if backend present)
-- **Environment Variables** - API key management via dotenv
-
-### Dev Dependencies
-- **TypeScript** - Type checking
-- **Autoprefixer** - CSS vendor prefix automation
-- **ESBuild** - Fast build tool
-- **Vite** - Development server
-
-## Key Components
-
-### Layout
-- **Layout.tsx** - Main application shell with sidebar navigation and header
-- **Sidebar.tsx** - Collapsible navigation with route links
-- **Header.tsx** - Top navigation with user profile and actions
-
-### Dashboard
-- **Analytics.tsx** - AI-enhanced analytics with charts and metrics
-- **Dashboard.tsx** - Overview with key performance indicators and widgets
-- **Metrics Cards** - Real-time data display with trend indicators
-
-### Data Management
-- **Shipments.tsx** - CRUD operations for shipments with pagination
-- **mockData.ts** - Comprehensive mock dataset for development
-
-## Development
-
-### Setup
-```bash
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local and add your GEMINI_API_KEY
-
-# Start development server
-npm run dev
-# Access at: http://localhost:3000
-```
-
-### Building
-```bash
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-```
-
-### Scripts
-- **dev**: `vite --port=3000 --host=0.0.0.0` - Development server
-- **build**: `vite build` - Production build
-- **preview**: `vite preview` - Preview production build
-- **clean**: `rm -rf dist server.js` - Clean build artifacts
-- **lint**: `tsc --noEmit` - TypeScript type checking
-
-## Route Structure
-
-```
-┌─────────────────────────────────────────────────────────┐
-│  /                → Login Page                          │
-├─────────────────────────────────────────────────────────┤
-│  /dashboard        → Dashboard Overview                  │
-│  /shipments        → Shipments List                       │
-│  /shipments/new    → Create New Shipment                 │
-│  /analytics        → AI Analytics                        │
-│  /invoices         → Invoice Management                  │
-│  /warehouse        → Warehouse Inventory                 │
-│  /calendar         → Schedule & Events                   │
-│  /tracking         → Real-time Tracking                  │
-│  /fleets           → Fleet Management                    │
-│  /drivers          → Driver Management                   │
-└─────────────────────────────────────────────────────────┘
-```
-
-## Styling
-
-The application uses Tailwind CSS with custom design tokens for:
-- **Color Scheme** - Professional blue and green palette for status indicators
-- **Typography** - Clean, modern fonts (Figtree and Nunito Sans)
-- **Layout** - Responsive grid system with sidebar navigation
-- **Components** - Custom widgets, cards, and interactive elements
-
-## AI Integration
-
-The platform leverages Google Gemini AI for:
-- **Analytics Insights** - Automated pattern recognition and trend analysis
-- **Performance Forecasting** - Predictive modeling for logistics optimization
-- **Data Processing** - AI-powered data transformation and enrichment
-- **Smart Suggestions** - Intelligent recommendations for route optimization
-
-## Deployment Considerations
-
-### File Watching
-- HMR (Hot Module Replacement) is controlled by the `DISABLE_HMR` environment variable
-- File watching is disabled in production to prevent flickering during agent edits
-- Development uses file watching for real-time updates
-
-### Environment Variables
-- `DISABLE_HMR` - Controls HMR and file watching behavior
-- `GEMINI_API_KEY` - Required for AI integration
-- Port configuration via Vite environment
-
-## License
-[Add appropriate license]
 
 ---
 
+## 🛠️ Technology Stack
+
+**Frontend** · React 19 · TypeScript · Tailwind CSS 4 · Vite 6 · React Router · Recharts · Motion
+
+**AI** · Google Gemini AI (analytics, forecasting, natural language insights)
+
+**Infra** · Vercel (automatic CI/CD via GitHub)
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# 1. Clone
+git clone https://github.com/shawon2210/SHIP_NOW.git
+cd SHIP_NOW
+
+# 2. Install
+npm install
+
+# 3. Environment
+cp .env.example .env.local
+# Add your GEMINI_API_KEY in .env.local
+
+# 4. Dev server (http://localhost:3000)
+npm run dev
+
+# 5. Production build
+npm run build
+npm run preview
+```
+
+---
+
+## 🧭 Routes
+
+| Path | Page |
+|---|---|
+| `/` | Login / Authentication |
+| `/dashboard` | Analytics overview & KPIs |
+| `/shipments` | Full shipment list with filtering |
+| `/shipments/new` | Create a new shipment |
+| `/analytics` | AI-driven insights & charts |
+| `/invoices` | Invoice management |
+| `/warehouse` | Inventory & zone control |
+| `/calendar` | Schedule & event management |
+| `/tracking` | Real-time GPS-style tracking |
+| `/fleets` | Fleet vehicle management |
+| `/drivers` | Driver profiles & assignments |
+| `/settings` | User profile & preferences |
+
+---
+
+## 📦 Key Features
+
+### 📊 Real-Time Dashboard
+Live KPIs — total shipments, revenue, pending orders, delivery success rates — all in a single, glanceable view with trend indicators.
+
+### 🤖 AI Analytics (Gemini)
+Automated pattern recognition, performance forecasting, and anomaly detection — turn raw logistics data into actionable intelligence.
+
+### 🧭 Shipment Tracking
+Real-time status updates, progress bars, carrier identification, and route visualization with map-based tracking.
+
+### 🏭 Warehouse Management
+Monitor stock levels, manage zones, track inventory movements, and receive low-stock alerts — all from one screen.
+
+### 🚛 Fleet & Driver Management
+Vehicle assignment, maintenance scheduling, driver duty logs, and performance metrics.
+
+---
+
+## 👨‍💻 About the Developer
+
+**Shawon** — Full-stack developer passionate about building polished, production-ready web applications.
+
+- **GitHub:** [shawon2210](https://github.com/shawon2210)
+- **Live Demo:** [ship-now-gamma.vercel.app](https://ship-now-gamma.vercel.app)
+
+---
+
+<p align="center">
+  Built with ❤️ by <a href="https://github.com/shawon2210">Shawon</a>
+</p>
