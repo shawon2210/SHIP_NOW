@@ -39,11 +39,11 @@ const typeData = [
 ];
 
 const StatCard = ({ title, value, change, isPositive, icon: Icon }: any) => (
-  <div className="bg-[#FEFEFE] rounded-[12px] p-[16px] border border-[#F0F0F0]/50 shadow-2xs flex items-center gap-4 flex-1">
-    <div className="flex-1 flex flex-col gap-2.5">
-      <h3 className="text-[12px] font-semibold text-[#757575] leading-tight">{title}</h3>
+  <div className="bg-[#FEFEFE] rounded-xl p-3 sm:p-4 border border-[#F0F0F0]/50 shadow-2xs flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+    <div className="flex-1 flex flex-col gap-1.5 sm:gap-2.5 min-w-0">
+      <h3 className="text-[11px] sm:text-[12px] font-semibold text-[#757575] leading-tight">{title}</h3>
       <div className="flex items-baseline gap-2">
-        <span className="text-[28px] font-bold text-[#333333] leading-[1.1]">{value}</span>
+        <span className="text-[22px] sm:text-[28px] font-bold text-[#333333] leading-[1.1]">{value}</span>
       </div>
       <div className="flex items-center gap-1.5">
         <div className={`flex items-center justify-center gap-1 px-1.5 py-0.5 rounded-[10px] ${isPositive ? 'bg-[#D9F9E7] text-[#007837]' : 'bg-[#F04A4A]/10 text-[#F04A4A]'}`}>
@@ -53,63 +53,64 @@ const StatCard = ({ title, value, change, isPositive, icon: Icon }: any) => (
         <span className="text-[10px] text-[#757575]">vs last month</span>
       </div>
     </div>
-    <div className="w-[42px] h-[42px] bg-[#856DF3] text-white rounded-[8px] flex items-center justify-center shrink-0">
-      <Icon size={22} />
+    <div className="w-9 h-9 sm:w-10.5 sm:h-10.5 bg-[#856DF3] text-white rounded-lg flex items-center justify-center shrink-0">
+      <Icon size={20} className="sm:hidden" />
+      <Icon size={22} className="hidden sm:block" />
     </div>
   </div>
 );
 
 export default function Dashboard() {
   return (
-        <div className="flex flex-col gap-[20px] w-full min-w-0 pb-[40px]">
+    <div className="flex flex-col gap-[12px] sm:gap-[16px] lg:gap-[20px] w-full min-w-0 pb-[20px] sm:pb-[30px] lg:pb-[40px]">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 sm:gap-4">
         <div>
-          <h2 className="text-[16px] text-[#757575] leading-tight">Hello shawon</h2>
-          <h1 className="text-[24px] font-bold text-[#333333] leading-[1.1] mt-1">Good Morning</h1>
+          <h2 className="text-[14px] sm:text-[16px] text-[#757575] leading-tight">Hello shawon</h2>
+          <h1 className="text-[20px] sm:text-[24px] font-bold text-[#333333] leading-[1.1] mt-1">Good Morning</h1>
         </div>
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto mt-0">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2.5 w-full md:w-auto mt-0">
           <div className="flex items-center bg-[#FEFEFE] px-2.5 py-2 rounded-[8px] border border-[#F0F0F0] w-full md:w-[290px] shadow-2xs">
             <Search size={20} className="text-[#333333]" />
-            <input type="text" placeholder="Search anything..." className="ml-2.5 bg-transparent outline-none text-[14px] text-[#757575] w-full" />
+            <input type="text" placeholder="Search anything..." className="ml-2.5 bg-transparent outline-none text-[13px] sm:text-[14px] text-[#757575] w-full" />
           </div>
           <Link 
             to="/shipments/new" 
-            className="flex items-center justify-center gap-1 bg-[#333333] text-white px-4 py-2.5 rounded-[8px] h-[40px] whitespace-nowrap hover:bg-[#222222] transition-colors cursor-pointer"
+            className="flex items-center justify-center gap-1 bg-[#333333] text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-[8px] h-[36px] sm:h-[40px] whitespace-nowrap hover:bg-[#222222] transition-colors cursor-pointer"
           >
             <Plus size={18} />
-            <span className="text-[14px] font-semibold">Add New Shipping</span>
+            <span className="text-[13px] sm:text-[14px] font-semibold">Add New Shipping</span>
           </Link>
         </div>
       </div>
 
       {/* Top Section */}
-      <div className="flex flex-col lg:flex-row gap-[20px] pt-[20px]">
+      <div className="flex flex-col lg:flex-row gap-[12px] sm:gap-[16px] lg:gap-[20px] pt-[8px] sm:pt-[12px] lg:pt-[20px]">
         
         {/* Left Col (Stats + Charts) */}
-        <div className="flex flex-col gap-[20px] flex-[2.8]">
+        <div className="flex flex-col gap-[12px] sm:gap-[16px] lg:gap-[20px] flex-[2.8] min-w-0">
           
           {/* Section Overview */}
-          <div className="flex flex-col sm:flex-row gap-[20px]">
+          <div className="flex flex-col sm:flex-row gap-[10px] sm:gap-[16px] lg:gap-[20px]">
             <StatCard title="Active Shipments" value="1,284" change="+8.7%" isPositive={true} icon={Truck} />
             <StatCard title="Delivery Performance" value="94.3%" change="-1.2%" isPositive={false} icon={BarChart2} />
             <StatCard title="Revenue" value="$82,450" change="+12.4%" isPositive={true} icon={DollarSign} />
           </div>
 
           {/* Charts Row */}
-          <div className="flex flex-col sm:flex-row gap-[20px]">
+          <div className="flex flex-col sm:flex-row gap-[12px] sm:gap-[16px] lg:gap-[20px]">
             
             {/* Shipment Statistic */}
-            <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto min-h-[259px]">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-[16px] font-semibold text-[#333333]">Shipment Statistic</h3>
-                <button className="flex items-center gap-2 bg-[#F0F0F0] px-2.5 py-1.5 rounded-[8px] text-[12px] font-semibold text-[#333333] cursor-pointer">
+            <div className="bg-[#FEFEFE] p-3 sm:p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto min-h-[220px] sm:min-h-[259px] min-w-0">
+              <div className="flex justify-between items-center mb-3 sm:mb-4">
+                <h3 className="text-[14px] sm:text-[16px] font-semibold text-[#333333]">Shipment Statistic</h3>
+                <button className="flex items-center gap-2 bg-[#F0F0F0] px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-[8px] text-[11px] sm:text-[12px] font-semibold text-[#333333] cursor-pointer">
                   Weekly <ChevronDown size={12} />
                 </button>
               </div>
-              <div className="flex items-center gap-1 mb-4">
-                <span className="text-[24px] font-bold text-[#333333]">4,352</span>
+              <div className="flex items-center gap-1 mb-3 sm:mb-4">
+                <span className="text-[20px] sm:text-[24px] font-bold text-[#333333]">4,352</span>
                 <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-[10px] bg-[#D9F9E7] text-[#007837] ml-2">
                   <ArrowUpRight size={12} />
                   <span className="text-[10px]">+8.7%</span>
@@ -131,22 +132,22 @@ export default function Dashboard() {
             </div>
 
             {/* Profit Summary */}
-            <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[1.3] h-auto min-h-[259px]">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-[16px] font-semibold text-[#333333]">Profit Summary</h3>
-                <button className="flex items-center gap-2 bg-[#F0F0F0] px-2.5 py-1.5 rounded-[8px] text-[12px] font-semibold text-[#333333] cursor-pointer">
+            <div className="bg-[#FEFEFE] p-3 sm:p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[1.3] h-auto min-h-[220px] sm:min-h-[259px] min-w-0">
+              <div className="flex justify-between items-center mb-3 sm:mb-4">
+                <h3 className="text-[14px] sm:text-[16px] font-semibold text-[#333333]">Profit Summary</h3>
+                <button className="flex items-center gap-2 bg-[#F0F0F0] px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-[8px] text-[11px] sm:text-[12px] font-semibold text-[#333333] cursor-pointer">
                   Monthly <ChevronDown size={12} />
                 </button>
               </div>
-              <div className="flex justify-between items-start mb-4">
+              <div className="flex justify-between items-start mb-3 sm:mb-4">
                 <div className="flex items-center gap-1">
-                  <span className="text-[24px] font-bold text-[#333333]">$624,550</span>
+                  <span className="text-[20px] sm:text-[24px] font-bold text-[#333333]">$624,550</span>
                   <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-[10px] bg-[#D9F9E7] text-[#007837] ml-2">
                     <ArrowUpRight size={12} />
                     <span className="text-[10px]">+5.6%</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 sm:gap-4">
                   <div className="flex items-center gap-1.5">
                     <div className="w-1.5 h-1.5 rounded-[2px] bg-[#856DF3]"></div>
                     <span className="text-[10px] text-[#757575]">Revenue</span>
@@ -181,23 +182,23 @@ export default function Dashboard() {
         </div>
 
         {/* Right Col (Shipment Type) */}
-        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto lg:h-[394px]">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-[16px] font-semibold text-[#333333]">Shipment Type</h3>
+        <div className="bg-[#FEFEFE] p-3 sm:p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto lg:h-[394px] min-w-0">
+          <div className="flex justify-between items-center mb-4 sm:mb-6">
+            <h3 className="text-[14px] sm:text-[16px] font-semibold text-[#333333]">Shipment Type</h3>
             <button className="w-7 h-7 flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer">
               <MoreHorizontal size={16} className="text-[#333333]" />
             </button>
           </div>
           
-          <div className="relative h-[217px] flex items-center justify-center mb-4">
+          <div className="relative h-[180px] sm:h-[217px] flex items-center justify-center mb-3 sm:mb-4">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={typeData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={75}
-                  outerRadius={105}
+                  innerRadius={60}
+                  outerRadius={85}
                   paddingAngle={0}
                   dataKey="value"
                   stroke="none"
@@ -209,22 +210,22 @@ export default function Dashboard() {
               </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-[12px] text-[#757575] font-normal">Total</span>
-              <span className="text-[28px] font-bold text-[#333333] mt-[-2px]">2,500</span>
+              <span className="text-[11px] sm:text-[12px] text-[#757575] font-normal">Total</span>
+              <span className="text-[24px] sm:text-[28px] font-bold text-[#333333] mt-[-2px]">2,500</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-y-4 gap-x-2">
+          <div className="grid grid-cols-2 gap-y-3 sm:gap-y-4 gap-x-2">
             {typeData.map((item, idx) => (
               <div key={idx} className="flex items-center gap-2">
                 <div 
-                  className="w-8 h-8 rounded-[6px] flex items-center justify-center font-bold text-[10px] shrink-0"
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-[6px] flex items-center justify-center font-bold text-[10px] shrink-0"
                   style={{ backgroundColor: item.color, color: item.name === 'Ocean Freight' || item.name === 'Rail Freight' ? '#333333' : '#FEFEFE' }}
                 >
                   {item.value}%
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-[12px] font-semibold text-[#333333] leading-tight">{item.name}</span>
+                <div className="flex flex-col min-w-0">
+                  <span className="text-[11px] sm:text-[12px] font-semibold text-[#333333] leading-tight truncate">{item.name}</span>
                   <span className="text-[10px] text-[#757575] mt-[2px]">{item.count}</span>
                 </div>
               </div>
@@ -234,23 +235,23 @@ export default function Dashboard() {
       </div>
 
       {/* Middle Section */}
-      <div className="flex flex-col lg:flex-row gap-[20px] pt-[20px]">
+      <div className="flex flex-col lg:flex-row gap-[12px] sm:gap-[16px] lg:gap-[20px] pt-[8px] sm:pt-[12px] lg:pt-[20px]">
         
         {/* Product Categories */}
-        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto lg:h-[443px]">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-[16px] font-semibold text-[#333333]">Product Categories</h3>
+        <div className="bg-[#FEFEFE] p-3 sm:p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto lg:h-[443px] min-w-0">
+          <div className="flex justify-between items-center mb-4 sm:mb-6">
+            <h3 className="text-[14px] sm:text-[16px] font-semibold text-[#333333]">Product Categories</h3>
             <button className="w-7 h-7 flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer">
               <MoreHorizontal size={16} className="text-[#333333]" />
             </button>
           </div>
           
-          <div className="flex justify-between items-end mb-4">
-            <span className="text-[14px] text-[#757575]">Total Products</span>
-            <span className="text-[24px] font-bold text-[#333333]">1,000</span>
+          <div className="flex justify-between items-end mb-3 sm:mb-4">
+            <span className="text-[13px] sm:text-[14px] text-[#757575]">Total Products</span>
+            <span className="text-[20px] sm:text-[24px] font-bold text-[#333333]">1,000</span>
           </div>
 
-          <div className="w-full h-[53px] rounded-[8px] flex overflow-hidden mb-6">
+          <div className="w-full h-[40px] sm:h-[53px] rounded-[8px] flex overflow-hidden mb-4 sm:mb-6">
             <div style={{width: '24%'}} className="bg-[#856DF3]"></div>
             <div style={{width: '20%'}} className="bg-[#E3DDFF]"></div>
             <div style={{width: '18%'}} className="bg-[#333333]"></div>
@@ -268,15 +269,15 @@ export default function Dashboard() {
               { name: 'Sports & Outdoors', count: '120 products', percent: '12%', color: 'bg-[#E0E0E0]' },
               { name: 'Automotive', count: '120 products', percent: '12%', color: 'bg-[#F0F0F0]' },
             ].map((item, idx) => (
-              <div key={idx} className="flex items-center justify-between py-1.5">
+              <div key={idx} className="flex items-center justify-between py-1 sm:py-1.5">
                 <div className="flex items-center gap-2">
                   <div className={`w-2.5 h-2.5 rounded-[6px] ${item.color}`}></div>
-                  <span className="text-[14px] font-semibold text-[#333333]">{item.name}</span>
+                  <span className="text-[12px] sm:text-[14px] font-semibold text-[#333333]">{item.name}</span>
                 </div>
-                <div className="flex items-center gap-2 bg-[#F0F0F0] px-2 py-1 rounded-[4px]">
-                  <span className="text-[12px] text-[#757575]">{item.count}</span>
+                <div className="flex items-center gap-2 bg-[#F0F0F0] px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-[4px]">
+                  <span className="text-[10px] sm:text-[12px] text-[#757575]">{item.count}</span>
                   <div className="w-[1px] h-3 bg-[#E0E0E0]"></div>
-                  <span className="text-[12px] font-bold text-[#333333] w-7 text-center">{item.percent}</span>
+                  <span className="text-[10px] sm:text-[12px] font-bold text-[#333333] w-7 text-center">{item.percent}</span>
                 </div>
               </div>
             ))}
@@ -284,8 +285,8 @@ export default function Dashboard() {
         </div>
 
         {/* Live Tracking */}
-        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[1.3] h-auto lg:h-[443px] relative">
-          <div className="bg-[#F0F0F0] rounded-[8px] flex-1 relative min-h-[200px] overflow-hidden mb-4">
+        <div className="bg-[#FEFEFE] p-3 sm:p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[1.3] h-auto lg:h-[443px] relative min-w-0">
+          <div className="bg-[#F0F0F0] rounded-[8px] flex-1 relative min-h-[180px] sm:min-h-[200px] overflow-hidden mb-3 sm:mb-4">
              {/* Map Background SVG mock */}
              <div className="absolute inset-0 opacity-50 flex items-center justify-center overflow-hidden">
                 <svg width="100%" height="100%" viewBox="0 0 445 230" preserveAspectRatio="xMidYMid slice">
@@ -301,26 +302,26 @@ export default function Dashboard() {
              </div>
              
              {/* Map Controls */}
-             <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-               <div className="bg-[#FEFEFE] rounded-[10px] shadow-[0_4px_12px_rgba(0,0,0,0.1)] flex items-center px-3 py-2 w-[254px]">
+             <div className="absolute top-3 sm:top-4 left-3 sm:left-4 right-3 sm:right-4 flex justify-between items-start">
+               <div className="bg-[#FEFEFE] rounded-[10px] shadow-[0_4px_12px_rgba(0,0,0,0.1)] flex items-center px-2.5 sm:px-3 py-1.5 sm:py-2 w-[200px] sm:w-[254px]">
                  <Search size={16} className="text-[#333333]" />
-                 <input type="text" placeholder="Search shipping id..." className="ml-2 bg-transparent outline-none text-[12px] text-[#757575] w-full" />
+                 <input type="text" placeholder="Search shipping id..." className="ml-2 bg-transparent outline-none text-[11px] sm:text-[12px] text-[#757575] w-full" />
                </div>
                <div className="bg-[#FEFEFE] rounded-[8px] shadow-[0_4px_8px_rgba(0,0,0,0.12)] flex flex-col">
-                 <button className="p-2 border-b border-[#E1E1E1] hover:bg-gray-50 rounded-t-[8px]">
+                 <button className="p-1.5 sm:p-2 border-b border-[#E1E1E1] hover:bg-gray-50 rounded-t-[8px]">
                    <Plus size={16} className="text-[#333333]" />
                  </button>
-                 <button className="p-2 hover:bg-gray-50 rounded-b-[8px]">
+                 <button className="p-1.5 sm:p-2 hover:bg-gray-50 rounded-b-[8px]">
                    <Minus size={16} className="text-[#333333]" />
                  </button>
                </div>
              </div>
           </div>
           
-          <div className="flex flex-col gap-[20px]">
+          <div className="flex flex-col gap-[12px] sm:gap-[16px] lg:gap-[20px]">
             <div className="flex justify-between items-center">
               <div className="flex flex-col gap-1">
-                <span className="text-[14px] font-bold text-[#333333]">#SH8743921</span>
+                <span className="text-[13px] sm:text-[14px] font-bold text-[#333333]">#SH8743921</span>
                 <div className="flex items-center gap-2">
                   <span className="bg-[#E3DDFF] px-2 py-0.5 rounded-[18px] text-[10px] text-[#333333]">In Transit</span>
                   <span className="text-[10px] text-[#757575]">On Schedule</span>
@@ -328,7 +329,7 @@ export default function Dashboard() {
               </div>
               <div className="flex flex-col">
                 <span className="text-[10px] text-[#757575]">Courier</span>
-                <span className="text-[12px] font-semibold text-[#333333]">Daniel Cooper</span>
+                <span className="text-[11px] sm:text-[12px] font-semibold text-[#333333]">Daniel Cooper</span>
                 <span className="text-[10px] text-[#757575]">SkyLogix Express</span>
               </div>
             </div>
@@ -342,13 +343,13 @@ export default function Dashboard() {
                 </div>
                 <div className="absolute top-1/2 right-0 -translate-y-1/2 w-3.5 h-3.5 bg-[#F0F0F0] rounded-full border-2 border-[#E0E0E0]"></div>
               </div>
-              <div className="flex flex-col sm:flex-row justify-between mt-2 gap-2 sm:gap-0">
+              <div className="flex flex-col sm:flex-row justify-between mt-1 sm:mt-2 gap-1 sm:gap-0">
                 <div className="flex flex-col">
-                  <span className="text-[14px] font-semibold text-[#333333]">San Francisco, CA</span>
+                  <span className="text-[12px] sm:text-[14px] font-semibold text-[#333333]">San Francisco, CA</span>
                   <span className="text-[10px] text-[#757575]">Mar 19, 2035 • 10:30 AM</span>
                 </div>
-                <div className="flex flex-col items-end">
-                  <span className="text-[14px] font-semibold text-[#333333]">New York, NY</span>
+                <div className="flex flex-col items-start sm:items-end">
+                  <span className="text-[12px] sm:text-[14px] font-semibold text-[#333333]">New York, NY</span>
                   <span className="text-[10px] text-[#757575]">Mar 23, 2035 • 03:00 PM</span>
                 </div>
               </div>
@@ -357,47 +358,48 @@ export default function Dashboard() {
         </div>
 
         {/* Shipment Alerts */}
-        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[0.8] h-auto lg:h-[443px]">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-[16px] font-semibold text-[#333333]">Shipment Alerts</h3>
+        <div className="bg-[#FEFEFE] p-3 sm:p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[0.8] h-auto lg:h-[443px] min-w-0">
+          <div className="flex justify-between items-center mb-4 sm:mb-6">
+            <h3 className="text-[14px] sm:text-[16px] font-semibold text-[#333333]">Shipment Alerts</h3>
             <button className="w-7 h-7 flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer">
               <MoreHorizontal size={16} className="text-[#333333]" />
             </button>
           </div>
           
-          <div className="flex items-center gap-1 mb-6">
-            <span className="text-[24px] font-bold text-[#333333]">12</span>
-            <span className="text-[14px] text-[#757575] ml-1">Delays Detected</span>
+          <div className="flex items-center gap-1 mb-4 sm:mb-6">
+            <span className="text-[20px] sm:text-[24px] font-bold text-[#333333]">12</span>
+            <span className="text-[13px] sm:text-[14px] text-[#757575] ml-1">Delays Detected</span>
           </div>
 
-          <div className="flex gap-1 mb-6">
-            <div className="flex-1 bg-[#E3DDFF] rounded-[8px] py-4 flex flex-col items-center justify-center gap-2">
-              <span className="text-[24px] font-bold text-[#333333]">5</span>
-              <span className="text-[10px] text-[#333333] text-center px-1 leading-tight">Customs Clearance Delay</span>
+          <div className="flex gap-1 mb-4 sm:mb-6">
+            <div className="flex-1 bg-[#E3DDFF] rounded-[8px] py-3 sm:py-4 flex flex-col items-center justify-center gap-1.5 sm:gap-2">
+              <span className="text-[20px] sm:text-[24px] font-bold text-[#333333]">5</span>
+              <span className="text-[9px] sm:text-[10px] text-[#333333] text-center px-1 leading-tight">Customs Clearance Delay</span>
             </div>
-            <div className="flex-1 bg-[#E3DDFF] rounded-[8px] py-4 flex flex-col items-center justify-center gap-2">
-              <span className="text-[24px] font-bold text-[#333333]">4</span>
-              <span className="text-[10px] text-[#333333] text-center px-1 leading-tight">Incorrect Address Provided</span>
+            <div className="flex-1 bg-[#E3DDFF] rounded-[8px] py-3 sm:py-4 flex flex-col items-center justify-center gap-1.5 sm:gap-2">
+              <span className="text-[20px] sm:text-[24px] font-bold text-[#333333]">4</span>
+              <span className="text-[9px] sm:text-[10px] text-[#333333] text-center px-1 leading-tight">Incorrect Address Provided</span>
             </div>
-            <div className="flex-1 bg-[#E3DDFF] rounded-[8px] py-4 flex flex-col items-center justify-center gap-2">
-              <span className="text-[24px] font-bold text-[#333333]">3</span>
-              <span className="text-[10px] text-[#333333] text-center px-1 leading-tight">Weather-Related Hold</span>
+            <div className="flex-1 bg-[#E3DDFF] rounded-[8px] py-3 sm:py-4 flex flex-col items-center justify-center gap-1.5 sm:gap-2">
+              <span className="text-[20px] sm:text-[24px] font-bold text-[#333333]">3</span>
+              <span className="text-[9px] sm:text-[10px] text-[#333333] text-center px-1 leading-tight">Weather-Related Hold</span>
             </div>
           </div>
 
-          <div className="flex-1 flex flex-col gap-4">
+          <div className="flex-1 flex flex-col gap-3 sm:gap-4">
             {[
               { icon: FileX, title: 'Customs Clearance Delay', id: '#SH8743921', type: 'Ocean Freight', time: '1h ago', color: 'bg-[#F0F0F0]' },
               { icon: MapPinOff, title: 'Incorrect Address Provided', id: '#SH8725810', type: 'Road Freight', time: '2h ago', color: 'bg-[#F0F0F0]' },
               { icon: CloudLightning, title: 'Weather-Related Hold', id: '#SH8790043', type: 'Air Freight', time: '3h ago', color: 'bg-[#F0F0F0]' },
             ].map((alert, idx) => (
               <div key={idx} className="flex items-center justify-between group">
-                <div className="flex items-center gap-3">
-                  <div className={`w-8 h-8 rounded-[8px] flex items-center justify-center shrink-0 ${alert.color}`}>
-                    <alert.icon size={16} className="text-[#333333]" />
+                <div className="flex items-center gap-2.5 sm:gap-3">
+                  <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-[8px] flex items-center justify-center shrink-0 ${alert.color}`}>
+                    <alert.icon size={14} className="text-[#333333] sm:hidden" />
+                    <alert.icon size={16} className="text-[#333333] hidden sm:block" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[12px] font-semibold text-[#333333]">{alert.title}</span>
+                    <span className="text-[11px] sm:text-[12px] font-semibold text-[#333333]">{alert.title}</span>
                     <div className="flex items-center gap-1.5 mt-[2px]">
                       <span className="text-[10px] font-bold text-[#856DF3]">{alert.id}</span>
                       <div className="w-1 h-1 bg-[#E0E0E0] rounded-full"></div>
@@ -416,21 +418,21 @@ export default function Dashboard() {
       </div>
 
       {/* Bottom Section */}
-      <div className="flex flex-col lg:flex-row gap-[20px] pt-[20px]">
+      <div className="flex flex-col lg:flex-row gap-[12px] sm:gap-[16px] lg:gap-[20px] pt-[8px] sm:pt-[12px] lg:pt-[20px]">
         
         {/* Recent Shipments */}
-        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[2.8] h-auto lg:h-[404px] overflow-hidden">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3">
-            <h3 className="text-[16px] font-bold text-[#333333]">Recent Shipments</h3>
-            <div className="flex items-center gap-3 w-full sm:w-auto">
-              <div className="flex items-center bg-[#F0F0F0] px-2.5 py-1.5 rounded-[8px] flex-1 sm:w-[223px]">
+        <div className="bg-[#FEFEFE] p-3 sm:p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-[2.8] h-auto lg:h-[404px] overflow-hidden min-w-0">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-2 sm:gap-3">
+            <h3 className="text-[14px] sm:text-[16px] font-bold text-[#333333]">Recent Shipments</h3>
+            <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+              <div className="flex items-center bg-[#F0F0F0] px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-[8px] flex-1 sm:w-[223px]">
                 <Search size={16} className="text-[#333333]" />
-                <input type="text" placeholder="Search by ID, Company..." className="ml-2 bg-transparent outline-none text-[12px] text-[#757575] w-full" />
+                <input type="text" placeholder="Search by ID, Company..." className="ml-2 bg-transparent outline-none text-[11px] sm:text-[12px] text-[#757575] w-full" />
               </div>
-              <button className="w-[28px] h-[28px] flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer">
+              <button className="w-[28px] h-[28px] flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer shrink-0">
                 <Filter size={16} className="text-[#333333]" />
               </button>
-              <button className="w-[28px] h-[28px] flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer">
+              <button className="w-[28px] h-[28px] flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer shrink-0">
                 <MoreHorizontal size={16} className="text-[#333333]" />
               </button>
             </div>
@@ -440,15 +442,15 @@ export default function Dashboard() {
             <table className="w-full text-left border-collapse min-w-[700px]">
               <thead>
                 <tr className="bg-[#E3DDFF] rounded-[8px]">
-                  <th className="py-3 px-3 rounded-l-[8px] w-10">
+                  <th className="py-2.5 sm:py-3 px-2 sm:px-3 rounded-l-[8px] w-10">
                     <div className="w-3 h-3 rounded-[3px] border border-[#E0E0E0] bg-[#F0F0F0]"></div>
                   </th>
-                  <th className="py-3 px-2 text-[10px] font-normal text-[#333333]">Shipping ID</th>
-                  <th className="py-3 px-2 text-[10px] font-normal text-[#333333]">Company</th>
-                  <th className="py-3 px-2 text-[10px] font-normal text-[#333333]">Carriers</th>
-                  <th className="py-3 px-2 text-[10px] font-normal text-[#333333]">Route</th>
-                  <th className="py-3 px-2 text-[10px] font-normal text-[#333333]">Shipping Date</th>
-                  <th className="py-3 px-2 text-[10px] font-normal text-[#333333] rounded-r-[8px]">Status</th>
+                  <th className="py-2.5 sm:py-3 px-2 text-[10px] font-normal text-[#333333]">Shipping ID</th>
+                  <th className="py-2.5 sm:py-3 px-2 text-[10px] font-normal text-[#333333]">Company</th>
+                  <th className="py-2.5 sm:py-3 px-2 text-[10px] font-normal text-[#333333]">Carriers</th>
+                  <th className="py-2.5 sm:py-3 px-2 text-[10px] font-normal text-[#333333]">Route</th>
+                  <th className="py-2.5 sm:py-3 px-2 text-[10px] font-normal text-[#333333]">Shipping Date</th>
+                  <th className="py-2.5 sm:py-3 px-2 text-[10px] font-normal text-[#333333] rounded-r-[8px]">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -460,19 +462,19 @@ export default function Dashboard() {
                   { id: '#SH9457830', company: 'AutoParts Pro', cat: 'Automotive', carrier: 'Aramex', route: 'Detroit, MI → San Diego, CA', date: 'Mar 20, 2035', status: 'In Transit', statusColor: 'bg-[#E0E0E0] text-[#333333]' },
                 ].map((row, idx) => (
                   <tr key={idx} className="border-b border-[#E0E0E0] last:border-0 hover:bg-gray-50/50 transition-colors">
-                    <td className="py-3.5 px-3">
+                    <td className="py-3 sm:py-3.5 px-2 sm:px-3">
                       <div className="w-3 h-3 rounded-[3px] border border-[#E0E0E0] bg-[#F0F0F0]"></div>
                     </td>
-                    <td className="py-3.5 px-2 font-semibold text-[#856DF3] text-[12px]">{row.id}</td>
-                    <td className="py-3.5 px-2">
-                      <p className="text-[12px] text-[#333333]">{row.company}</p>
+                    <td className="py-3 sm:py-3.5 px-2 font-semibold text-[#856DF3] text-[11px] sm:text-[12px]">{row.id}</td>
+                    <td className="py-3 sm:py-3.5 px-2">
+                      <p className="text-[11px] sm:text-[12px] text-[#333333]">{row.company}</p>
                       <p className="text-[10px] text-[#757575]">{row.cat}</p>
                     </td>
-                    <td className="py-3.5 px-2 text-[12px] text-[#333333]">{row.carrier}</td>
-                    <td className="py-3.5 px-2 text-[12px] text-[#333333]">{row.route}</td>
-                    <td className="py-3.5 px-2 text-[12px] text-[#333333]">{row.date}</td>
-                    <td className="py-3.5 px-2">
-                      <span className={`px-2 py-0.5 rounded-[20px] text-[11px] font-semibold inline-block ${row.statusColor}`}>
+                    <td className="py-3 sm:py-3.5 px-2 text-[11px] sm:text-[12px] text-[#333333]">{row.carrier}</td>
+                    <td className="py-3 sm:py-3.5 px-2 text-[11px] sm:text-[12px] text-[#333333]">{row.route}</td>
+                    <td className="py-3 sm:py-3.5 px-2 text-[11px] sm:text-[12px] text-[#333333]">{row.date}</td>
+                    <td className="py-3 sm:py-3.5 px-2">
+                      <span className={`px-2 py-0.5 rounded-[20px] text-[10px] sm:text-[11px] font-semibold inline-block ${row.statusColor}`}>
                         {row.status}
                       </span>
                     </td>
@@ -484,9 +486,9 @@ export default function Dashboard() {
         </div>
 
         {/* Shipping Logs */}
-        <div className="bg-[#FEFEFE] p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto lg:h-[404px]">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-[16px] font-bold text-[#333333]">Shipping Logs</h3>
+        <div className="bg-[#FEFEFE] p-3 sm:p-[16px] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs flex flex-col flex-1 h-auto lg:h-[404px] min-w-0">
+          <div className="flex justify-between items-center mb-4 sm:mb-6">
+            <h3 className="text-[14px] sm:text-[16px] font-bold text-[#333333]">Shipping Logs</h3>
             <button className="w-7 h-7 flex items-center justify-center bg-[#F0F0F0] rounded-[8px] cursor-pointer">
               <MoreHorizontal size={16} className="text-[#333333]" />
             </button>
@@ -499,15 +501,16 @@ export default function Dashboard() {
               { icon: RotateCcw, color: 'bg-[#E3DDFF] text-[#333333]', text: 'User @SallyMae88 initiated a return process for Order ID 44556GHI', time: '11:00 AM' },
               { icon: CheckCircle2, color: 'bg-[#E0E0E0] text-[#333333]', text: 'Administrator @AdminLisa resolved a delivery issue for Order ID 12345XYZ', time: '10:15 AM' },
             ].map((activity, idx, arr) => (
-              <div key={idx} className="flex gap-3 relative">
+              <div key={idx} className="flex gap-2.5 sm:gap-3 relative">
                 {idx !== arr.length - 1 && (
-                  <div className="absolute left-[17px] top-9 bottom-[-4px] w-[1px] bg-[#E0E0E0]"></div>
+                  <div className="absolute left-[15px] sm:left-[17px] top-9 bottom-[-4px] w-[1px] bg-[#E0E0E0]"></div>
                 )}
-                <div className={`w-9 h-9 rounded-[24px] flex items-center justify-center shrink-0 z-10 ${activity.color} shadow-sm`}>
-                  <activity.icon size={16} />
+                <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-[24px] flex items-center justify-center shrink-0 z-10 ${activity.color} shadow-sm`}>
+                  <activity.icon size={14} className="sm:hidden" />
+                  <activity.icon size={16} className="hidden sm:block" />
                 </div>
-                <div className="pb-6 pt-0.5">
-                  <p className="text-[14px] text-[#333333] leading-tight">
+                <div className="pb-4 sm:pb-6 pt-0.5">
+                  <p className="text-[12px] sm:text-[14px] text-[#333333] leading-tight">
                     {activity.text}
                   </p>
                   <p className="text-[10px] text-[#757575] mt-1">{activity.time}</p>
@@ -520,12 +523,12 @@ export default function Dashboard() {
       </div>
 
       {/* Footer */}
-      <div className="flex flex-col sm:flex-row justify-between items-center py-2 mt-4 px-2 gap-4">
-        <span className="text-[12px] font-semibold text-[#333333]">© 2025 Shipnow</span>
-        <div className="flex items-center gap-6">
-          <a href="#" className="text-[12px] text-[#757575] hover:text-[#333333]">Privacy Policy</a>
-          <a href="#" className="text-[12px] text-[#757575] hover:text-[#333333]">Terms and conditions</a>
-          <a href="#" className="text-[12px] text-[#757575] hover:text-[#333333]">Contact</a>
+      <div className="flex flex-col sm:flex-row justify-between items-center py-2 mt-2 sm:mt-4 px-1 sm:px-2 gap-3 sm:gap-4">
+        <span className="text-[11px] sm:text-[12px] font-semibold text-[#333333]">© 2025 Shipnow</span>
+        <div className="flex items-center gap-4 sm:gap-6">
+          <a href="#" className="text-[11px] sm:text-[12px] text-[#757575] hover:text-[#333333]">Privacy Policy</a>
+          <a href="#" className="text-[11px] sm:text-[12px] text-[#757575] hover:text-[#333333]">Terms and conditions</a>
+          <a href="#" className="text-[11px] sm:text-[12px] text-[#757575] hover:text-[#333333]">Contact</a>
         </div>
       </div>
 
