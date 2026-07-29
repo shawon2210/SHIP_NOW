@@ -1,0 +1,374 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - button "Toggle navigation menu" [ref=e4] [cursor=pointer]
+    - complementary [ref=e6]:
+      - generic [ref=e7]:
+        - generic [ref=e8]: SHIPNOW
+        - generic [ref=e13]:
+          - generic [ref=e14]:
+            - img "Shawon" [ref=e15]
+            - generic [ref=e16]:
+              - generic [ref=e17]: Shawon
+              - generic [ref=e18]: Admin
+          - button "User Options" [ref=e19] [cursor=pointer]
+        - generic [ref=e22]:
+          - heading "Main" [level=2] [ref=e23]
+          - navigation [ref=e24]:
+            - link "Dashboard" [ref=e25] [cursor=pointer]:
+              - /url: /dashboard
+            - link "Analytics" [ref=e32] [cursor=pointer]:
+              - /url: /analytics
+            - link "Calendar" [ref=e37] [cursor=pointer]:
+              - /url: /calendar
+            - link "Shipments" [ref=e41] [cursor=pointer]:
+              - /url: /shipments
+            - link "Tracking" [ref=e48] [cursor=pointer]:
+              - /url: /tracking
+            - link "Warehouse" [ref=e53] [cursor=pointer]:
+              - /url: /warehouse
+            - link "Fleets" [ref=e58] [cursor=pointer]:
+              - /url: /fleets
+            - link "Drivers" [ref=e64] [cursor=pointer]:
+              - /url: /drivers
+            - link "Invoices & Billing" [ref=e70] [cursor=pointer]:
+              - /url: /invoices
+        - generic [ref=e76]:
+          - heading "More" [level=2] [ref=e77]
+          - navigation [ref=e78]:
+            - link "Message 19" [ref=e79] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e80]: Message
+              - generic [ref=e84]: "19"
+            - link "Notification 5" [ref=e85] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e86]: Notification
+              - generic [ref=e91]: "5"
+            - link "Settings" [ref=e92] [cursor=pointer]:
+              - /url: /settings
+      - generic [ref=e98]:
+        - generic [ref=e99]:
+          - heading "Loving ShipNow Free?" [level=3] [ref=e100]
+          - paragraph [ref=e101]: Go Pro to access priority support, real-time tracking, and full analytics.
+          - button "Go Pro Today" [ref=e102] [cursor=pointer]
+        - button "Logout" [ref=e103] [cursor=pointer]
+    - generic [ref=e108]:
+      - banner [ref=e109]
+      - main [ref=e110]:
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - heading "Hello Shawon" [level=2] [ref=e114]
+              - heading "Good Morning" [level=1] [ref=e115]
+            - generic [ref=e116]:
+              - textbox "Search anything..." [ref=e121]
+              - link "Add New Shipping" [ref=e122] [cursor=pointer]:
+                - /url: /shipments/new
+          - generic [ref=e125]:
+            - generic [ref=e126]:
+              - generic [ref=e127]:
+                - generic [ref=e129]:
+                  - heading "Active Shipments" [level=3] [ref=e130]
+                  - generic [ref=e131]: 1,284
+                  - generic [ref=e133]:
+                    - generic [ref=e134]: +8.7%
+                    - generic [ref=e139]: vs last month
+                - generic [ref=e147]:
+                  - heading "Delivery Performance" [level=3] [ref=e148]
+                  - generic [ref=e149]: 94.3%
+                  - generic [ref=e151]:
+                    - generic [ref=e152]: "-1.2%"
+                    - generic [ref=e157]: vs last month
+                - generic [ref=e161]:
+                  - heading "Revenue" [level=3] [ref=e162]
+                  - generic [ref=e163]: $82,450
+                  - generic [ref=e165]:
+                    - generic [ref=e166]: +12.4%
+                    - generic [ref=e171]: vs last month
+              - generic [ref=e175]:
+                - generic [ref=e176]:
+                  - generic [ref=e177]:
+                    - heading "Shipment Statistic" [level=3] [ref=e178]
+                    - button "Weekly" [ref=e179] [cursor=pointer]
+                  - generic [ref=e182]:
+                    - generic [ref=e183]: 4,352
+                    - generic [ref=e184]: +8.7%
+                  - application [ref=e192]:
+                    - generic [ref=e194]:
+                      - generic [ref=e195]: Jan
+                      - generic [ref=e197]: Feb
+                      - generic [ref=e199]: Mar
+                      - generic [ref=e201]: Apr
+                      - generic [ref=e203]: May
+                      - generic [ref=e205]: Jun
+                      - generic [ref=e207]: Jul
+                      - generic [ref=e209]: Aug
+                - generic [ref=e211]:
+                  - generic [ref=e212]:
+                    - heading "Profit Summary" [level=3] [ref=e213]
+                    - button "Monthly" [ref=e214] [cursor=pointer]
+                  - generic [ref=e217]:
+                    - generic [ref=e218]:
+                      - generic [ref=e219]: $624,550
+                      - generic [ref=e220]: +5.6%
+                    - generic [ref=e225]:
+                      - generic [ref=e226]: Revenue
+                      - generic [ref=e229]: Cost
+                  - application [ref=e235]:
+                    - generic [ref=e237]:
+                      - generic [ref=e238]: Jan
+                      - generic [ref=e240]: Feb
+                      - generic [ref=e242]: Mar
+                      - generic [ref=e244]: Apr
+                      - generic [ref=e246]: May
+                      - generic [ref=e248]: Jun
+                      - generic [ref=e250]: Jul
+                      - generic [ref=e252]: Aug
+            - generic [ref=e254]:
+              - generic [ref=e255]:
+                - heading "Shipment Type" [level=3] [ref=e256]
+                - button [ref=e257] [cursor=pointer]
+              - generic [ref=e262]:
+                - application [ref=e265]
+                - generic:
+                  - generic: Total
+                  - generic: 2,500
+              - generic [ref=e266]:
+                - generic [ref=e267]:
+                  - generic [ref=e268]: 46%
+                  - generic [ref=e269]:
+                    - generic [ref=e270]: Road Freight
+                    - generic [ref=e271]: 1,150 shipment
+                - generic [ref=e272]:
+                  - generic [ref=e273]: 17%
+                  - generic [ref=e274]:
+                    - generic [ref=e275]: Ocean Freight
+                    - generic [ref=e276]: 425 shipments
+                - generic [ref=e277]:
+                  - generic [ref=e278]: 28%
+                  - generic [ref=e279]:
+                    - generic [ref=e280]: Air Freight
+                    - generic [ref=e281]: 700 shipments
+                - generic [ref=e282]:
+                  - generic [ref=e283]: 9%
+                  - generic [ref=e284]:
+                    - generic [ref=e285]: Rail Freight
+                    - generic [ref=e286]: 225 shipments
+          - generic [ref=e287]:
+            - generic [ref=e288]:
+              - generic [ref=e289]:
+                - heading "Product Categories" [level=3] [ref=e290]
+                - button [ref=e291] [cursor=pointer]
+              - generic [ref=e296]:
+                - generic [ref=e297]: Total Products
+                - generic [ref=e298]: 1,000
+              - generic [ref=e306]:
+                - generic [ref=e307]:
+                  - generic [ref=e308]: Electronics
+                  - generic [ref=e311]:
+                    - generic [ref=e312]: 240 products
+                    - generic [ref=e314]: 24%
+                - generic [ref=e315]:
+                  - generic [ref=e316]: Home & Kitchen
+                  - generic [ref=e319]:
+                    - generic [ref=e320]: 200 products
+                    - generic [ref=e322]: 20%
+                - generic [ref=e323]:
+                  - generic [ref=e324]: Apparel
+                  - generic [ref=e327]:
+                    - generic [ref=e328]: 180 products
+                    - generic [ref=e330]: 18%
+                - generic [ref=e331]:
+                  - generic [ref=e332]: Beauty & Health
+                  - generic [ref=e335]:
+                    - generic [ref=e336]: 140 products
+                    - generic [ref=e338]: 14%
+                - generic [ref=e339]:
+                  - generic [ref=e340]: Sports & Outdoors
+                  - generic [ref=e343]:
+                    - generic [ref=e344]: 120 products
+                    - generic [ref=e346]: 12%
+                - generic [ref=e347]:
+                  - generic [ref=e348]: Automotive
+                  - generic [ref=e351]:
+                    - generic [ref=e352]: 120 products
+                    - generic [ref=e354]: 12%
+            - generic [ref=e355]:
+              - generic [ref=e365]:
+                - textbox "Search shipping id..." [ref=e370]
+                - generic [ref=e371]:
+                  - button [ref=e372]
+                  - button [ref=e374]
+              - generic [ref=e376]:
+                - generic [ref=e377]:
+                  - generic [ref=e378]:
+                    - generic [ref=e379]: "#SH8743921"
+                    - generic [ref=e380]:
+                      - generic [ref=e381]: In Transit
+                      - generic [ref=e382]: On Schedule
+                  - generic [ref=e383]:
+                    - generic [ref=e384]: Courier
+                    - generic [ref=e385]: Daniel Cooper
+                    - generic [ref=e386]: SkyLogix Express
+                - generic [ref=e398]:
+                  - generic [ref=e399]:
+                    - generic [ref=e400]: San Francisco, CA
+                    - generic [ref=e401]: Mar 19, 2035 • 10:30 AM
+                  - generic [ref=e402]:
+                    - generic [ref=e403]: New York, NY
+                    - generic [ref=e404]: Mar 23, 2035 • 03:00 PM
+            - generic [ref=e405]:
+              - generic [ref=e406]:
+                - heading "Shipment Alerts" [level=3] [ref=e407]
+                - button [ref=e408] [cursor=pointer]
+              - generic [ref=e413]:
+                - generic [ref=e414]: "12"
+                - generic [ref=e415]: Delays Detected
+              - generic [ref=e416]:
+                - generic [ref=e417]:
+                  - generic [ref=e418]: "5"
+                  - generic [ref=e419]: Customs Clearance Delay
+                - generic [ref=e420]:
+                  - generic [ref=e421]: "4"
+                  - generic [ref=e422]: Incorrect Address Provided
+                - generic [ref=e423]:
+                  - generic [ref=e424]: "3"
+                  - generic [ref=e425]: Weather-Related Hold
+              - generic [ref=e426]:
+                - generic [ref=e435]:
+                  - generic [ref=e436]: Customs Clearance Delay
+                  - generic [ref=e437]:
+                    - generic [ref=e438]: "#SH8743921"
+                    - generic [ref=e440]: Ocean Freight
+                    - generic [ref=e442]: 1h ago
+                - generic [ref=e455]:
+                  - generic [ref=e456]: Incorrect Address Provided
+                  - generic [ref=e457]:
+                    - generic [ref=e458]: "#SH8725810"
+                    - generic [ref=e460]: Road Freight
+                    - generic [ref=e462]: 2h ago
+                - generic [ref=e472]:
+                  - generic [ref=e473]: Weather-Related Hold
+                  - generic [ref=e474]:
+                    - generic [ref=e475]: "#SH8790043"
+                    - generic [ref=e477]: Air Freight
+                    - generic [ref=e479]: 3h ago
+          - generic [ref=e483]:
+            - generic [ref=e484]:
+              - generic [ref=e485]:
+                - heading "Recent Shipments" [level=3] [ref=e486]
+                - generic [ref=e487]:
+                  - textbox "Search by ID, Company..." [ref=e492]
+                  - button [ref=e493] [cursor=pointer]
+                  - button [ref=e496] [cursor=pointer]
+              - table [ref=e502]:
+                - rowgroup [ref=e503]:
+                  - row [ref=e504]:
+                    - columnheader [ref=e505]
+                    - columnheader "Shipping ID" [ref=e507]
+                    - columnheader "Company" [ref=e508]
+                    - columnheader "Carriers" [ref=e509]
+                    - columnheader "Route" [ref=e510]
+                    - columnheader "Shipping Date" [ref=e511]
+                    - columnheader "Status" [ref=e512]
+                - rowgroup [ref=e513]:
+                  - row [ref=e514]:
+                    - cell [ref=e515]
+                    - cell "#SH9283746" [ref=e517]
+                    - cell [ref=e518]:
+                      - paragraph [ref=e519]: TechGear Inc.
+                      - paragraph [ref=e520]: Electronics
+                    - cell "FedEx" [ref=e521]
+                    - cell "Los Angeles, CA → Chicago, IL" [ref=e522]
+                    - cell "Mar 20, 2035" [ref=e523]
+                    - cell "In Transit" [ref=e524]
+                  - row [ref=e526]:
+                    - cell [ref=e527]
+                    - cell "#SH9182635" [ref=e529]
+                    - cell [ref=e530]:
+                      - paragraph [ref=e531]: StyleHub Co.
+                      - paragraph [ref=e532]: Apparel
+                    - cell "DHL" [ref=e533]
+                    - cell "New York, NY → Atlanta, GA" [ref=e534]
+                    - cell "Mar 19, 2035" [ref=e535]
+                    - cell "Out for Delivery" [ref=e536]
+                  - row [ref=e538]:
+                    - cell [ref=e539]
+                    - cell "#SH9037821" [ref=e541]
+                    - cell [ref=e542]:
+                      - paragraph [ref=e543]: FreshNest
+                      - paragraph [ref=e544]: Home & Kitchen
+                    - cell "UPS" [ref=e545]
+                    - cell "Dallas, TX → Miami, FL" [ref=e546]
+                    - cell "Mar 18, 2035" [ref=e547]
+                    - cell "Delivered" [ref=e548]
+                  - row [ref=e550]:
+                    - cell [ref=e551]
+                    - cell "#SH9374652" [ref=e553]
+                    - cell [ref=e554]:
+                      - paragraph [ref=e555]: FitPlus Gear
+                      - paragraph [ref=e556]: Sports & Outdoors
+                    - cell "USPS" [ref=e557]
+                    - cell "Seattle, WA → Denver, CO" [ref=e558]
+                    - cell "Mar 21, 2035" [ref=e559]
+                    - cell "Processing" [ref=e560]
+                  - row [ref=e562]:
+                    - cell [ref=e563]
+                    - cell "#SH9457830" [ref=e565]
+                    - cell [ref=e566]:
+                      - paragraph [ref=e567]: AutoParts Pro
+                      - paragraph [ref=e568]: Automotive
+                    - cell "Aramex" [ref=e569]
+                    - cell "Detroit, MI → San Diego, CA" [ref=e570]
+                    - cell "Mar 20, 2035" [ref=e571]
+                    - cell "In Transit" [ref=e572]
+            - generic [ref=e574]:
+              - generic [ref=e575]:
+                - heading "Shipping Logs" [level=3] [ref=e576]
+                - button [ref=e577] [cursor=pointer]
+              - generic [ref=e582]:
+                - generic [ref=e589]:
+                  - paragraph [ref=e590]: User @TechGuru99 submitted a bulk shipment request
+                  - paragraph [ref=e591]: 12:00 PM
+                - generic [ref=e598]:
+                  - paragraph [ref=e599]: Customer Support @SupportKen added a priority tag to Order ID 77889JKL
+                  - paragraph [ref=e600]: 11:30 AM
+                - generic [ref=e607]:
+                  - paragraph [ref=e608]: User @SallyMae88 initiated a return process for Order ID 44556GHI
+                  - paragraph [ref=e609]: 11:00 AM
+                - generic [ref=e615]:
+                  - paragraph [ref=e616]: Administrator @AdminLisa resolved a delivery issue for Order ID 12345XYZ
+                  - paragraph [ref=e617]: 10:15 AM
+          - generic [ref=e618]:
+            - generic [ref=e619]: © 2025 Shipnow
+            - generic [ref=e620]:
+              - link "Privacy Policy" [ref=e621] [cursor=pointer]:
+                - /url: "#"
+              - link "Terms and conditions" [ref=e622] [cursor=pointer]:
+                - /url: "#"
+              - link "Contact" [ref=e623] [cursor=pointer]:
+                - /url: "#"
+      - contentinfo [ref=e624]:
+        - generic [ref=e625]:
+          - generic [ref=e626]: Copyright © 2025 Peterdraw
+          - generic [ref=e627]: "|"
+          - generic [ref=e628]:
+            - link "Privacy Policy" [ref=e629] [cursor=pointer]:
+              - /url: "#"
+            - generic [ref=e630]: ·
+            - link "Term and conditions" [ref=e631] [cursor=pointer]:
+              - /url: "#"
+            - generic [ref=e632]: ·
+            - link "Contact" [ref=e633] [cursor=pointer]:
+              - /url: "#"
+        - generic [ref=e634]:
+          - link "Facebook" [ref=e635] [cursor=pointer]:
+            - /url: "#"
+          - link "X" [ref=e638] [cursor=pointer]:
+            - /url: "#"
+          - link "Instagram" [ref=e641] [cursor=pointer]:
+            - /url: "#"
+          - link "YouTube" [ref=e645] [cursor=pointer]:
+            - /url: "#"
+          - link "LinkedIn" [ref=e649] [cursor=pointer]:
+            - /url: "#"
+  - generic [ref=e654]: Jan

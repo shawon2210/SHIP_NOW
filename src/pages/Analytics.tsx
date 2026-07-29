@@ -457,16 +457,6 @@ export default function Analytics() {
         </div>
       </div>
 
-      {/* ── Footer ── */}
-      <div className="flex flex-col sm:flex-row justify-between items-center py-2 mt-2 sm:mt-4 px-1 sm:px-2 gap-3 sm:gap-4">
-        <span className="text-[11px] sm:text-[12px] font-semibold text-[#333333]">© 2025 Shipnow</span>
-        <div className="flex items-center gap-4 sm:gap-6">
-          <a href="#" className="text-[11px] sm:text-[12px] text-[#757575] hover:text-[#333333]">Privacy Policy</a>
-          <a href="#" className="text-[11px] sm:text-[12px] text-[#757575] hover:text-[#333333]">Terms and conditions</a>
-          <a href="#" className="text-[11px] sm:text-[12px] text-[#757575] hover:text-[#333333]">Contact</a>
-        </div>
-      </div>
-
     </div>
   );
 }

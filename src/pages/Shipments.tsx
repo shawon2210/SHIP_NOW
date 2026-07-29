@@ -2,7 +2,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { 
   Search, Plus, ChevronLeft, ChevronRight, ChevronDown,
   Filter, Truck, Plane, Ship, Train, List, LayoutGrid,
-  Facebook, Twitter, Instagram, Youtube, Linkedin, MapPin, CheckCircle, Navigation, AlertTriangle, Clock, X
+  MapPin, CheckCircle, Navigation, AlertTriangle, Clock, X
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -600,23 +600,6 @@ export default function Shipments() {
           </div>
         </div>
       )}
-
-      {/* Page Footer */}
-      <div className="flex flex-col sm:flex-row justify-between items-center pt-3 sm:pt-4 border-t border-[#F0F0F0] text-[11px] sm:text-[12px] text-[#757575] gap-3">
-        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-          <span>Copyright &copy; 2025 Peterdraw</span>
-          <a href="#" className="hover:underline">Privacy Policy</a>
-          <a href="#" className="hover:underline">Term and conditions</a>
-          <a href="#" className="hover:underline">Contact</a>
-        </div>
-        <div className="flex items-center gap-3">
-          <Facebook size={16} className="cursor-pointer hover:text-[#333333] transition-colors" />
-          <Twitter size={16} className="cursor-pointer hover:text-[#333333] transition-colors" />
-          <Instagram size={16} className="cursor-pointer hover:text-[#333333] transition-colors" />
-          <Youtube size={16} className="cursor-pointer hover:text-[#333333] transition-colors" />
-          <Linkedin size={16} className="cursor-pointer hover:text-[#333333] transition-colors" />
-        </div>
-      </div>
 
     </div>
   );
