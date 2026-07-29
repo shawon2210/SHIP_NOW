@@ -2,10 +2,21 @@ import { useState } from 'react';
 import { 
   Search, SlidersHorizontal, CheckCircle2, XSquare, 
   CircleDashed, Clock, FileText, ArrowUpDown, 
-  Facebook, Twitter, Instagram, Youtube, Linkedin
+  Facebook, Twitter, Instagram, Youtube, Linkedin, X, Check, Send, PauseCircle, Edit3
 } from 'lucide-react';
 
-const mockInvoicesData = [
+interface InvoiceItem {
+  id: string;
+  company: string;
+  icon: string;
+  shippingId: string;
+  issued: string;
+  due: string;
+  amount: string;
+  status: string;
+}
+
+const initialInvoicesData: InvoiceItem[] = [
   { id: 'INV-1001', company: 'TechGear Inc.', icon: '⚡', shippingId: '#SH9283746', issued: 'Mar 15, 2035', due: 'Mar 22, 2035', amount: '$1,250.00', status: 'Paid' },
   { id: 'INV-1002', company: 'StyleHub Co.', icon: '▲', shippingId: '#SH9182635', issued: 'Mar 16, 2035', due: 'Mar 23, 2035', amount: '$980.00', status: 'Unpaid' },
   { id: 'INV-1003', company: 'FreshNest', icon: '♣', shippingId: '#SH9037821', issued: 'Mar 14, 2035', due: 'Mar 21, 2035', amount: '$1,320.00', status: 'Paid' },
@@ -20,14 +31,141 @@ const mockInvoicesData = [
 ];
 
 export default function Invoices() {
+  const [invoices, setInvoices] = useState<InvoiceItem[]>(initialInvoicesData);
   const [selectedId, setSelectedId] = useState('INV-1008');
   const [search, setSearch] = useState('');
+  
+  // Toast notification state
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'info' | 'warn' } | null>(null);
 
-  const selectedInvoice = mockInvoicesData.find(i => i.id === selectedId) || mockInvoicesData[7];
+  // Modals state
+  const [isNewModalOpen, setIsNewModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+
+  // Form states for New Invoice
+  const [newCompany, setNewCompany] = useState('');
+  const [newAmount, setNewAmount] = useState('');
+  const [newShippingId, setNewShippingId] = useState('');
+  const [newStatus, setNewStatus] = useState('Unpaid');
+
+  // Form states for Edit Invoice
+  const [editCompany, setEditCompany] = useState('');
+  const [editAmount, setEditAmount] = useState('');
+  const [editStatus, setEditStatus] = useState('');
+  const [editDue, setEditDue] = useState('');
+
+  const selectedInvoice = invoices.find(i => i.id === selectedId) || invoices[0];
+
+  const showToast = (message: string, type: 'success' | 'info' | 'warn' = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3500);
+  };
+
+  // 1. Action: Hold / Release Hold
+  const handleToggleHold = () => {
+    if (!selectedInvoice) return;
+    const isCurrentlyHold = selectedInvoice.status === 'On Hold';
+    const newStatusVal = isCurrentlyHold ? 'Unpaid' : 'On Hold';
+
+    setInvoices(prev => prev.map(inv => 
+      inv.id === selectedInvoice.id ? { ...inv, status: newStatusVal } : inv
+    ));
+
+    showToast(
+      isCurrentlyHold 
+        ? `Invoice ${selectedInvoice.id} released from hold.` 
+        : `Invoice ${selectedInvoice.id} placed on hold.`,
+      isCurrentlyHold ? 'info' : 'warn'
+    );
+  };
+
+  // 2. Action: Send Invoice
+  const handleSendInvoice = () => {
+    if (!selectedInvoice) return;
+    setIsSending(true);
+    setTimeout(() => {
+      setIsSending(false);
+      setInvoices(prev => prev.map(inv => 
+        inv.id === selectedInvoice.id && inv.status === 'Unpaid' 
+          ? { ...inv, status: 'Sent' } 
+          : inv
+      ));
+      showToast(`Invoice ${selectedInvoice.id} sent successfully to ${selectedInvoice.company}!`, 'success');
+    }, 800);
+  };
+
+  // 3. Action: Open & Submit Edit Modal
+  const openEditModal = () => {
+    if (!selectedInvoice) return;
+    setEditCompany(selectedInvoice.company);
+    setEditAmount(selectedInvoice.amount);
+    setEditStatus(selectedInvoice.status);
+    setEditDue(selectedInvoice.due);
+    setIsEditModalOpen(true);
+  };
+
+  const handleSaveEdit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setInvoices(prev => prev.map(inv => {
+      if (inv.id === selectedInvoice.id) {
+        return {
+          ...inv,
+          company: editCompany,
+          amount: editAmount.startsWith('$') ? editAmount : `$${editAmount}`,
+          status: editStatus,
+          due: editDue
+        };
+      }
+      return inv;
+    }));
+    setIsEditModalOpen(false);
+    showToast(`Invoice ${selectedInvoice.id} updated successfully.`, 'success');
+  };
+
+  // 4. Action: Open & Submit New Invoice Modal
+  const handleCreateNewInvoice = (e: React.FormEvent) => {
+    e.preventDefault();
+    const nextNum = invoices.length + 1001;
+    const newId = `INV-${nextNum}`;
+    const formattedAmount = newAmount.startsWith('$') ? newAmount : `$${newAmount}`;
+    const newInv: InvoiceItem = {
+      id: newId,
+      company: newCompany || 'New Client Ltd.',
+      icon: newCompany.charAt(0).toUpperCase() || 'N',
+      shippingId: newShippingId || `#SH${Math.floor(1000000 + Math.random() * 9000000)}`,
+      issued: 'Mar 29, 2035',
+      due: 'Apr 05, 2035',
+      amount: formattedAmount || '$1,000.00',
+      status: newStatus
+    };
+
+    setInvoices(prev => [newInv, ...prev]);
+    setSelectedId(newId);
+    setIsNewModalOpen(false);
+    setNewCompany('');
+    setNewAmount('');
+    setNewShippingId('');
+    showToast(`Created new invoice ${newId} for ${newInv.company}`, 'success');
+  };
 
   return (
-    <div className="flex flex-col gap-[20px] w-full min-w-0 pb-[40px]">
+    <div className="flex flex-col gap-[20px] w-full min-w-0 pb-[40px] relative">
       
+      {/* Toast Notification */}
+      {toast && (
+        <div className={`fixed top-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-[10px] shadow-lg border text-[13px] font-semibold transition-all duration-300 animate-slide-down ${
+          toast.type === 'success' ? 'bg-[#D9F9E7] border-[#007837]/20 text-[#007837]' :
+          toast.type === 'warn' ? 'bg-[#FFF3D6] border-[#C68A00]/20 text-[#C68A00]' :
+          'bg-[#E3DDFF] border-[#856DF3]/20 text-[#2A1298]'
+        }`}>
+          {toast.type === 'success' && <CheckCircle2 size={18} />}
+          {toast.type === 'warn' && <PauseCircle size={18} />}
+          {toast.type === 'info' && <Send size={18} />}
+          <span>{toast.message}</span>
+        </div>
+      )}
+
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
@@ -137,8 +275,13 @@ export default function Invoices() {
               <button className="p-2 bg-[#F5F5F5] hover:bg-[#F0F0F0] border border-[#F0F0F0] rounded-[8px] transition-colors cursor-pointer shrink-0">
                 <SlidersHorizontal size={14} className="text-[#333333]" />
               </button>
-              <button className="bg-[#333333] hover:bg-[#222222] text-white px-3.5 py-1.5 rounded-[8px] text-[12px] font-semibold transition-colors cursor-pointer shrink-0">
-                New Invoice
+              
+              {/* Functionality 1: New Invoice Button */}
+              <button 
+                onClick={() => setIsNewModalOpen(true)}
+                className="bg-[#333333] hover:bg-[#222222] text-white px-3.5 py-1.5 rounded-[8px] text-[12px] font-semibold transition-colors cursor-pointer shrink-0"
+              >
+                + New Invoice
               </button>
             </div>
           </div>
@@ -186,7 +329,7 @@ export default function Invoices() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#F0F0F0] text-[12px]">
-                {mockInvoicesData
+                {invoices
                   .filter(inv => inv.id.toLowerCase().includes(search.toLowerCase()) || inv.company.toLowerCase().includes(search.toLowerCase()))
                   .map((inv) => {
                     const isSelected = inv.id === selectedId;
@@ -232,7 +375,9 @@ export default function Invoices() {
                           <span className={`inline-block px-2.5 py-0.5 rounded-[6px] text-[11px] font-semibold text-center min-w-[60px] ${
                             inv.status === 'Paid' ? 'bg-[#D9F9E7] text-[#007837]' :
                             inv.status === 'Unpaid' ? 'bg-[#E3DDFF] text-[#2A1298]' :
-                            'bg-[#F0F0F0] text-[#757575]'
+                            inv.status === 'On Hold' ? 'bg-[#FFF3D6] text-[#C68A00]' :
+                            inv.status === 'Sent' ? 'bg-[#E0E0E0] text-[#333333]' :
+                            'bg-[#F04A4A]/10 text-[#F04A4A]'
                           }`}>
                             {inv.status}
                           </span>
@@ -248,18 +393,41 @@ export default function Invoices() {
         {/* Right Column: Invoice Details Card */}
         <div className="bg-[#FEFEFE] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs p-[20px] w-full xl:w-[460px] shrink-0 flex flex-col justify-between gap-4">
           <div className="flex flex-col gap-4">
-            {/* Header with Buttons */}
+            {/* Header with Functional Buttons */}
             <div className="flex justify-between items-center border-b border-[#F0F0F0] pb-3">
               <h2 className="text-[16px] font-bold text-[#333333]">Invoice Details</h2>
               <div className="flex items-center gap-1.5">
-                <button className="bg-[#F5F5F5] hover:bg-[#F0F0F0] text-[#333333] px-3 py-1.5 rounded-[6px] text-[12px] font-semibold cursor-pointer transition-colors">
+                
+                {/* Functionality 2: Edit Button */}
+                <button 
+                  onClick={openEditModal}
+                  className="bg-[#F5F5F5] hover:bg-[#F0F0F0] text-[#333333] px-3 py-1.5 rounded-[6px] text-[12px] font-semibold cursor-pointer transition-colors flex items-center gap-1"
+                >
+                  <Edit3 size={13} />
                   Edit
                 </button>
-                <button className="bg-[#F5F5F5] hover:bg-[#F0F0F0] text-[#333333] px-3 py-1.5 rounded-[6px] text-[12px] font-semibold cursor-pointer transition-colors">
-                  Hold
+                
+                {/* Functionality 3: Hold / Release Hold Button */}
+                <button 
+                  onClick={handleToggleHold}
+                  className={`px-3 py-1.5 rounded-[6px] text-[12px] font-semibold cursor-pointer transition-colors flex items-center gap-1 ${
+                    selectedInvoice.status === 'On Hold'
+                      ? 'bg-[#FFF3D6] text-[#C68A00] hover:bg-[#FFE9B3]'
+                      : 'bg-[#F5F5F5] hover:bg-[#F0F0F0] text-[#333333]'
+                  }`}
+                >
+                  <PauseCircle size={13} />
+                  {selectedInvoice.status === 'On Hold' ? 'Release' : 'Hold'}
                 </button>
-                <button className="bg-[#333333] hover:bg-[#222222] text-white px-3.5 py-1.5 rounded-[6px] text-[12px] font-semibold cursor-pointer transition-colors">
-                  Send Invoice
+
+                {/* Functionality 4: Send Invoice Button */}
+                <button 
+                  onClick={handleSendInvoice}
+                  disabled={isSending}
+                  className="bg-[#333333] hover:bg-[#222222] text-white px-3.5 py-1.5 rounded-[6px] text-[12px] font-semibold cursor-pointer transition-colors disabled:opacity-50 flex items-center gap-1.5"
+                >
+                  <Send size={13} />
+                  {isSending ? 'Sending...' : 'Send Invoice'}
                 </button>
               </div>
             </div>
@@ -270,7 +438,13 @@ export default function Invoices() {
                 <h3 className="text-[16px] font-bold text-[#333333]">
                   Invoice <span className="text-[#856DF3]">#{selectedInvoice.id}</span>
                 </h3>
-                <span className="inline-block mt-1 px-2.5 py-0.5 rounded-[6px] text-[11px] font-semibold bg-[#E3DDFF] text-[#2A1298]">
+                <span className={`inline-block mt-1 px-2.5 py-0.5 rounded-[6px] text-[11px] font-semibold ${
+                  selectedInvoice.status === 'Paid' ? 'bg-[#D9F9E7] text-[#007837]' :
+                  selectedInvoice.status === 'Unpaid' ? 'bg-[#E3DDFF] text-[#2A1298]' :
+                  selectedInvoice.status === 'On Hold' ? 'bg-[#FFF3D6] text-[#C68A00]' :
+                  selectedInvoice.status === 'Sent' ? 'bg-[#E0E0E0] text-[#333333]' :
+                  'bg-[#F04A4A]/10 text-[#F04A4A]'
+                }`}>
                   {selectedInvoice.status}
                 </span>
               </div>
@@ -284,8 +458,8 @@ export default function Invoices() {
             <div className="bg-[#F5F5F5] rounded-[10px] p-4 flex justify-between gap-4 text-[11px]">
               <div className="flex flex-col">
                 <span className="text-[10px] text-[#757575] mb-1">Bill From</span>
-                <span className="font-bold text-[#333333] text-[14px]">ModaWear</span>
-                <span className="text-[#757575] mt-0.5">billing@modawear.com</span>
+                <span className="font-bold text-[#333333] text-[14px]">{selectedInvoice.company}</span>
+                <span className="text-[#757575] mt-0.5">billing@{selectedInvoice.company.toLowerCase().replace(/[^a-z]/g, '')}.com</span>
                 <span className="text-[#757575] mt-0.5">89 Franklin St, Boston, MA 02110, USA</span>
                 <span className="text-[#757575] mt-0.5">+1 617-555-2290</span>
               </div>
@@ -342,7 +516,7 @@ export default function Invoices() {
               <div className="flex flex-col gap-1.5 mt-3 pt-2 border-t border-[#F0F0F0] text-[12px] ml-auto w-[220px]">
                 <div className="flex justify-between text-[#757575]">
                   <span>Sub Total</span>
-                  <span className="font-semibold text-[#333333]">$910.00</span>
+                  <span className="font-semibold text-[#333333]">{selectedInvoice.amount}</span>
                 </div>
                 <div className="flex justify-between text-[#757575]">
                   <span>Tax (8%)</span>
@@ -354,7 +528,7 @@ export default function Invoices() {
                 </div>
                 <div className="flex justify-between text-[14px] font-bold text-[#333333] pt-1 border-t border-[#F0F0F0]">
                   <span>Total</span>
-                  <span>$992.80</span>
+                  <span>{selectedInvoice.amount}</span>
                 </div>
               </div>
             </div>
@@ -370,6 +544,169 @@ export default function Invoices() {
         </div>
 
       </div>
+
+      {/* ── Modal 1: New Invoice Modal ── */}
+      {isNewModalOpen && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-[#FEFEFE] rounded-[16px] border border-[#F0F0F0] shadow-2xl w-full max-w-[440px] p-6 flex flex-col gap-4 animate-scale-up">
+            <div className="flex justify-between items-center border-b border-[#F0F0F0] pb-3">
+              <h3 className="text-[18px] font-bold text-[#333333]">Create New Invoice</h3>
+              <button onClick={() => setIsNewModalOpen(false)} className="text-[#757575] hover:text-[#333333] cursor-pointer">
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateNewInvoice} className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
+                <label className="text-[12px] font-semibold text-[#757575]">Company Name</label>
+                <input 
+                  type="text" 
+                  required
+                  placeholder="e.g. ModaWear Inc."
+                  value={newCompany}
+                  onChange={(e) => setNewCompany(e.target.value)}
+                  className="bg-[#F5F5F5] border border-[#F0F0F0] rounded-[8px] px-3 py-2 text-[13px] text-[#333333] outline-none focus:border-[#856DF3]"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col gap-1">
+                  <label className="text-[12px] font-semibold text-[#757575]">Invoice Amount</label>
+                  <input 
+                    type="text" 
+                    required
+                    placeholder="$1,250.00"
+                    value={newAmount}
+                    onChange={(e) => setNewAmount(e.target.value)}
+                    className="bg-[#F5F5F5] border border-[#F0F0F0] rounded-[8px] px-3 py-2 text-[13px] text-[#333333] outline-none focus:border-[#856DF3]"
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="text-[12px] font-semibold text-[#757575]">Status</label>
+                  <select 
+                    value={newStatus}
+                    onChange={(e) => setNewStatus(e.target.value)}
+                    className="bg-[#F5F5F5] border border-[#F0F0F0] rounded-[8px] px-3 py-2 text-[13px] text-[#333333] outline-none focus:border-[#856DF3] cursor-pointer"
+                  >
+                    <option value="Unpaid">Unpaid</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Overdue">Overdue</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label className="text-[12px] font-semibold text-[#757575]">Shipping ID (Optional)</label>
+                <input 
+                  type="text" 
+                  placeholder="#SH9823120"
+                  value={newShippingId}
+                  onChange={(e) => setNewShippingId(e.target.value)}
+                  className="bg-[#F5F5F5] border border-[#F0F0F0] rounded-[8px] px-3 py-2 text-[13px] text-[#333333] outline-none focus:border-[#856DF3]"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-2 border-t border-[#F0F0F0] mt-2">
+                <button 
+                  type="button" 
+                  onClick={() => setIsNewModalOpen(false)}
+                  className="px-4 py-2 bg-[#F5F5F5] text-[#333333] rounded-[8px] text-[13px] font-semibold hover:bg-[#F0F0F0] cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  className="px-4 py-2 bg-[#856DF3] text-white rounded-[8px] text-[13px] font-semibold hover:bg-[#7358EC] cursor-pointer"
+                >
+                  Create Invoice
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ── Modal 2: Edit Invoice Modal ── */}
+      {isEditModalOpen && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="bg-[#FEFEFE] rounded-[16px] border border-[#F0F0F0] shadow-2xl w-full max-w-[440px] p-6 flex flex-col gap-4 animate-scale-up">
+            <div className="flex justify-between items-center border-b border-[#F0F0F0] pb-3">
+              <h3 className="text-[18px] font-bold text-[#333333]">Edit Invoice #{selectedInvoice.id}</h3>
+              <button onClick={() => setIsEditModalOpen(false)} className="text-[#757575] hover:text-[#333333] cursor-pointer">
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveEdit} className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
+                <label className="text-[12px] font-semibold text-[#757575]">Company Name</label>
+                <input 
+                  type="text" 
+                  required
+                  value={editCompany}
+                  onChange={(e) => setEditCompany(e.target.value)}
+                  className="bg-[#F5F5F5] border border-[#F0F0F0] rounded-[8px] px-3 py-2 text-[13px] text-[#333333] outline-none focus:border-[#856DF3]"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col gap-1">
+                  <label className="text-[12px] font-semibold text-[#757575]">Invoice Amount</label>
+                  <input 
+                    type="text" 
+                    required
+                    value={editAmount}
+                    onChange={(e) => setEditAmount(e.target.value)}
+                    className="bg-[#F5F5F5] border border-[#F0F0F0] rounded-[8px] px-3 py-2 text-[13px] text-[#333333] outline-none focus:border-[#856DF3]"
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="text-[12px] font-semibold text-[#757575]">Status</label>
+                  <select 
+                    value={editStatus}
+                    onChange={(e) => setEditStatus(e.target.value)}
+                    className="bg-[#F5F5F5] border border-[#F0F0F0] rounded-[8px] px-3 py-2 text-[13px] text-[#333333] outline-none focus:border-[#856DF3] cursor-pointer"
+                  >
+                    <option value="Paid">Paid</option>
+                    <option value="Unpaid">Unpaid</option>
+                    <option value="On Hold">On Hold</option>
+                    <option value="Sent">Sent</option>
+                    <option value="Overdue">Overdue</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <label className="text-[12px] font-semibold text-[#757575]">Due Date</label>
+                <input 
+                  type="text" 
+                  value={editDue}
+                  onChange={(e) => setEditDue(e.target.value)}
+                  className="bg-[#F5F5F5] border border-[#F0F0F0] rounded-[8px] px-3 py-2 text-[13px] text-[#333333] outline-none focus:border-[#856DF3]"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-2 border-t border-[#F0F0F0] mt-2">
+                <button 
+                  type="button" 
+                  onClick={() => setIsEditModalOpen(false)}
+                  className="px-4 py-2 bg-[#F5F5F5] text-[#333333] rounded-[8px] text-[13px] font-semibold hover:bg-[#F0F0F0] cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  className="px-4 py-2 bg-[#333333] text-white rounded-[8px] text-[13px] font-semibold hover:bg-[#222222] cursor-pointer flex items-center gap-1"
+                >
+                  <Check size={14} />
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <div className="flex flex-col sm:flex-row justify-between items-center pt-4 border-t border-[#F0F0F0] text-[12px] text-[#757575] gap-3">
