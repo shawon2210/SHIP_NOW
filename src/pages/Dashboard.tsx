@@ -60,14 +60,17 @@ const StatCard = ({ title, value, change, isPositive, icon: Icon }: any) => (
   </div>
 );
 
+import { useUser } from '../context/UserContext';
+
 export default function Dashboard() {
+  const { user } = useUser();
   return (
     <div className="flex flex-col gap-[12px] sm:gap-[16px] lg:gap-[20px] w-full min-w-0 pb-[20px] sm:pb-[30px] lg:pb-[40px]">
       
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 sm:gap-4">
         <div>
-          <h2 className="text-[14px] sm:text-[16px] text-[#757575] leading-tight">Hello Shawon</h2>
+          <h2 className="text-[14px] sm:text-[16px] text-[#757575] leading-tight">Hello {user.name}</h2>
           <h1 className="text-[20px] sm:text-[24px] font-bold text-[#333333] leading-[1.1] mt-1">Good Morning</h1>
         </div>
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2.5 w-full md:w-auto mt-0">

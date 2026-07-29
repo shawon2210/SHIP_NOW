@@ -17,7 +17,7 @@ import {
   X,
   LogOut
 } from 'lucide-react';
-import { user } from '../../data/mockData';
+import { useUser } from '../../context/UserContext';
 import { useState, useEffect } from 'react';
 
 const primaryNavItems = [
@@ -35,11 +35,12 @@ const primaryNavItems = [
 const secondaryNavItems = [
   { name: 'Message', path: '#', icon: MessageSquare, badge: 19 },
   { name: 'Notification', path: '#', icon: Bell, badge: 5 },
-  { name: 'Settings', path: '#', icon: Settings, badge: null },
+  { name: 'Settings', path: '/settings', icon: Settings, badge: null },
 ];
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useUser();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -141,24 +142,37 @@ export default function Sidebar() {
           <div className="flex flex-col">
             <h2 className="text-[10px] font-semibold text-[#757575] uppercase tracking-wider mb-1 px-1">More</h2>
             <nav className="flex flex-col gap-0.5 sm:gap-1 w-full">
-              {secondaryNavItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.path}
-                  onClick={(e) => e.preventDefault()}
-                  className="flex items-center justify-between px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-[6px] text-[#757575] hover:bg-[#F5F5F5] hover:text-[#333333] transition-colors text-[12px] sm:text-[13px] font-semibold min-h-[34px] sm:min-h-[38px]"
-                >
-                  <div className="flex items-center gap-2 sm:gap-2.5 truncate">
-                    <item.icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0" />
-                    <span className="truncate">{item.name}</span>
-                  </div>
-                  {item.badge !== null && (
-                    <span className="px-1.5 py-0.5 bg-[#856DF3] text-[#FEFEFE] text-[10px] sm:text-[11px] font-semibold rounded-full min-w-[18px] text-center shrink-0">
-                      {item.badge}
-                    </span>
-                  )}
-                </a>
-              ))}
+              {secondaryNavItems.map((item) => {
+                const LinkComponent = item.path.startsWith('/') ? NavLink : 'a';
+                const linkProps = item.path.startsWith('/')
+                  ? { to: item.path, onClick: () => setIsOpen(false) }
+                  : { href: item.path, onClick: (e: React.MouseEvent) => e.preventDefault() };
+                return (
+                  <LinkComponent
+                    key={item.name}
+                    {...linkProps}
+                    className={item.path.startsWith('/')
+                      ? ({ isActive }: any) =>
+                          `flex items-center justify-between px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-[6px] transition-colors text-[12px] sm:text-[13px] font-semibold min-h-[34px] sm:min-h-[38px] ${
+                            isActive
+                              ? 'bg-[#E3DDFF] text-[#2A1298]'
+                              : 'text-[#757575] hover:bg-[#F5F5F5] hover:text-[#333333]'
+                          }`
+                      : 'flex items-center justify-between px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-[6px] text-[#757575] hover:bg-[#F5F5F5] hover:text-[#333333] transition-colors text-[12px] sm:text-[13px] font-semibold min-h-[34px] sm:min-h-[38px]'
+                    }
+                  >
+                    <div className="flex items-center gap-2 sm:gap-2.5 truncate">
+                      <item.icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 shrink-0" />
+                      <span className="truncate">{item.name}</span>
+                    </div>
+                    {item.badge !== null && (
+                      <span className="px-1.5 py-0.5 bg-[#856DF3] text-[#FEFEFE] text-[10px] sm:text-[11px] font-semibold rounded-full min-w-[18px] text-center shrink-0">
+                        {item.badge}
+                      </span>
+                    )}
+                  </LinkComponent>
+                );
+              })}
             </nav>
           </div>
         </div>
