@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Search, Clock, Truck, 
-  Plus, Minus, PhoneCall, Compass, Layers, MapPin, Eye, ListFilter
+  Plus, Minus, PhoneCall, Compass, Eye, ListFilter, RefreshCw
 } from 'lucide-react';
 
 interface ShipmentTrackData {
@@ -28,91 +28,91 @@ interface ShipmentTrackData {
 const mockShipmentTracks: Record<string, ShipmentTrackData> = {
   '#TR-1029': {
     id: '#TR-1029',
-    driver: 'Alex Morgan',
-    phone: '+1 (555) 234-8901',
-    vehicle: 'Freightliner Cascadia #VH-882',
+    driver: 'Rahim Ahmed',
+    phone: '+880 1711-234567',
+    vehicle: 'Tata Prima 4928 #DH-882',
     status: 'IN TRANSIT',
-    speed: '54 mph',
-    location: 'I-80 East, Mile 142 (Des Moines, IA)',
-    nextStop: 'Chicago Distribution Center',
-    distance: '184 miles',
-    eta: 'Today, 2:30 PM',
-    origin: 'Portland Hub',
-    destination: 'Chicago Terminal',
-    progress: 72,
-    center: [42.5000, -96.0000],
-    zoom: 5,
-    currentPos: [41.5868, -93.6250],
+    speed: '65 km/h',
+    location: 'Dhaka-Chittagong Highway (Feni Bypass)',
+    nextStop: 'Chittagong Port Terminal 3',
+    distance: '92 km',
+    eta: 'Today, 4:30 PM',
+    origin: 'Dhaka Central Hub',
+    destination: 'Chittagong Port',
+    progress: 68,
+    center: [23.1000, 91.1000],
+    zoom: 8,
+    currentPos: [23.0159, 91.3976],
     waypoints: [
-      { name: 'Portland Hub (Origin)', lat: 45.5152, lng: -122.6784 },
-      { name: 'Boise Checkpoint', lat: 43.6150, lng: -116.2023 },
-      { name: 'Des Moines (Current)', lat: 41.5868, lng: -93.6250 },
-      { name: 'Chicago Terminal (Destination)', lat: 41.8781, lng: -87.6298 }
+      { name: 'Dhaka Central Hub (Origin)', lat: 23.8103, lng: 90.4125 },
+      { name: 'Comilla Checkpoint', lat: 23.4607, lng: 91.1809 },
+      { name: 'Feni Bypass (Current Position)', lat: 23.0159, lng: 91.3976 },
+      { name: 'Chittagong Port (Destination)', lat: 22.3569, lng: 91.7832 }
     ],
     timeline: [
-      { title: 'Out for Delivery', desc: 'Driver is approaching destination corridor.', time: 'Today, 09:42 AM', done: true, current: true },
-      { title: 'Arrived at Local Hub', desc: 'Processed at Des Moines regional hub.', time: 'Yesterday, 11:20 PM', done: true },
-      { title: 'In Transit', desc: 'Departed Salt Lake City transit center.', time: 'Oct 23, 04:15 PM', done: true },
-      { title: 'Label Created', desc: 'Shipment info received at Portland Hub.', time: 'Oct 23, 10:00 AM', done: true },
+      { title: 'In Transit - Feni Bypass', desc: 'Cargo vessel approaching Chittagong division entry.', time: 'Today, 01:15 PM', done: true, current: true },
+      { title: 'Passed Comilla Toll', desc: 'Highway weight & clearance verified.', time: 'Today, 11:30 AM', done: true },
+      { title: 'Departed Tejgaon Hub', desc: 'Container sealed and loaded at Dhaka Depot.', time: 'Today, 08:00 AM', done: true },
+      { title: 'Waybill Generated', desc: 'Electronic manifest issued by ShipNow Bangladesh.', time: 'Yesterday, 06:00 PM', done: true },
     ]
   },
   '#TR-4081': {
     id: '#TR-4081',
-    driver: 'David Miller',
-    phone: '+1 (555) 892-1144',
-    vehicle: 'Volvo VNL 860 #VH-401',
+    driver: 'Kamal Hossain',
+    phone: '+880 1819-890123',
+    vehicle: 'Ashok Leyland 3118 #SY-401',
     status: 'OUT FOR DELIVERY',
-    speed: '38 mph',
-    location: 'US-101 South (Los Angeles, CA)',
-    nextStop: 'Long Beach Terminal 4',
-    distance: '12 miles',
-    eta: 'Today, 11:45 AM',
-    origin: 'San Francisco Depot',
-    destination: 'Long Beach Port',
-    progress: 91,
-    center: [35.5000, -119.5000],
-    zoom: 7,
-    currentPos: [34.0522, -118.2437],
+    speed: '50 km/h',
+    location: 'Gazipur Chaurasta (Dhaka Approach)',
+    nextStop: 'Uttara Cargo Distribution',
+    distance: '18 km',
+    eta: 'Today, 2:15 PM',
+    origin: 'Sylhet Sreemangal Yard',
+    destination: 'Dhaka Uttara Center',
+    progress: 88,
+    center: [24.3000, 91.0000],
+    zoom: 8,
+    currentPos: [23.9999, 90.4203],
     waypoints: [
-      { name: 'San Francisco Depot (Origin)', lat: 37.7749, lng: -122.4194 },
-      { name: 'Bakersfield Checkpoint', lat: 35.3733, lng: -119.0187 },
-      { name: 'Los Angeles (Current)', lat: 34.0522, lng: -118.2437 },
-      { name: 'Long Beach Port (Destination)', lat: 33.7701, lng: -118.1937 }
+      { name: 'Sylhet Depot (Origin)', lat: 24.8949, lng: 91.8687 },
+      { name: 'Sreemangal Hub', lat: 24.3065, lng: 91.7296 },
+      { name: 'Gazipur (Current Position)', lat: 23.9999, lng: 90.4203 },
+      { name: 'Uttara Hub (Destination)', lat: 23.8759, lng: 90.3795 }
     ],
     timeline: [
-      { title: 'Out for Delivery', desc: 'Vehicle in final delivery zone.', time: 'Today, 10:15 AM', done: true, current: true },
-      { title: 'Sorting Completed', desc: 'LA Regional Hub dispatch verified.', time: 'Today, 06:30 AM', done: true },
-      { title: 'In Transit', desc: 'Departed SF Bay Area sorting center.', time: 'Yesterday, 08:00 PM', done: true },
-      { title: 'Manifest Created', desc: 'Electronic waybill registered.', time: 'Yesterday, 02:00 PM', done: true },
+      { title: 'Approaching Metro Zone', desc: 'Vehicle cleared Gazipur toll corridor.', time: 'Today, 01:30 PM', done: true, current: true },
+      { title: 'Passed Narsingdi Station', desc: 'Scheduled driver rotation complete.', time: 'Today, 10:45 AM', done: true },
+      { title: 'Departed Sylhet Tea Estate', desc: 'Export tea containers loaded.', time: 'Yesterday, 09:00 PM', done: true },
+      { title: 'Manifest Registered', desc: 'Customs & transport clearance passed.', time: 'Yesterday, 03:00 PM', done: true },
     ]
   },
   '#TR-9902': {
     id: '#TR-9902',
-    driver: 'Sarah Jenkins',
-    phone: '+1 (555) 341-9980',
-    vehicle: 'Kenworth T680 #VH-609',
-    status: 'SCHEDULED',
-    speed: '62 mph',
-    location: 'I-95 North (Richmond, VA)',
-    nextStop: 'Philadelphia Cargo Hub',
-    distance: '310 miles',
-    eta: 'Tomorrow, 09:00 AM',
-    origin: 'Atlanta Yard',
-    destination: 'New York Metro',
-    progress: 45,
-    center: [37.0000, -79.0000],
-    zoom: 6,
-    currentPos: [37.5407, -77.4360],
+    driver: 'Tanvir Mahmud',
+    phone: '+880 1912-345678',
+    vehicle: 'ISUZU GVR 900 #RJ-609',
+    status: 'IN TRANSIT',
+    speed: '58 km/h',
+    location: 'Pabna Highway (Lalon Shah Bridge)',
+    nextStop: 'Khulna Rupsha Logistics Park',
+    distance: '145 km',
+    eta: 'Tomorrow, 10:00 AM',
+    origin: 'Rajshahi Mango Yard',
+    destination: 'Khulna Sea Logistics',
+    progress: 42,
+    center: [23.5000, 89.2000],
+    zoom: 8,
+    currentPos: [24.0084, 89.0494],
     waypoints: [
-      { name: 'Atlanta Yard (Origin)', lat: 33.7490, lng: -84.3880 },
-      { name: 'Charlotte Hub', lat: 35.2271, lng: -80.8431 },
-      { name: 'Richmond VA (Current)', lat: 37.5407, lng: -77.4360 },
-      { name: 'New York Metro (Destination)', lat: 40.7128, lng: -74.0060 }
+      { name: 'Rajshahi Yard (Origin)', lat: 24.3745, lng: 88.6042 },
+      { name: 'Pabna Bridge (Current Position)', lat: 24.0084, lng: 89.0494 },
+      { name: 'Jessore Hub', lat: 23.1664, lng: 89.2081 },
+      { name: 'Khulna Terminal (Destination)', lat: 22.8456, lng: 89.5403 }
     ],
     timeline: [
-      { title: 'In Transit', desc: 'Cruising Northbound on interstate.', time: 'Today, 08:00 AM', done: true, current: true },
-      { title: 'Cargo Loaded', desc: 'Atlanta Terminal dock #14 cleared.', time: 'Today, 04:30 AM', done: true },
-      { title: 'Order Confirmed', desc: 'Freight booking approved.', time: 'Yesterday, 05:00 PM', done: true },
+      { title: 'In Transit - Pabna Crossing', desc: 'Vehicle crossing Lalon Shah Bridge.', time: 'Today, 12:00 PM', done: true, current: true },
+      { title: 'Departed Rajshahi Center', desc: 'Fresh produce & silk goods dispatched.', time: 'Today, 07:30 AM', done: true },
+      { title: 'Booking Confirmed', desc: 'Route assignment complete.', time: 'Yesterday, 04:00 PM', done: true },
     ]
   }
 };
@@ -155,7 +155,7 @@ export default function Tracking() {
     document.body.appendChild(script);
   }, []);
 
-  // Initialize and update Leaflet Map
+  // Initialize and update Leaflet Map with high-performance CartoDB Voyager tiles
   useEffect(() => {
     if (!leafletLoaded || !mapContainerRef.current) return;
     const L = (window as any).L;
@@ -166,42 +166,57 @@ export default function Tracking() {
       mapInstanceRef.current = null;
     }
 
-    const map = L.map(mapContainerRef.current, {
-      center: activeTrack.center,
-      zoom: activeTrack.zoom,
-      zoomControl: false
-    });
-
-    mapInstanceRef.current = map;
-
-    let tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    let attribution = '&copy; OpenStreetMap';
+    // High performance tiles
+    let tileUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+    let attribution = '&copy; OpenStreetMap, CARTO';
 
     if (mapLayer === 'satellite') {
       tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
       attribution = '&copy; Esri World Imagery';
     } else if (mapLayer === 'traffic') {
-      tileUrl = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-      attribution = '&copy; CARTO';
+      tileUrl = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+      attribution = '&copy; OpenStreetMap, CARTO';
     }
 
-    L.tileLayer(tileUrl, { attribution, maxZoom: 19 }).addTo(map);
+    const map = L.map(mapContainerRef.current, {
+      center: activeTrack.center,
+      zoom: activeTrack.zoom,
+      zoomControl: false,
+      fadeAnimation: false,
+      markerZoomAnimation: true
+    });
 
+    mapInstanceRef.current = map;
+
+    L.tileLayer(tileUrl, { 
+      attribution, 
+      maxZoom: 19,
+      subdomains: 'abcd',
+      updateWhenIdle: false,
+      updateWhenZooming: true
+    }).addTo(map);
+
+    // Draw Route Polyline
     const latLngs = activeTrack.waypoints.map(w => [w.lat, w.lng]);
     const routeLine = L.polyline(latLngs, {
       color: '#856DF3',
-      weight: 5,
-      opacity: 0.8,
+      weight: 6,
+      opacity: 0.9,
       dashArray: mapLayer === 'traffic' ? '8, 8' : undefined
     }).addTo(map);
 
-    map.fitBounds(routeLine.getBounds(), { padding: [30, 30] });
+    map.fitBounds(routeLine.getBounds(), { padding: [40, 40] });
+
+    // Ensure Leaflet resizes properly
+    setTimeout(() => {
+      if (mapInstanceRef.current) mapInstanceRef.current.invalidateSize();
+    }, 100);
 
     const createCustomIcon = (bgColor: string, text: string) => L.divIcon({
       className: 'custom-leaflet-marker',
-      html: `<div style="background-color: ${bgColor}; width: 26px; height: 26px; border-radius: 50%; border: 2.5px solid #FEFEFE; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px;">${text}</div>`,
-      iconSize: [26, 26],
-      iconAnchor: [13, 13]
+      html: `<div style="background-color: ${bgColor}; width: 30px; height: 30px; border-radius: 50%; border: 3px solid #FEFEFE; box-shadow: 0 4px 12px rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px;">${text}</div>`,
+      iconSize: [30, 30],
+      iconAnchor: [15, 15]
     });
 
     activeTrack.waypoints.forEach((wp, idx) => {
@@ -218,8 +233,9 @@ export default function Tracking() {
 
       const marker = L.marker([wp.lat, wp.lng], { icon: createCustomIcon(color, symbol) }).addTo(map);
       marker.bindPopup(`
-        <div style="font-family: sans-serif; padding: 2px;">
-          <strong style="color: #333; font-size: 12px;">${wp.name}</strong>
+        <div style="font-family: sans-serif; padding: 4px;">
+          <strong style="color: #333; font-size: 13px;">${wp.name}</strong><br/>
+          <span style="color: #757575; font-size: 11px;">Lat: ${wp.lat.toFixed(4)}, Lng: ${wp.lng.toFixed(4)}</span>
         </div>
       `);
     });
@@ -232,8 +248,27 @@ export default function Tracking() {
     };
   }, [leafletLoaded, selectedId, mapLayer, mobileTab]);
 
+  // Handle window resize & invalidate size
+  useEffect(() => {
+    const handleResize = () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.invalidateSize();
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const zoomIn = () => { if (mapInstanceRef.current) mapInstanceRef.current.zoomIn(); };
   const zoomOut = () => { if (mapInstanceRef.current) mapInstanceRef.current.zoomOut(); };
+  const resetBounds = () => {
+    if (mapInstanceRef.current && activeTrack) {
+      const L = (window as any).L;
+      if (!L) return;
+      const latLngs = activeTrack.waypoints.map(w => [w.lat, w.lng]);
+      mapInstanceRef.current.fitBounds(L.polyline(latLngs).getBounds(), { padding: [40, 40] });
+    }
+  };
 
   return (
     <div className="flex flex-col gap-[12px] sm:gap-[16px] lg:gap-[20px] w-full min-w-0 pb-[30px] sm:pb-[40px]">
@@ -246,10 +281,10 @@ export default function Tracking() {
             <span>/</span>
             <span className="text-[#856DF3] font-semibold">Live Tracking</span>
           </div>
-          <h1 className="text-[18px] sm:text-[24px] font-bold text-[#333333] leading-tight">GPS Tracking Dashboard</h1>
+          <h1 className="text-[18px] sm:text-[24px] font-bold text-[#333333] leading-tight">Bangladesh Live Map Tracking</h1>
         </div>
         
-        {/* Mobile View Switcher (Visible on small screens) */}
+        {/* Mobile View Switcher */}
         <div className="flex lg:hidden w-full sm:w-auto bg-[#F5F5F5] p-1 rounded-[10px] border border-[#F0F0F0]">
           <button 
             onClick={() => setMobileTab('map')}
@@ -273,7 +308,7 @@ export default function Tracking() {
 
         {/* Search Bar + Shipment Selector */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
-          <form onSubmit={handleSearch} className="flex items-center bg-[#FEFEFE] px-3 py-2 rounded-[8px] border border-[#F0F0F0] w-full sm:w-[220px] shadow-2xs">
+          <form onSubmit={handleSearch} className="flex items-center bg-[#FEFEFE] px-3 py-2 rounded-[8px] border border-[#F0F0F0] w-full sm:w-[200px] shadow-2xs">
             <Search size={16} className="text-[#757575] shrink-0" />
             <input 
               type="text" 
@@ -291,9 +326,9 @@ export default function Tracking() {
               onChange={(e) => setSelectedId(e.target.value)}
               className="w-full sm:w-auto bg-[#333333] text-white text-[12px] font-semibold px-3 py-2 rounded-[8px] outline-none cursor-pointer hover:bg-[#222222] transition-colors truncate"
             >
-              <option value="#TR-1029">#TR-1029 (Portland → Chicago)</option>
-              <option value="#TR-4081">#TR-4081 (SF → Long Beach)</option>
-              <option value="#TR-9902">#TR-9902 (Atlanta → NY)</option>
+              <option value="#TR-1029">#TR-1029 (Dhaka → Chittagong)</option>
+              <option value="#TR-4081">#TR-4081 (Sylhet → Dhaka)</option>
+              <option value="#TR-9902">#TR-9902 (Rajshahi → Khulna)</option>
             </select>
           </div>
         </div>
@@ -351,15 +386,16 @@ export default function Tracking() {
           </div>
         </div>
         
-        {/* ── Right Column: Real OpenStreetMap Leaflet Container ── */}
-        <div className={`flex-1 bg-[#FEFEFE] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs overflow-hidden relative min-h-[420px] sm:min-h-[520px] flex flex-col min-w-0 ${
+        {/* ── Right Column: High Performance OpenStreetMap Leaflet Container ── */}
+        <div className={`flex-1 bg-[#FEFEFE] rounded-[12px] border border-[#F0F0F0]/50 shadow-2xs overflow-hidden relative min-h-[460px] sm:min-h-[560px] flex flex-col min-w-0 ${
           mobileTab === 'details' ? 'hidden lg:flex' : 'flex'
         }`}>
           
-          {/* Top Responsive Map Toolbar Overlay */}
-          <div className="absolute top-3 sm:top-4 left-3 sm:left-4 right-3 sm:right-4 z-20 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 pointer-events-none">
-            {/* Map Origin -> Destination Pill */}
-            <div className="pointer-events-auto bg-[#FEFEFE]/95 backdrop-blur-md px-3 py-1.5 sm:py-2 rounded-[10px] border border-[#F0F0F0] shadow-md flex items-center justify-between sm:justify-start gap-2 max-w-full overflow-hidden">
+          {/* Top Integrated Control Bar Overlay */}
+          <div className="absolute top-3 left-3 right-3 z-[400] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pointer-events-none">
+            
+            {/* Left: Origin -> Destination Banner */}
+            <div className="pointer-events-auto bg-[#FEFEFE]/95 backdrop-blur-md px-3 py-1.5 sm:py-2 rounded-[10px] border border-[#F0F0F0] shadow-md flex items-center gap-2 max-w-full overflow-hidden">
               <div className="flex items-center gap-1.5 text-[11px] sm:text-[12px] font-semibold text-[#333333] truncate">
                 <div className="w-2 h-2 rounded-full bg-[#007837] shrink-0" />
                 <span className="truncate">{activeTrack.origin}</span>
@@ -371,9 +407,8 @@ export default function Tracking() {
               </div>
             </div>
 
-            {/* Layer & Zoom Controls */}
-            <div className="pointer-events-auto flex items-center justify-between sm:justify-end gap-2">
-              {/* Layer Toggles */}
+            {/* Right: Layer Switcher + Zoom Controls */}
+            <div className="pointer-events-auto flex items-center justify-between sm:justify-end gap-2 shrink-0">
               <div className="bg-[#FEFEFE]/95 backdrop-blur-md p-1 rounded-[10px] border border-[#F0F0F0] shadow-md flex items-center gap-1">
                 {(['streets', 'satellite', 'traffic'] as const).map((layer) => (
                   <button
@@ -388,32 +423,46 @@ export default function Tracking() {
                 ))}
               </div>
 
-              {/* Zoom Buttons */}
               <div className="bg-[#FEFEFE]/95 backdrop-blur-md p-1 rounded-[10px] border border-[#F0F0F0] shadow-md flex items-center gap-0.5">
-                <button onClick={zoomIn} className="p-1 sm:p-1.5 hover:bg-[#F5F5F5] rounded-[6px] text-[#333333] cursor-pointer">
+                <button onClick={zoomIn} className="p-1 sm:p-1.5 hover:bg-[#F5F5F5] rounded-[6px] text-[#333333] cursor-pointer" title="Zoom In">
                   <Plus size={14} />
                 </button>
-                <button onClick={zoomOut} className="p-1 sm:p-1.5 hover:bg-[#F5F5F5] rounded-[6px] text-[#333333] cursor-pointer">
+                <button onClick={zoomOut} className="p-1 sm:p-1.5 hover:bg-[#F5F5F5] rounded-[6px] text-[#333333] cursor-pointer" title="Zoom Out">
                   <Minus size={14} />
+                </button>
+                <button onClick={resetBounds} className="p-1 sm:p-1.5 hover:bg-[#F5F5F5] rounded-[6px] text-[#856DF3] cursor-pointer border-l border-[#F0F0F0]" title="Reset View">
+                  <RefreshCw size={13} />
                 </button>
               </div>
             </div>
+
           </div>
 
-          {/* ── Real Leaflet Container / Fallback ── */}
-          <div className="flex-1 w-full h-full relative">
-            <div ref={mapContainerRef} className="absolute inset-0 w-full h-full z-10" />
+          {/* ── Leaflet Container ── */}
+          <div className="flex-1 w-full h-full relative min-h-[400px]">
+            <div ref={mapContainerRef} className="absolute inset-0 w-full h-full z-10 bg-[#E8ECEF]" />
 
             {!leafletLoaded && (
               <iframe
-                title="Real OpenStreetMap"
+                title="Bangladesh OpenStreetMap"
                 className="absolute inset-0 w-full h-full border-0 z-0"
-                src={`https://www.openstreetmap.org/export/embed.html?bbox=${activeTrack.center[1]-5}%2C${activeTrack.center[0]-5}%2C${activeTrack.center[1]+5}%2C${activeTrack.center[0]+5}&layer=mapnik&marker=${activeTrack.currentPos[0]}%2C${activeTrack.currentPos[1]}`}
+                src={`https://www.openstreetmap.org/export/embed.html?bbox=${activeTrack.center[1]-2}%2C${activeTrack.center[0]-2}%2C${activeTrack.center[1]+2}%2C${activeTrack.center[0]+2}&layer=mapnik&marker=${activeTrack.currentPos[0]}%2C${activeTrack.currentPos[1]}`}
               />
             )}
 
-            {/* ── Overlay Card 1: Responsive Live Driver Info Card ── */}
-            <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-auto sm:w-[300px] z-20 bg-[#FEFEFE]/95 backdrop-blur-md p-3 sm:p-4 rounded-[12px] border border-[#F0F0F0] shadow-lg flex flex-col gap-2.5">
+            {/* ── Overlay Card 1: Responsive Live Driver & Next Destination Panel ── */}
+            <div className="absolute bottom-3 left-3 right-3 sm:right-auto sm:w-[320px] z-[400] bg-[#FEFEFE]/95 backdrop-blur-md p-3 sm:p-4 rounded-[12px] border border-[#F0F0F0] shadow-lg flex flex-col gap-2.5">
+              
+              {/* Next Destination Banner */}
+              <div className="flex items-center gap-2 px-2.5 py-1.5 bg-[#333333] text-white rounded-[8px] text-[11px] font-semibold">
+                <Compass size={14} className="text-[#856DF3] shrink-0" />
+                <div className="flex items-center justify-between w-full min-w-0">
+                  <span className="text-[10px] text-gray-300 shrink-0">Next Stop:</span>
+                  <span className="text-[11px] font-bold text-white truncate ml-1.5">{activeTrack.nextStop}</span>
+                </div>
+              </div>
+
+              {/* Driver Details Header */}
               <div className="flex items-center justify-between border-b border-[#F0F0F0] pb-2">
                 <div className="flex items-center gap-2 min-w-0 pr-2">
                   <div className="w-8 h-8 rounded-full bg-[#856DF3] text-white flex items-center justify-center font-bold text-[12px] shrink-0 shadow-2xs">
@@ -458,15 +507,6 @@ export default function Tracking() {
 
               <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-[#757575]">
                 <span className="truncate">Location: <strong className="text-[#333333]">{activeTrack.location}</strong></span>
-              </div>
-            </div>
-
-            {/* ── Overlay Card 2: Next Stop Banner (Hidden on very small screens to avoid overlap) ── */}
-            <div className="hidden md:flex absolute top-4 right-4 z-20 bg-[#333333]/90 text-white backdrop-blur-md px-3 py-2 rounded-[10px] shadow-lg items-center gap-2.5 border border-white/10 max-w-[220px]">
-              <Compass size={16} className="text-[#856DF3] shrink-0" />
-              <div className="flex flex-col min-w-0">
-                <span className="text-[9px] uppercase font-bold text-gray-400">Next Destination</span>
-                <span className="text-[11px] font-bold truncate">{activeTrack.nextStop}</span>
               </div>
             </div>
 
