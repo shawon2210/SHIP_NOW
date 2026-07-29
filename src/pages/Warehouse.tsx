@@ -5,7 +5,6 @@ import WarehouseMapCard from '../components/warehouse/WarehouseMapCard';
 import CapacityUsageCard from '../components/warehouse/CapacityUsageCard';
 import PackageStatusCard from '../components/warehouse/PackageStatusCard';
 import ActivityLogCard from '../components/warehouse/ActivityLogCard';
-import Footer from '../components/warehouse/Footer';
 
 export default function Warehouse() {
   return (
@@ -58,8 +57,6 @@ export default function Warehouse() {
 
       </div>
 
-      {/* Footer (Phase 11): Full width row */}
-      <Footer />
     </div>
   );
 }

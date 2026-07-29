@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import Footer from '../warehouse/Footer';
 
 export default function Layout() {
   return (
@@ -14,6 +15,7 @@ export default function Layout() {
         <main className="flex-1 flex flex-col w-full min-w-0">
           <Outlet />
         </main>
+        <Footer />
       </div>
     </div>
   );
