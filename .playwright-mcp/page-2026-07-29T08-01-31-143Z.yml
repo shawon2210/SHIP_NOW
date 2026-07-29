@@ -1,0 +1,25 @@
+- main [ref=e3]:
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - heading "Welcome Back" [level=2] [ref=e10]
+      - paragraph [ref=e11]: Log in to continue managing your logistics with ShipNow
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - generic [ref=e14]: Email Address
+        - textbox "Enter a valid email address" [ref=e15]: john@shipnow.com
+      - generic [ref=e16]:
+        - generic [ref=e17]: Password
+        - generic [ref=e18]:
+          - textbox "Create a strong password" [ref=e19]: password123
+          - button [ref=e20] [cursor=pointer]
+      - generic [ref=e24]:
+        - generic [ref=e25] [cursor=pointer]:
+          - checkbox "Remember Me" [checked] [ref=e26]
+          - generic [ref=e27]: Remember Me
+        - link "Forgot Password?" [ref=e28] [cursor=pointer]:
+          - /url: "#"
+      - button "Login" [ref=e29] [cursor=pointer]
+    - paragraph [ref=e32]:
+      - text: Don't have an account?
+      - link "Register" [ref=e33] [cursor=pointer]:
+        - /url: "#"

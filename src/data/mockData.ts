@@ -1,6 +1,6 @@
 export const user = {
-  name: "Marcus Vance",
-  role: "Senior Manager",
+  name: "Shawon",
+  role: "Admin",
   avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBRVQVEt93H96ZZ4gu9zsJcy2IAsI6svFknTvtYlMb3XQzAnY14sATkArolnWAsj-BAz0NR6u3pzEO__Js4h9Smhkaffkrh9APKf0biw1hL-OwbaTMsxORPcYROWXTh8TST1gWNtetIyuG_NRaB9aIoQU60_4x6rZ78pDkdvJl1HKt0q5KFKXzZZOuBvxlkoMJ-lVa7pqUu7PD1UK4uP6CciE_6m9D8kqTpyCiiulRrCYdEDcRdxxa3",
 };
 

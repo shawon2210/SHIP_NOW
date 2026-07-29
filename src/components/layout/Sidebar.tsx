@@ -97,12 +97,12 @@ export default function Sidebar() {
             <div className="flex items-center gap-2 overflow-hidden">
               <img
                 src={user.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"}
-                alt="John Doe"
+                alt={user.name}
                 className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover shrink-0"
               />
               <div className="flex flex-col leading-tight truncate">
-                <span className="text-[13px] font-semibold text-[#333333] truncate">John Doe</span>
-                <span className="text-[11px] text-[#757575] truncate">Admin</span>
+                <span className="text-[13px] font-semibold text-[#333333] truncate">{user.name}</span>
+                <span className="text-[11px] text-[#757575] truncate">{user.role}</span>
               </div>
             </div>
             <button className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center bg-[#F0F0F0] hover:bg-[#E0E0E0] rounded-[6px] transition-colors cursor-pointer shrink-0" aria-label="User Options">
